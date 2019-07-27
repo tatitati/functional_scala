@@ -20,9 +20,24 @@ class MonoidSpec extends FunSuite {
     def op(x: List[A], y: List[A]) = x ++ y
   }
 
+  def optionMonoid[A](am: Monoid[A]): Monoid[Option[A]] = new Monoid[Option[A]] {
+      def id = None
+
+      def op(x: Option[A], y: Option[A]): Option[A] = (x,y) match {
+        case (x, None) => x
+        case (None, y) => y
+        case (Some(x),Some(y)) => Some(am.op(x,y)) // here we use the A monoid to add two As
+      }
+    }
+
   assert("aabb" === stringMonoid.op("aa", "bb"))
   assert("" === stringMonoid.id)
 
   assert(List("aa", "bb", "cc", "dd") === listMonoid.op(List("aa", "bb"), List("cc", "dd")))
   assert(Nil === listMonoid.id)
+
+  assert(None === optionMonoid(stringMonoid).id)
+  assert(
+    Some("whateversomething") == optionMonoid(stringMonoid).op(Some("whatever"), Some("something"))
+  )
 }
