@@ -20,4 +20,18 @@ class FlatMapSpec extends FunSuite {
     assert(List(None, Some(2), None, Some(4), None) === result1)
     assert(List(2, 4) === result2)
   }
+
+  test("flatmap2") {
+    def createList(a: Int): List[Int] = {
+      List(a)
+    }
+
+    val l = List(1,2,3,4,5)
+
+    val result1 = l.map( x => createList(x) )
+    val result2 = l.flatMap( x => createList(x) )
+
+    assert(List(List(1), List(2), List(3), List(4), List(5)) === result1)
+    assert(List(1, 2, 3, 4, 5) === result2)
+  }
 }
