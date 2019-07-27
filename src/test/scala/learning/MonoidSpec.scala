@@ -10,7 +10,7 @@ class MonoidSpec extends FunSuite {
     def op(x: A, y: A): A
   }
 
-  val stringMonoid = new Monoid[String] {
+  def stringMonoid = new Monoid[String] {
     def id = ""
     def op(x: String, y: String) = x + y
   }
