@@ -15,10 +15,21 @@ class LiteralFunctionSpec extends FunSuite {
   }
 
 
-  test("functions literals can be defined inside of higher fucntions invocations") {
+  test("passing functions to functions") {
     def mathOperation(a: Int, b: Int, f: (Int, Int) => Int) = {
       f(a, b)
     }
+
+    def sum(a: Int, b: Int): Int = {
+      a + b
+    }
+
+    def multiply(a: Int, b: Int): Int = {
+      a * b
+    }
+
+    assert(5 === mathOperation(2, 3, sum))
+    assert(6 === mathOperation(2, 3, multiply))
     assert(6 === mathOperation(2, 3, (x: Int, y: Int) => x*y))
   }
 }

@@ -26,4 +26,8 @@ class FunctorSpec extends FunSuite {
     assert( List("HHii", "tthheerree") === f1(p))
     assert(List(1, 5) === f2(p))
   }
+
+  test("passing functions to other functions") {
+
+  }
 }
