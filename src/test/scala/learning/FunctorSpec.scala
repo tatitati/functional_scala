@@ -23,8 +23,7 @@ class FunctorSpec extends FunSuite {
     val f1 = functor(doubleEachChar)
     val f2 = functor(numberOfLowerCaseChars)
 
-
-    assert( List("HHii", "tthheerree") === f1(p)) // List(HHii, tthheerree)
+    assert( List("HHii", "tthheerree") === f1(p))
     assert(List(1, 5) === f2(p))
   }
 }
