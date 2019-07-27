@@ -5,10 +5,13 @@ ThisBuild / version          := "0.1.0-SNAPSHOT"
 ThisBuild / organization     := "com.example"
 ThisBuild / organizationName := "example"
 
+scalacOptions += "-Ypartial-unification"
+
 lazy val root = (project in file("."))
   .settings(
     name := "functional",
-    libraryDependencies += scalaTest % Test
+    libraryDependencies += scalaTest % Test,
+    libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0-M4"
   )
 
 // Uncomment the following for publishing to Sonatype.
