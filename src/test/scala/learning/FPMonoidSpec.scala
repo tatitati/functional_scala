@@ -2,7 +2,7 @@ package test.learning
 
 import org.scalatest.FunSuite
 
-class MonoidSpec extends FunSuite {
+class FPMonoidSpec extends FunSuite {
 
   // definition
   trait Monoid[A] {

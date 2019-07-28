@@ -2,7 +2,7 @@ package test.learning
 
 import org.scalatest.FunSuite
 
-class FunctorSpec extends FunSuite {
+class FPFunctorSpec extends FunSuite {
 
   // definition
   trait Functor[F[_]] {
