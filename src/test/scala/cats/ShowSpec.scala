@@ -12,4 +12,11 @@ class ShowSpec extends FunSuite {
     assert("123" === showInt.show(123))
     assert("whatever" === showString.show("whatever"))
   }
+
+  test("show even easier") {
+    import cats.syntax.show._
+
+    assert("123" === 123.show)
+    assert("whatever" === "whatever".show)
+  }
 }
