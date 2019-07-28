@@ -1,10 +1,11 @@
-package cats
+package test.cats
 
+import cats._
 import org.scalatest.FunSuite
 import cats.instances.string._
 import cats.instances.int._
 
-class ShowSpec extends FunSuite {
+class CatShowSpec extends FunSuite {
   test("show") {
     val showInt: Show[Int] = Show.apply[Int]
     val showString: Show[String] = Show.apply[String]
