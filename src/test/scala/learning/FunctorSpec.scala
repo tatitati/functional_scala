@@ -4,30 +4,20 @@ import org.scalatest.FunSuite
 
 class FunctorSpec extends FunSuite {
 
-  def functor[X, Y](f: X => Y): List[X] => List[Y] = {
+  trait Functor[F[_]] {
+    def map[T, Y](l: F[T])(f: T => Y): F[Y]
+  }
 
-    def fun: (List[X]) => List[Y] = (arg: List[X]) => arg match {
-      case x :: xs => f(x) :: fun(xs)
-      case Nil => Nil
+  object functor {
+    val listFunctor = new Functor[List] {
+      def map[T, Y](l: List[T])(f: (T) => Y): List[Y] = l.map(f)
     }
-
-    fun
   }
 
-  test("functor") {
-    val p = List("Hi", "there")
+  test("new functor") {
+    val listFunctor = functor.listFunctor
+    val result = listFunctor.map(List(1,2,3,4,5,6))(_ * 2)
 
-    def doubleEachChar(s: String) = (for (c <- s) yield c + "" + c).toList.mkString
-    def numberOfLowerCaseChars(s: String) = s.filter(c => c.isLower).length
-
-    val f1 = functor(doubleEachChar)
-    val f2 = functor(numberOfLowerCaseChars)
-
-    assert( List("HHii", "tthheerree") === f1(p))
-    assert(List(1, 5) === f2(p))
-  }
-
-  test("passing functions to other functions") {
-
+    assert(result === List(2,4,6,8,10,12))
   }
 }
