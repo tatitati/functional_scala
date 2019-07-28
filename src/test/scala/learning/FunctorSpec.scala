@@ -6,12 +6,12 @@ class FunctorSpec extends FunSuite {
 
   // definition
   trait Functor[F[_]] {
-    def map[T, Y](l: F[T])(f: T => Y): F[Y]
+    def map[X, Y](A: F[X])(f: X => Y): F[Y]
   }
 
   object functor {
     val listFunctor = new Functor[List] {
-      def map[X, Y](l: List[X])(f: X => Y): List[Y] = l.map(f)
+      def map[X, Y](A: List[X])(f: X => Y): List[Y] = A.map(f)
     }
   }
 
