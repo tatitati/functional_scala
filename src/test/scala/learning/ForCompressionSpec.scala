@@ -6,7 +6,7 @@ class ForCompressionSpec extends FunSuite{
   test("for compressions basic") {
     val result = for {
       x <- (1 to 3).toList
-    } yield(x)
+    } yield x
 
     assert(List(1,2,3) === result)
   }
