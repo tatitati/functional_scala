@@ -33,4 +33,22 @@ class ForCompressionSpec extends FunSuite{
     } yield i * 2
     assert(Vector(2, 4, 6, 8) === z)
   }
+
+  test("more equivalents") {
+    val x = 1 to 2
+    val y = 3 to 4
+
+    // with for comprehession
+    val w = for {
+      xi <- x
+      yi <- y
+    } yield xi * yi
+
+    val z = x flatMap {
+      xi => y map { yi => xi * yi}
+    }
+
+    assert(Vector(3, 4, 6, 8) === w)
+    assert(Vector(3, 4, 6, 8) === z)
+  }
 }
