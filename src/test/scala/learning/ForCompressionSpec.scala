@@ -3,7 +3,15 @@ package learning
 import org.scalatest.FunSuite
 
 class ForCompressionSpec extends FunSuite{
-  test("for compressions") {
+  test("for compressions basic") {
+    val result = for {
+      x <- (1 to 3).toList
+    } yield(x)
+
+    assert(List(1,2,3) === result)
+  }
+
+  test("for compressions ") {
     val result = for {
       x <- (1 to 3).toList
       y <- (4 to 5).toList
