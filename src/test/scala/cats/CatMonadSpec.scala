@@ -30,6 +30,13 @@ class CatMonadSpec extends FunSuite {
     assert(result1 === Some(5))
   }
 
+  test("Option: flatMap() changing resulting type") {
+    val result1 = Monad[Option]
+      .flatMap(Some(3))(a => Some(a.toString ))
+
+    assert(result1 === Some("3"), "Input can be Some[int], but after flapMap I have Some[String]")
+  }
+
   test("Option: map()") {
     var result1 = Monad[Option]
       .map(Some(3))(a => 2*a)
