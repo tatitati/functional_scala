@@ -15,7 +15,7 @@ class FunctorSpec extends FunSuite {
     }
   }
 
-  test("new functor") {
+  test("functor") {
     val listFunctor = functor.listFunctor
     val result = listFunctor.map(List(1,2,3,4,5,6))(_ * 2)
 
