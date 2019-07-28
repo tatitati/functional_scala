@@ -12,15 +12,17 @@ class ForCompressionSpec extends FunSuite{
     assert(List((1,4), (1,5), (2,4), (2,5), (3,4), (3,5)) === result)
   }
 
-  test("for compressions vs map") {
+  test("for compressions and map can be equivalents") {
     val x = 1 to 4
 
+    // with map
     val y = x.map(_ * 2)
+    assert(Vector(2, 4, 6, 8) === y)
+
+    // with for compressions
     val z = for {
       i <- x
     } yield i * 2
-
-    assert(Vector(2, 4, 6, 8) === y)
     assert(Vector(2, 4, 6, 8) === z)
   }
 }
