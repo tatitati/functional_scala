@@ -4,13 +4,14 @@ import org.scalatest.FunSuite
 
 class FunctorSpec extends FunSuite {
 
+  // definition
   trait Functor[F[_]] {
     def map[T, Y](l: F[T])(f: T => Y): F[Y]
   }
 
   object functor {
     val listFunctor = new Functor[List] {
-      def map[T, Y](l: List[T])(f: (T) => Y): List[Y] = l.map(f)
+      def map[X, Y](l: List[X])(f: X => Y): List[Y] = l.map(f)
     }
   }
 

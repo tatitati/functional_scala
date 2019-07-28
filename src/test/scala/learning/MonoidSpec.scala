@@ -3,11 +3,11 @@ package learning
 import org.scalatest.FunSuite
 
 class MonoidSpec extends FunSuite {
+
+  // definition
   trait Monoid[A] {
-    // an identity element
-    def id: A
-    // an associative operation
-    def op(x: A, y: A): A
+    def id: A // an identity element
+    def op(x: A, y: A): A // an associative operation
   }
 
   def stringMonoid = new Monoid[String] {
