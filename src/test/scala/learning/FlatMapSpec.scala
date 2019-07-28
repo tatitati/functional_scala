@@ -38,4 +38,17 @@ class FlatMapSpec extends FunSuite {
     val result2 = l.flatMap( x => createList(x) )
     assert(List(1, 2, 3, 4, 5) === result2)
   }
+
+  test("flatmap = map + flatten") {
+    val fruits = Seq("apple", "banana", "orange")
+
+    // with map + flatten
+    val mapResult = fruits.map(_.toUpperCase)
+    val result1 = mapResult.flatten
+    assert(List('A', 'P', 'P', 'L', 'E', 'B', 'A', 'N', 'A', 'N', 'A', 'O', 'R', 'A', 'N', 'G', 'E') === result1)
+
+    // with flatmap
+    val result2 = fruits.flatMap(_.toUpperCase)
+    assert(List('A', 'P', 'P', 'L', 'E', 'B', 'A', 'N', 'A', 'N', 'A', 'O', 'R', 'A', 'N', 'G', 'E') === result2)
+  }
 }
