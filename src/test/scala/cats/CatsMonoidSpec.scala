@@ -6,8 +6,10 @@ import cats.instances.string._
 
 class CatsMonoidSpec extends FunSuite {
   test("monoid") {
-    val result = Monoid[String].combine("hi", "there")
+    val result1 = Monoid[String].combine("hi", "there")
+    val result2 = Monoid[String].combine("hi", "there")
 
-    assert("hithere" === result)
+    assert("hithere" === result1)
+    assert("" === Monoid[String].empty)
   }
 }
