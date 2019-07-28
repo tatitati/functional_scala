@@ -7,6 +7,10 @@ import cats.instances.option._
 
 class CatFunctorSpec extends FunSuite {
 
+//  trait Functor[F[_]] {
+//    def map[X, Y](a: F[X])(f: X => Y): F[Y]
+//  }
+
   test("functor list in cats") {
     val list1 = List(1,2,3)
 
