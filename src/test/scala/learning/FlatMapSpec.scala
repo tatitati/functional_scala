@@ -4,6 +4,14 @@ import org.scalatest.FunSuite
 
 class FlatMapSpec extends FunSuite {
 
+  test("basic") {
+      val result1 = List("foo", "bar").map(_.split(""))
+      val result2 = List("foo", "bar").flatMap(_.split(""))
+
+      //assert( List(Array("f", "o", "o"), Array("b", "a", "r")) === result1, "with map")
+      assert(List("f", "o", "o", "b", "a", "r") === result2, "with flatmap")
+  }
+
   test("flatmap vs map working with Options") {
     def isPar(a: Int): Option[Int] = {
       a % 2 match {
@@ -12,15 +20,11 @@ class FlatMapSpec extends FunSuite {
       }
     }
 
-    val l = List(1,2,3,4,5)
+    val result1 = List(1,2,3,4).map( x => isPar(x) )
+    val result2 = List(1,2,3,4).flatMap( x => isPar(x) )
 
-    // with map
-    val result1 = l.map( x => isPar(x) )
-    assert(List(None, Some(2), None, Some(4), None) === result1)
-
-    // with flatmap
-    val result2 = l.flatMap( x => isPar(x) )
-    assert(List(2, 4) === result2)
+    assert(List(None, Some(2), None, Some(4)) === result1, "with map")
+    assert(List(2, 4) === result2, "with flatmap")
   }
 
   test("flatmap vs map working with Lists") {
