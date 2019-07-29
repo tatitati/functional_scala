@@ -19,31 +19,32 @@ class ForCompressionSpec extends FunSuite{
   }
 
   test("for compressions and map can be equivalents") {
-    val x = 1 to 3
-
-    // with map
-    val y = x.map(_ * 2)
-    assert(Vector(2, 4, 6) === y)
+    assert(Vector(2, 4, 6) === (1 to 3).map(_ * 2))
 
     // with for compressions
     val z = for {
-      i <- x
+      i <- 1 to 3
     } yield i * 2
     assert(Vector(2, 4, 6) === z)
   }
 
-  test("more equivalents") {
-    val x = 1 to 2
-    val y = 3 to 4
+  test("how to do a+b ?") {
+    val z = for {
+      a <- Some(2)
+      b <- Some(3)
+    } yield a+b
+    assert(Some(5) === z)
+  }
 
+  test("more equivalents") {
     // with for comprehession
     val w = for {
-      xi <- x
-      yi <- y
+      xi <- 1 to 2
+      yi <- 3 to 4
     } yield xi * yi
 
-    val z = x flatMap {
-      xi => y map { yi => xi * yi}
+    val z = (1 to 2).flatMap {
+      xi => (3 to 4).map { yi => xi * yi}
     }
 
     assert(Vector(3, 4, 6, 8) === w)

@@ -9,6 +9,7 @@ class FlatMapSpec extends FunSuite {
   //
   // Definition of map():
   // def map[B](f: A => B): List[B]
+
   test("basic") {
       assert(List(List(1, 1), List(2, 2))           === List(1, 2).map(x => List(x, x)))
       assert(List(1, 1, 2, 2)                       === List(1, 2).flatMap(x => List(x, x)))
