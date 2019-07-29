@@ -13,7 +13,7 @@ class MapSpec extends FunSuite {
   test("map") {
     assert(List(1,2,3,4,5)                  === List(1,2,3,4,5).map( x => x))
     assert(List(2, 4, 6, 8, 10)             === List(1,2,3,4,5).map( x => x * 2 ))
-    assert(List(2, 5)                       === List("hi", "there").map( x => x.length ))
+    assert(List("1", "2", "3", "4", "5")    === List(1,2,3,4,5).map( x => x.toString ))
     assert(List(2, 5)                       === List("hi", "there").map( _.length ))
   }
 
@@ -25,7 +25,7 @@ class MapSpec extends FunSuite {
       }
     }
 
-    val result1 = List(1,2,3,4).map( x => isPar(x) )
-    assert(List(None, Some(2), None, Some(4)) === result1)
+
+    assert(List(None, Some(2), None, Some(4))   === List(1,2,3,4).map(isPar(_)))
   }
 }
