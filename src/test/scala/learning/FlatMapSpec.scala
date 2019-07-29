@@ -7,21 +7,8 @@ class FlatMapSpec extends FunSuite {
   test("basic") {
       assert(List("FOO", "BAR")                     === List("foo", "bar").map(_.toUpperCase()))
       assert(List('F', 'O', 'O', 'B', 'A', 'R')     === List("foo", "bar").flatMap(_.toUpperCase()))
-  }
-
-  test("flatmap vs map working with Options") {
-    def isPar(a: Int): Option[Int] = {
-      a % 2 match {
-        case 0 => Some(a)
-        case _ => None
-      }
-    }
-
-    val result1 = List(1,2,3,4).map( x => isPar(x) )
-    val result2 = List(1,2,3,4).flatMap( x => isPar(x) )
-
-    assert(List(None, Some(2), None, Some(4)) === result1, "with map")
-    assert(List(2, 4) === result2, "with flatmap")
+      assert(List(Some(1), Some(2), None)           === List(Some(1), Some(2), None).map(x => x))
+      assert(List(1, 2)                             === List(Some(1), Some(2), None).flatMap(x => x))
   }
 
   test("flatmap vs map working with Lists") {
