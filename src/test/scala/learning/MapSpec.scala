@@ -22,10 +22,10 @@ class MapSpec extends FunSuite {
       }
     }
 
-    val result1 = List(1,2,3,4,5).map( x => isPar(x) )
-    val result2 = List(1,2,3,4,5).map(isPar(_))
+    val result1 = List(1,2,3,4).map( x => isPar(x) )
+    val result2 = List(1,2,3,4).map(isPar(_))
 
-    assert(List(None, Some(2), None, Some(4), None) === result1)
-    assert(List(None, Some(2), None, Some(4), None) === result2)
+    assert(List(None, Some(2), None, Some(4)) === result1)
+    assert(List(None, Some(2), None, Some(4)) === result2)
   }
 }
