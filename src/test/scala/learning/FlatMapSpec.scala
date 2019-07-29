@@ -4,19 +4,15 @@ import org.scalatest.FunSuite
 
 class FlatMapSpec extends FunSuite {
 
-  // Definition of flatMap():
-  // [A] define the content of our List, is defined like:
+  // About [A]...[A] defines the content of our List, is defined like:
+  //
   //      trait List[A] {
-  //        def flatMap[B](...
+  //        def map[B](f: A => B): List[B]
+  //        def flatMap[B](f: A => List[B]): List[B]
   //      }
-  //
-  // def flatMap[B](f: A => List[B]): List[B]
-  //
-  // Definition of map():
-  // def map[B](f: A => B): List[B]
 
   test("basic") {
-      assert(List(List(1, 1), List(2, 2))           === List(1, 2).map(x => List(x, x)))
+      assert(List("1", "2")                         === List(1, 2).map(_.toString))
       assert(List(1, 1, 2, 2)                       === List(1, 2).flatMap(x => List(x, x)))
 
       assert(List("FOO", "BAR")                     === List("foo", "bar").map(_.toUpperCase()))
