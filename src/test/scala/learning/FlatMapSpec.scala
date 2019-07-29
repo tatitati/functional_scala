@@ -5,6 +5,11 @@ import org.scalatest.FunSuite
 class FlatMapSpec extends FunSuite {
 
   // Definition of flatMap():
+  // [A] define the content of our List, is defined like:
+  //      trait List[A] {
+  //        def flatMap[B](...
+  //      }
+  //
   // def flatMap[B](f: A => List[B]): List[B]
   //
   // Definition of map():
