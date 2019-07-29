@@ -4,10 +4,15 @@ import org.scalatest.FunSuite
 
 class FlatMapSpec extends FunSuite {
 
-  // Definition:
-  // flatMap[B](f: A => List[B]): List[B]
-
+  // Definition of flatMap():
+  // def flatMap[B](f: A => List[B]): List[B]
+  //
+  // Definition of map():
+  // def map[B](f: A => B): List[B]
   test("basic") {
+      assert(List(List(1, 1), List(2, 2))           === List(1, 2).map(x => List(x, x)))
+      assert(List(1, 1, 2, 2)                       === List(1, 2).flatMap(x => List(x, x)))
+
       assert(List("FOO", "BAR")                     === List("foo", "bar").map(_.toUpperCase()))
       assert(List('F', 'O', 'O', 'B', 'A', 'R')     === List("foo", "bar").flatMap(_.toUpperCase()))
 
@@ -34,6 +39,6 @@ class FlatMapSpec extends FunSuite {
         }
     }
 
-    assert(Some(5) === sum)
+    assert(Some(5) === sum, "better result than with map()")
   }
 }
