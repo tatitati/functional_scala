@@ -15,7 +15,6 @@ class MapSpec extends FunSuite {
     assert(List(2, 4, 6, 8, 10)             === List(1,2,3,4,5).map( x => x * 2 ))
     assert(List(2, 5)                       === List("hi", "there").map( x => x.length ))
     assert(List(2, 5)                       === List("hi", "there").map( _.length ))
-    assert(List(Array("f", "o", "o"), Array("b", "a", "r")) === List("foo", "bar").map(s => s.split("")))
   }
 
   test("pass function") {
