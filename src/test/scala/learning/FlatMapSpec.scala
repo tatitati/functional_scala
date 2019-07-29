@@ -4,6 +4,9 @@ import org.scalatest.FunSuite
 
 class FlatMapSpec extends FunSuite {
 
+  // Definition:
+  // flatMap[B](f: A => List[B]): List[B]
+
   test("basic") {
       assert(List("FOO", "BAR")                     === List("foo", "bar").map(_.toUpperCase()))
       assert(List('F', 'O', 'O', 'B', 'A', 'R')     === List("foo", "bar").flatMap(_.toUpperCase()))
