@@ -17,14 +17,16 @@ class MapSpec extends FunSuite {
     assert(List(2, 5)                       === List("hi", "there").map( _.length ))
   }
 
-  test("pass function") {
-    def isPar(a: Int): Option[Int] = {
-      a % 2 match {
-        case 0 => Some(a)
-        case _ => None
+  test("how to do a + b") {
+    val a = Some(2)
+    val b = Some(3)
+
+    val sum = a.map{
+      x => b.map {
+        y => x+y
       }
     }
 
-    assert(List(None, Some(2), None, Some(4))   === List(1,2,3,4).map(isPar(_)))
+    assert(Some(Some(5)) === sum)
   }
 }
