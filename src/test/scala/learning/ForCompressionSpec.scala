@@ -36,6 +36,21 @@ class ForCompressionSpec extends FunSuite{
     assert(Some(5) === z)
   }
 
+  test("how to do a+b if some is not valid?") {
+    def convertInt(from: String): Option[Int] = {
+      try{
+        Some(from.trim.toInt)
+      } catch {
+        case e: Exception => None
+      }
+    }
+    val z = for {
+      a <- convertInt("2")
+      b <- convertInt("this is None")
+    } yield a+b
+    assert(None === z)
+  }
+
   test("more equivalents") {
     // with for comprehession
     val w = for {
