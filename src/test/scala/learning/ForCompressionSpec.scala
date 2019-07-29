@@ -8,23 +8,21 @@ class ForCompressionSpec extends FunSuite{
       x <- (1 to 3)
     } yield x
 
-    assert(List(1,2,3) === result1)
-
     val result2 = for {
       x <- 1 to 3
       y <- 4 to 5
     } yield(x, y)
 
+    assert(List(1,2,3) === result1)
     assert(List((1,4), (1,5), (2,4), (2,5), (3,4), (3,5)) === result2)
   }
 
   test("for compressions and map can be equivalents") {
-    assert(Vector(2, 4, 6) === (1 to 3).map(_ * 2))
-
-    // with for compressions
     val z = for {
       i <- 1 to 3
     } yield i * 2
+
+    assert(Vector(2, 4, 6) === (1 to 3).map(_ * 2))
     assert(Vector(2, 4, 6) === z)
   }
 
@@ -33,6 +31,7 @@ class ForCompressionSpec extends FunSuite{
       a <- Some(2)
       b <- Some(3)
     } yield a+b
+
     assert(Some(5) === z)
   }
 
@@ -44,10 +43,12 @@ class ForCompressionSpec extends FunSuite{
         case e: Exception => None
       }
     }
+
     val z = for {
       a <- convertInt("2")
       b <- convertInt("this is None")
     } yield a+b
+
     assert(None === z)
   }
 
