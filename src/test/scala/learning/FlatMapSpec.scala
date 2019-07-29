@@ -5,11 +5,8 @@ import org.scalatest.FunSuite
 class FlatMapSpec extends FunSuite {
 
   test("basic") {
-      val result1 = List("foo", "bar").map(_.split(""))
-      val result2 = List("foo", "bar").flatMap(_.split(""))
-
-      //assert( List(Array("f", "o", "o"), Array("b", "a", "r")) === result1, "with map")
-      assert(List("f", "o", "o", "b", "a", "r") === result2, "with flatmap")
+      assert(List("FOO", "BAR")                     === List("foo", "bar").map(_.toUpperCase()))
+      assert(List('F', 'O', 'O', 'B', 'A', 'R')     === List("foo", "bar").flatMap(_.toUpperCase()))
   }
 
   test("flatmap vs map working with Options") {
