@@ -19,8 +19,9 @@ class FlatMapSpec extends FunSuite {
   }
 
   test("flatmap = map + flatten") {
-    assert(List('A', 'P', 'P', 'L', 'E', 'B', 'A', 'N', 'A', 'N', 'A') === Seq("apple", "banana").map(_.toUpperCase).flatten)
-    assert(List('A', 'P', 'P', 'L', 'E', 'B', 'A', 'N', 'A', 'N', 'A') === Seq("apple", "banana").flatMap(_.toUpperCase))
+    assert( List("APPLE", "BANANA")                                     === Seq("apple", "banana").map(_.toUpperCase))
+    assert(List('A', 'P', 'P', 'L', 'E', 'B', 'A', 'N', 'A', 'N', 'A')  === Seq("apple", "banana").map(_.toUpperCase).flatten)
+    assert(List('A', 'P', 'P', 'L', 'E', 'B', 'A', 'N', 'A', 'N', 'A')  === Seq("apple", "banana").flatMap(_.toUpperCase))
   }
 
   test("how to do a + b") {
@@ -28,8 +29,7 @@ class FlatMapSpec extends FunSuite {
     val b = Some(3)
 
     val sum = a.flatMap {
-      x =>
-        b.map {
+      x => b.map {
           y => x + y
         }
     }
