@@ -74,6 +74,8 @@ class CatMonadSpec extends FunSuite {
     import cats.syntax.flatMap._
 
 
+    // bound context here:
+    // we are saying that for F[_] we have an implicit Monad[F[_]]
     def sumSquare[F[_] : Monad](a: F[Int], b: F[Int]): F[Int] = {
       for {
         x <- a
@@ -87,5 +89,4 @@ class CatMonadSpec extends FunSuite {
     assert(Some(25) === result1)
     assert(List(25) === result2)
   }
-
 }
