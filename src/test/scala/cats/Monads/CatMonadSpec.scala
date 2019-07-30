@@ -1,9 +1,8 @@
-package test.cats
+package test.cats.Monads
 
-import cats.Monad
-import cats.instances.option._ // for Monad
-import cats.instances.list._   // for Monad
-import cats.Id
+import cats.{Eval, Id, Monad}
+import cats.instances.list._
+import cats.instances.option._
 import org.scalatest.FunSuite
 
 // actually I NEED ONLY THESE TWO IMPORTS IN GENERAL WITH CATS, NO MORE
@@ -92,13 +91,11 @@ class CatMonadSpec extends FunSuite {
     assert(5 === result2)
   }
 
+  // use case with monads
 
-  // eval
-
-  // use case
   test("use case") {
-    import cats.syntax.functor._
     import cats.syntax.flatMap._
+    import cats.syntax.functor._
 
 
     // bound context here:
