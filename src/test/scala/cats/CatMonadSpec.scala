@@ -73,9 +73,11 @@ class CatMonadSpec extends FunSuite {
   test("ID") {
     val result1 = "Dave" : Id[String]
     val result2 = 34 : Id[Int]
+    val result3 = List(1,2,3) : Id[List[Int]]
 
-    assert(result1.isInstanceOf[String] && "Dave" === result1)
-    assert(result2.isInstanceOf[Int]    && 34 === result2)
+    assert(result1.isInstanceOf[String]     && "Dave" === result1)
+    assert(result2.isInstanceOf[Int]        && 34 === result2)
+    assert(result3.isInstanceOf[List[Int]]  && List(1,2,3) === result3)
 
   }
 
