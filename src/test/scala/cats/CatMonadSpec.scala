@@ -3,6 +3,7 @@ package test.cats
 import cats.Monad
 import cats.instances.option._ // for Monad
 import cats.instances.list._   // for Monad
+import cats.Id
 import org.scalatest.FunSuite
 
 // actually I NEED ONLY THESE TWO IMPORTS IN GENERAL WITH CATS, NO MORE
@@ -68,6 +69,16 @@ class CatMonadSpec extends FunSuite {
     assert(result1 === List(13))
   }
 
+  // with ID monad
+  test("ID") {
+    val result1 = "Dave" : Id[String]
+    val result2 = 34 : Id[Int]
+
+    assert(result1.isInstanceOf[String] && "Dave" === result1)
+    assert(result2.isInstanceOf[Int]    && 34 === result2)
+
+  }
+
   // use case
   test("use case") {
     import cats.syntax.functor._
@@ -85,8 +96,10 @@ class CatMonadSpec extends FunSuite {
 
     val result1 = sumSquare(Option(3), Option(4))
     val result2 = sumSquare(List(3), List(4))
+    val result3 = sumSquare(3 : Id[Int], 4 : Id[Int])
 
     assert(Some(25) === result1)
     assert(List(25) === result2)
+    assert(25 === result3)
   }
 }
