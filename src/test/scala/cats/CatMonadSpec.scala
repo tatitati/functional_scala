@@ -92,6 +92,9 @@ class CatMonadSpec extends FunSuite {
     assert(5 === result2)
   }
 
+
+  // eval
+
   // use case
   test("use case") {
     import cats.syntax.functor._
@@ -110,9 +113,11 @@ class CatMonadSpec extends FunSuite {
     val result1 = sumSquare(Option(3), Option(4))
     val result2 = sumSquare(List(3), List(4))
     val result3 = sumSquare(3 : Id[Int], 4 : Id[Int])
+    val result4 = sumSquare(Monad[Id].pure(3), Monad[Id].pure(4))
 
     assert(Some(25) === result1)
     assert(List(25) === result2)
     assert(25 === result3)
+    assert(25 === result4)
   }
 }
