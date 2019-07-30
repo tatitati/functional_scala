@@ -5,6 +5,10 @@ import cats.instances.option._ // for Monad
 import cats.instances.list._   // for Monad
 import org.scalatest.FunSuite
 
+// actually I NEED ONLY THESE TWO IMPORTS IN GENERAL WITH CATS, NO MORE
+//import cats._
+//import cats.implicits._
+
 class CatMonadSpec extends FunSuite {
 
 //  trait Monad[F[_]] {
@@ -63,4 +67,25 @@ class CatMonadSpec extends FunSuite {
 
     assert(result1 === List(13))
   }
+
+  // use case
+  test("use case") {
+    import cats.syntax.functor._
+    import cats.syntax.flatMap._
+
+
+    def sumSquare[F[_] : Monad](a: F[Int], b: F[Int]): F[Int] = {
+      for {
+        x <- a
+        y <- b
+      } yield x*x + y*y
+    }
+
+    val result1 = sumSquare(Option(3), Option(4))
+    val result2 = sumSquare(List(3), List(4))
+
+    assert(Some(25) === result1)
+    assert(List(25) === result2)
+  }
+
 }
