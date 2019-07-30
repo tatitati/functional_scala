@@ -16,7 +16,9 @@ class CatMonadSpec extends FunSuite {
   // WITH OPTION
 
   test("Option: pure()") {
-    val result1 = Monad[Option].pure(3)
+    val monadOption = Monad[Option]  //monad option is instance of cats.instances.OptionInstances$$anon$1@376c94a8
+    val result1 = monadOption.pure(3)
+
     assert(result1 === Some(3))
   }
 

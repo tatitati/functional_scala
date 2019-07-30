@@ -4,11 +4,12 @@ import org.scalatest.FunSuite
 
 class MapSpec extends FunSuite {
 
-  // Definition
-  //    def map[B](f: A => B): List[B]
+  // About [A]...[A] defines the content of our List, is defined like:
   //
-  // If we pass a List[Int] to map we have:
-  //    def map[B](f: Int => B): List[B]
+  //      trait List[A] {
+  //        def map[B](f: A => B): List[B]
+  //        def flatMap[B](f: A => List[B]): List[B]
+  //      }
 
   test("map") {
     assert(List(1,2,3,4,5)                  === List(1,2,3,4,5).map( x => x))
