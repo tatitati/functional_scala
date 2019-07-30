@@ -69,16 +69,27 @@ class CatMonadSpec extends FunSuite {
     assert(result1 === List(13))
   }
 
-  // with ID monad
+
+  // with ID
+
   test("ID") {
+    val result0 = Monad[Id].pure("Dave")
     val result1 = "Dave" : Id[String]
     val result2 = 34 : Id[Int]
     val result3 = List(1,2,3) : Id[List[Int]]
 
+    assert(result0.isInstanceOf[String]     && "Dave" === result0)
     assert(result1.isInstanceOf[String]     && "Dave" === result1)
     assert(result2.isInstanceOf[Int]        && 34 === result2)
     assert(result3.isInstanceOf[List[Int]]  && List(1,2,3) === result3)
+  }
 
+  test("ID operations") {
+    val result1 = Monad[Id].pure(3)
+    val result2 = Monad[Id].flatMap(3)(_ + 2)
+
+    assert(3 === result1)
+    assert(5 === result2)
   }
 
   // use case
