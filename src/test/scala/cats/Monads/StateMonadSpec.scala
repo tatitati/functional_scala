@@ -61,8 +61,10 @@ class StateMonadSpec extends FunSuite{
       totalDistance <- swing(0)
     } yield totalDistance
 
-    val beginningState = GolfState(0)
-    val result: (GolfState, Int) = stateWithNewDistance.run(beginningState).value
+
+    val result: (GolfState, Int) = stateWithNewDistance
+      .run(GolfState(0)) // initial distance
+      .value
 
     assert(
       (GolfState(35), 35) === result
