@@ -11,7 +11,8 @@ lazy val root = (project in file("."))
   .settings(
     name := "functional",
     libraryDependencies += scalaTest % Test,
-    libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0-M4"
+    libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0-M4",
+    libraryDependencies += "org.typelevel" %% "cats-effect" % "1.3.1"
   )
 
 // Uncomment the following for publishing to Sonatype.

@@ -70,6 +70,4 @@ class StateMonadSpec extends FunSuite{
       (GolfState(35), 35) === result
     )
   }
-
-
 }
