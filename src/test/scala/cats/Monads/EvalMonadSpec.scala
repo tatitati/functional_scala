@@ -44,7 +44,6 @@ class EvalMonadSpec
       } yield x*x + y*y
     }
 
-
     val result1 = sumSquare(Option(3), Option(4))
     val result2 = sumSquare(List(3), List(4))
     val result3 = sumSquare(3 : Id[Int], 4 : Id[Int])
