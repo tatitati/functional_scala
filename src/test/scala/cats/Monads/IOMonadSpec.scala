@@ -4,6 +4,7 @@ import cats.effect.IO
 import org.scalatest.FunSuite
 
 class IOMonadSpec extends FunSuite {
+  
   test("use case") {
       val program: IO[Unit] = for {
         _ <- IO { println("Introduce your name") }
