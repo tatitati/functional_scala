@@ -45,4 +45,29 @@ class StateMonadSpec extends FunSuite{
     assert(42 === state)
     assert(("From step 1: 21", "From step 2: 42") === result)
   }
+
+  test("use case") {
+    case class GolfState(distance: Int)
+
+    def swing(distance: Int): State[GolfState ,Int] = State {
+      (s: GolfState) =>
+        val newAmount = s.distance + distance
+        (GolfState(newAmount), newAmount)
+    }
+
+    val stateWithNewDistance: State[GolfState, Int] = for {
+      _ <- swing(20)
+      _ <- swing(15)
+      totalDistance <- swing(0)
+    } yield totalDistance
+
+    val beginningState = GolfState(0)
+    val result: (GolfState, Int) = stateWithNewDistance.run(beginningState).value
+
+    assert(
+      (GolfState(35), 35) === result
+    )
+  }
+
+
 }
