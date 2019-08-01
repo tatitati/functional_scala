@@ -11,14 +11,11 @@ class StateMonadSpec extends FunSuite{
       }
 
       val(state1, result1) = a.run(10).value
-
-      assert(10 === state1)
-      assert("value is: 10" === result1)
-
       val state2 = a.runS(10).value
-      assert(10 === state2)
-
       val result3 = a.runA(10).value
+
+      assert(10 === state1 && "value is: 10" === result1)
+      assert(10 === state2)
       assert("value is: 10" === result3)
   }
 
