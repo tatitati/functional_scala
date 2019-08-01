@@ -30,16 +30,48 @@ class FlatMapSpec extends FunSuite {
     assert(List('A', 'P', 'P', 'L', 'E', 'B', 'A', 'N', 'A', 'N', 'A')  === Seq("apple", "banana").flatMap(_.toUpperCase))
   }
 
-  test("how to do a + b") {
+  test("how to do a + b WITH FLATMAP") {
     val a = Some(2)
     val b = Some(3)
 
-    val sum = a.flatMap {
-      x => b.map {
-          y => x + y
+    val sum =
+      a.flatMap { aVal =>
+        b.map { bVal =>
+          aVal + bVal
         }
     }
 
     assert(Some(5) === sum, "better result than with map()")
+  }
+
+  test("how to do a + b WITH FLATMAP2") {
+    val a = Some(2)
+    val b = Some(3)
+    val c = Some(4)
+
+    val sum =
+      a.flatMap { aVal =>
+        b.flatMap { bVal =>
+          c.map { cVal =>
+            aVal + bVal + cVal
+        }
+      }
+    }
+
+    assert(Some(9) === sum, "better result than with map()")
+  }
+
+  test("how to do a + b WITH MAP") {
+    val a = Some(2)
+    val b = Some(3)
+
+    val sum =
+      a.map{ aVal =>
+        b.map { bVal =>
+          aVal + bVal
+      }
+    }
+
+    assert(Some(Some(5)) === sum)
   }
 }
