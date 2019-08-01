@@ -18,9 +18,21 @@ class MapSpec extends FunSuite {
     assert(List(2, 5)                       === List("hi", "there").map( _.length ))
   }
 
+  test("Map know how to extract the value contained in a wrapper") {
+    val a = Some(22)
+
+    a.map{
+      x => assert(22 === x)
+    }
+  }
+
   test("how to do a + b") {
     val a = Some(2)
     val b = Some(3)
+
+    a.map{
+      x => assert(2 === x)
+    }
 
     val sum = a.map{
       x => b.map {
