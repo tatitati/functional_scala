@@ -30,13 +30,9 @@ class MapSpec extends FunSuite {
     val a = Some(2)
     val b = Some(3)
 
-    a.map{
-      x => assert(2 === x)
-    }
-
     val sum = a.map{
-      x => b.map {
-        y => x+y
+      aVal => b.map {
+        bVal => aVal + bVal
       }
     }
 
