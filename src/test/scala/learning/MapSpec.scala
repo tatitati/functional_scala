@@ -21,8 +21,8 @@ class MapSpec extends FunSuite {
   test("Map know how to extract the value contained in a wrapper") {
     val a = Some(22)
 
-    a.map{
-      x => assert(22 === x)
+    a.map{ aVal =>
+      assert(22 === aVal)
     }
   }
 

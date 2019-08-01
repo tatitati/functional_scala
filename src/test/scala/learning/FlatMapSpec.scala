@@ -30,6 +30,18 @@ class FlatMapSpec extends FunSuite {
     assert(List('A', 'P', 'P', 'L', 'E', 'B', 'A', 'N', 'A', 'N', 'A')  === Seq("apple", "banana").flatMap(_.toUpperCase))
   }
 
+  test("Flatmap, like map, can extract the value of a wrapper") {
+    val a = Some(22)
+
+    val sum =
+      a.flatMap { aVal =>
+        assert(22 === aVal)
+        Some(5)
+      }
+
+    assert(Some(5) === sum, "better result than with map()")
+  }
+
   test("how to do a + b WITH FLATMAP") {
     val a = Some(2)
     val b = Some(3)
@@ -59,6 +71,23 @@ class FlatMapSpec extends FunSuite {
     }
 
     assert(Some(9) === sum, "better result than with map()")
+  }
+
+  test("how to do a + b WITH FLATMAP5") {
+    val a = Some(2)
+    val b = None
+    val c = Some(4)
+
+    val sum =
+      a.flatMap { aVal =>
+        b.flatMap { bVal =>
+          c.map { cVal =>
+            aVal + bVal + cVal
+          }
+        }
+      }
+
+    assert(None === sum, "None as there is one none")
   }
 
   test("how to do a + b WITH MAP") {
