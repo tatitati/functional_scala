@@ -47,6 +47,32 @@ class ListAnOptionMonadSpec extends FunSuite {
     assert(result1 === Some(6))
   }
 
+  test("Monads chaing nicely together") {
+    val a = Some(3)
+    val b = Some(2)
+
+    val result1 =
+      a.flatMap{ aVal =>
+        b.map { bVal =>
+          bVal + aVal + 2
+        }
+    }
+
+    val result2 = for {
+      a <-  Monad[Option].pure(3)
+      b <-  Monad[Option].pure(2)
+    } yield (a+b+2)
+
+    val result3 = for {
+      a <-  Some(3)
+      b <-  Some(2)
+    } yield (a+b+2)
+
+    assert(result1 === Some(7))
+    assert(result2 === Some(7))
+    assert(result3 === Some(7))
+  }
+
   // with LIST
 
   test("LIST: pure()") {
