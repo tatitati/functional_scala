@@ -12,31 +12,21 @@ class OptionMonadSpec extends FunSuite {
   //  }
 
   test("pure()") {
-    val monadOption = Monad[Option]  //monad option is instance of cats.instances.OptionInstances$$anon$1@376c94a8
-    val result1 = monadOption.pure(3)
-
+    val result1 = Monad[Option].monadOption.pure(3)  //monad option is instance of cats.instances.OptionInstances$$anon$1@376c94a8
     assert(Some(3) === result1)
+  }
+  
+  test("map()") {
+    val result1 = Monad[Option].map(Some(3))(a => 2*a)
+    assert(Some(6) === result1)
   }
 
   test("flatMap()") {
-    val result1 = Monad[Option]
-      .flatMap(Some(3))(a => Some(a + 2))
+    val result1 = Monad[Option].flatMap(Some(3))(a => Some(a + 2))
+    val result2 = Monad[Option].flatMap(Some(3))(a => Some(a.toString))
 
     assert(Some(5) === result1)
-  }
-
-  test("flatMap() changing resulting type") {
-    val result1 = Monad[Option]
-      .flatMap(Some(3))(a => Some(a.toString))
-
-    assert(Some("3") === result1, "Input can be Some[int], but after flapMap I have Some[String]")
-  }
-
-  test("map()") {
-    var result1 = Monad[Option]
-      .map(Some(3))(a => 2*a)
-
-    assert(Some(6) === result1)
+    assert(Some("3") === result2)
   }
 
   test("Monads chaing nicely together") {
