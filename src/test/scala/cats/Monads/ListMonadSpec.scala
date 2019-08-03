@@ -22,16 +22,12 @@ class ListMonadSpec extends FunSuite {
   }
 
   test("flatMap()") {
-    val result1 = Monad[List]
-      .flatMap(List(3))(a => List(a, a*10))
-
+    val result1 = Monad[List].flatMap(List(3))(a => List(a, a*10))
     assert(result1 === List(3, 30))
   }
 
   test("map()") {
-    val result1 = Monad[List]
-      .map(List(3))(a => a + 10)
-
+    val result1 = Monad[List].map(List(3))(a => a + 10)
     assert(result1 === List(13))
   }
 
@@ -50,7 +46,6 @@ class ListMonadSpec extends FunSuite {
     }
 
     val result2 = sumSquare(List(3), List(4))
-
     assert(List(25) === result2)
   }
 }

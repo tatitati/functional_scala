@@ -33,35 +33,6 @@ class OptionMonadSpec extends FunSuite {
     assert(Some("3") === result2)
   }
 
-  test("Monads chaing nicely together") {
-    val a = Some(3)
-    val b = Some(2)
-
-    val result1 =
-      a.flatMap{ aVal =>
-        b.map { bVal =>
-          bVal + aVal + 2
-        }
-      }
-
-    val result2 = for {
-      a <-  Monad[Option].pure(3)
-      b <-  Monad[Option].pure(2)
-    } yield (a+b+2)
-
-    val result3 = for {
-      a <-  Some(3)
-      b <-  Some(2)
-    } yield (a+b+2)
-
-    val result4 = Monad[Option].flatMap(Some(3))(a => Some(a + 4))
-
-    assert(Some(7) === result1)
-    assert(Some(7) === result2)
-    assert(Some(7) === result3)
-    assert(Some(7) === result4)
-  }
-
   test("use case") {
     import cats.syntax.flatMap._
     import cats.syntax.functor._
