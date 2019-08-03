@@ -50,8 +50,6 @@ case class Address(
 // time to design our behaviours
 // any no-abstract class extending this trait has to implement this functions
   trait PizzaServiceInterface {
-    def addToping(p: Pizza, t: Topping): Pizza
-
     def removeTopping(p: Pizza, t: Topping): Pizza
 
     def removeAllTopping(p: Pizza): Pizza
@@ -60,12 +58,6 @@ case class Address(
 
     def updateCrustType(p: Pizza, ct: CrustType): Pizza
 
-    def calculatePizzaPrice(
-                             p: Pizza,
-                             toppingsPrices: Map[Topping, Money],
-                             crustSizePrices: Map[CrustSize, Money],
-                             crustTypePrices: Map[CrustType, Money]
-                           ): Money
   }
 
   // Create an specific pizza
@@ -82,11 +74,6 @@ case class Address(
       p.copy(toppings = newToppings)
     }
 
-    def removeTopping(p: Pizza, t: Topping): Pizza = {
-      val newToppings = ListUtils.dropFirstMatch(p.toppings, t)
-      p.copy(toppings = newToppings)
-    }
-
     def removeAllToppings(p: Pizza): Pizza = {
       val newToppings = Seq[Topping]()
       p.copy(toppings = newToppings)
@@ -99,18 +86,6 @@ case class Address(
     def updateCrustType(p: Pizza, ct: CrustType): Pizza = {
       p.copy(crustType = ct)
     }
-
-    def calculatePizzaPrice(
-                           p: Pizza,
-                           toppingsPrices: Map[Topping, Money],
-                           crustSizePrices: Map[CrustSize, Money],
-                           crustTypePrices: Map[CrustType, Money]
-                           ): Money = {
-      val base = BigDecimal(10)
-      val numToppings = p.toppings.size
-      val price = base + 1.00 * numToppings
-      price
-  }
 }
 
 
