@@ -62,10 +62,10 @@ class OptionMonadSpec extends FunSuite {
 
     val result4 = Monad[Option].flatMap(Some(3))(a => Some(a + 4))
 
-    assert(result1 === Some(7))
-    assert(result2 === Some(7))
-    assert(result3 === Some(7))
-    assert(result4 === Some(7))
+    assert(Some(7) === result1)
+    assert(Some(7) === result2)
+    assert(Some(7) === result3)
+    assert(Some(7) === result4)
   }
 
   test("use case") {
