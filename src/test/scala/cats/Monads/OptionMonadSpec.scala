@@ -62,21 +62,21 @@ class OptionMonadSpec extends FunSuite {
     assert(Some(7) === result4)
   }
 
-//  test("use case") {
-//    import cats.syntax.flatMap._
-//    import cats.syntax.functor._
-//
-//
-//    // bound context here:
-//    // we are saying that for F[_] we have an implicit Monad[F[_]]
-//    def sumSquare[F[_] : Monad](a: F[Int], b: F[Int]): F[Int] = {
-//      for {
-//        x <- a
-//        y <- b
-//      } yield x*x + y*y
-//    }
-//
-//    val result1 = sumSquare(Option(3), Option(4))
-//    assert(Some(25) === result1)
-//  }
+  test("use case") {
+    import cats.syntax.flatMap._
+    import cats.syntax.functor._
+
+
+    // bound context here:
+    // we are saying that for F[_] we have an implicit Monad[F[_]]
+    def sumSquare[F[_] : Monad](a: F[Int], b: F[Int]): F[Int] = {
+      for {
+        x <- a
+        y <- b
+      } yield x*x + y*y
+    }
+
+    val result1 = sumSquare(Option(3), Option(4))
+    assert(Some(25) === result1)
+  }
 }
