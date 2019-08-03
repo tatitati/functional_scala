@@ -10,9 +10,15 @@ class CatSemigroupalSpec extends FunSuite {
   // trait Semigroupal[F[_]] {
   //  def product[A, B](fa: F[A], fb: F[B]): F[(A, B]
   // }
+
   test("semigroupal") {
     val result = Semigroupal[Option].product(Some(123), Some("abc"))
     assert(Some((123, "abc")) === result)
+  }
+
+  test("semigroupal and None") {
+    val result = Semigroupal[Option].product(Some(123), None)
+    assert(None === result)
   }
 
 }
