@@ -83,7 +83,6 @@ class OptionMonadSpec extends FunSuite {
     }
 
     val result1 = sumSquare(Option(3), Option(4))
-
     assert(Some(25) === result1)
   }
 }
