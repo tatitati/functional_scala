@@ -5,9 +5,9 @@ import org.scalatest.FunSuite
 
 class StateMonadSpec extends FunSuite{
 
-  test("state monad") {
-      val a = State[Int, String] {
-        x => (x, s"value is: $x")
+  test("run(), runS(), runA()") {
+      val a = State[Int, String] { x =>
+        (x, s"value is: $x")
       }
 
       val(state1, result1) = a.run(10).value
@@ -19,17 +19,13 @@ class StateMonadSpec extends FunSuite{
       assert("value is: 10" === result3)
   }
 
-  test("composing with state monad") {
-    val step1 = State[Int, String] {
-      num =>
-        val ans = num + 1
-        (ans, s"From step 1: $ans")
+  test("composing") {
+    val step1 = State[Int, String] { num =>
+      (num + 1, s"From step 1: ${num + 1}")
     }
 
-    val step2 = State[Int, String] {
-      num =>
-        val ans = num * 2
-        (ans, s"From step 2: $ans")
+    val step2 = State[Int, String] { num =>
+      (num * 2, s"From step 2: ${num * 2}")
     }
 
     val both = for {
