@@ -12,13 +12,18 @@ class CatSemigroupalSpec extends FunSuite {
   // }
 
   test("semigroupal") {
-    val result = Semigroupal[Option].product(Some(123), Some("abc"))
-    assert(Some((123, "abc")) === result)
+    val result1 = Semigroupal[Option].product(Some(123), Some("abc"))
+    val result2 = Semigroupal[Option].product(Some(123), None)
+
+    assert(Some((123, "abc")) === result1)
+    assert(None === result2)
   }
 
-  test("semigroupal and None") {
-    val result = Semigroupal[Option].product(Some(123), None)
-    assert(None === result)
+  test("semigroupal and multiple contexts") {
+    val result1 = Semigroupal.tuple3(Option(2), Option(22), Option(222))
+    val result2 = Semigroupal.tuple3(Option(2), Option(22), None)
+    
+    assert(Some((2,22,222)) === result1)
+    assert(None === result2)
   }
-
 }
