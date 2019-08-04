@@ -1,7 +1,10 @@
 package application
 
 import domain.Pet
+import infrastructure.PetRepository
 
-class PetService {
-  def create(pet: Pet) = ???
+class PetService (
+                 petRepository: PetRepository
+                 ) {
+  def create(pet: Pet): Pet = ???
 }
