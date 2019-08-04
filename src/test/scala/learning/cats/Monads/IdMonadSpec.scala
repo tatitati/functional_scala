@@ -5,6 +5,7 @@ import cats.instances.list._
 import cats.instances.option._
 import org.scalatest.FunSuite
 
+
 // actually I NEED ONLY THESE TWO IMPORTS IN GENERAL WITH CATS, NO MORE
 //import cats._
 //import cats.implicits._
@@ -61,5 +62,14 @@ class IdMonadSpec
     assert(List(25) === result2)
     assert(25 === result3)
     assert(25 === result4)
+  }
+
+  test("pure") {
+    import cats.implicits._
+
+    val result5 = Option(3).pure[Option]
+    val result6 = Option(3).pure[List]
+    assert(Some(Some(3)) === result5)
+    assert(List(Some(3)) === result6)
   }
 }
