@@ -7,7 +7,7 @@ class StateMonadSpec extends FunSuite{
 
   test("default behaviour") {
     val result = State.get[Int].run(10).value
-    assert((10, 10) === result)
+    assert((10, 10) === result) // (state, result)
   }
 
   test("modify input") {
@@ -18,7 +18,7 @@ class StateMonadSpec extends FunSuite{
     }
 
     val result1 = a.run(10).value
-    assert((20, "value is: 20") === result1)
+    assert((20, "value is: 20") === result1) // (state, result)
   }
 
   test("run(), runS(), runA()") {
@@ -65,7 +65,7 @@ class StateMonadSpec extends FunSuite{
     val resultModify = State.modify[Int](_ + 1).run(10).value
 
     // (state, result)
-    assert((10, 10)       === resultGet)
+    assert((10, 10)       === resultGet, "extract the state as the result")
     assert((30, ())       === resultSet, "update state, and return unit as the result")
     assert((10, "Result") === resultPure, "ignore state and return supplied result")
     assert((10, "10!")    === resultInspect, "extract the state via a transformation function")
