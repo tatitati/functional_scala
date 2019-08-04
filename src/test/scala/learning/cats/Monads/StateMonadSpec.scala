@@ -17,6 +17,7 @@ class StateMonadSpec extends FunSuite{
       (output, s"value is: $output")
     }
 
+    
     val result1 = a.run(10).value
     assert((20, "value is: 20") === result1)
   }
