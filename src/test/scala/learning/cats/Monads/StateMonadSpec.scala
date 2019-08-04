@@ -80,13 +80,15 @@ class StateMonadSpec extends FunSuite{
       _ <- set[Int](a+1)
       b <- get[Int]
       _ <- modify[Int](_ + 1)
-      c <- inspect[Int, Int](_ * 1000)
-    } yield (a, b, c)
+      c <- get[Int]
+      d <- inspect[Int, Int](_ * 1000)
+    } yield (a, b, c, d)
 
     val result = chain.run(1).value
-    
+
     assert(
-      (3,(1,2,3000)) === result
+      // (state, result)
+      (3, (1,2,3,3000)) === result
     )
   }
 
