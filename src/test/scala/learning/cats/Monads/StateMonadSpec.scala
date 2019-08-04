@@ -12,8 +12,9 @@ class StateMonadSpec extends FunSuite{
 
   test("modify input") {
     val a = State[Int, String] { input =>
-      val newvalue = input*2
-      (newvalue, s"value is: $newvalue")
+      assert(10 === input)
+      val output = input*2
+      (output, s"value is: $output")
     }
 
     val result1 = a.run(10).value
@@ -51,6 +52,7 @@ class StateMonadSpec extends FunSuite{
     val result = both.run(20).value
 
     assert(
+      // (result, state)
       (42, ("From step 1: 21", "From step 2: 42")) === result
     )
   }
