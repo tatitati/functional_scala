@@ -6,5 +6,9 @@ import infrastructure.PetRepository
 class PetService (
                  petRepository: PetRepository
                  ) {
-  def create(pet: Pet): Pet = ???
+  def create(pet: Pet) = for {
+    _ <- petRepository.create(pet)
+  }
+
+
 }

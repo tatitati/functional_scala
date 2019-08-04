@@ -9,11 +9,12 @@ class PetRepository {
   private var cache: Map[Long, Pet] = Map()
   private val random = new Random
 
-  def create(pet: Pet) = {
+  def create(pet: Pet): Option[Pet] = {
     val randomId = random.nextLong()
     val petToSave = pet.copy(id = Some(randomId))
 
     cache += (randomId -> petToSave)
-    //toSave.pure[F]
+
+    petToSave.pure[Option]
   }
 }
