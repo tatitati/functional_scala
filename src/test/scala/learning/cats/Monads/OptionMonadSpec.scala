@@ -13,8 +13,12 @@ class OptionMonadSpec extends FunSuite {
   //  }
 
   test("pure()") {
+    import cats.implicits._
+
     val result1 = Monad[Option].pure(3)  //monad option is instance of cats.instances.OptionInstances$$anon$1@376c94a8
+    val result2 = 3.pure[Option]  //monad option is instance of cats.instances.OptionInstances$$anon$1@376c94a8
     assert(Some(3) === result1)
+    assert(Some(3) === result2)
   }
 
   test("map()") {
