@@ -1,4 +1,4 @@
-package fpModules
+package test.learning.fpModules
 
 sealed trait Topping
 case object Cheese extends Topping

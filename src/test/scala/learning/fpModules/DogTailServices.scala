@@ -1,4 +1,4 @@
-package test.fpModules
+package test.learning.fpModules
 
 import java.awt.Color
 
