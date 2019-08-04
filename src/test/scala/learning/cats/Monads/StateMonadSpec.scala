@@ -57,6 +57,21 @@ class StateMonadSpec extends FunSuite{
     )
   }
 
+  test("get(), set(), pure(), inspect(), modify()") {
+    val resultGet = State.get[Int].run(10).value
+    val resultSet = State.set[Int](30).run(10).value
+    val resultPure = State.pure[Int, String]("Result").run(10).value
+    val resultInspect = State.inspect[Int, String](_ + "!").run(10).value
+    val resultModify = State.modify[Int](_ + 1).run(10).value
+
+    assert((10, 10)       === resultGet)
+    assert((30, ())       === resultSet)
+    assert((10, "Result") === resultPure)
+    assert((10, "10!") === resultInspect)
+    assert((11, ()) === resultModify)
+
+  }
+
   test("use case") {
     case class GolfState(distance: Int)
 
