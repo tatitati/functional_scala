@@ -1,4 +1,4 @@
-package test.cats.Monads
+package test.learning.cats.Monads
 
 import cats.{Eval, Id, Monad}
 import cats.instances.list._
@@ -9,7 +9,7 @@ import org.scalatest.FunSuite
 //import cats._
 //import cats.implicits._
 
-class EvalMonadSpec
+class IdMonadSpec
   extends FunSuite {
 
   //  trait Monad[F[_]] {
@@ -18,16 +18,24 @@ class EvalMonadSpec
   //    def map[A, B](value: F[A])(func: A => B): F[B]
   //  }
 
-  test("Eval monad") {
-    val now = Eval.now(math.random.toInt + 1000)
-    val later = Eval.later(math.random.toInt + 2000)
-    val always = Eval.always(math.random.toInt + 2000)
+  test("ID") {
+    val result0 = Monad[Id].pure("Dave")
+    val result1 = "Dave" : Id[String]
+    val result2 = 34 : Id[Int]
+    val result3 = List(1,2,3) : Id[List[Int]]
 
-    assert(
-        now.isInstanceOf[Eval[Int]] &&
-        later.isInstanceOf[Eval[Int]] &&
-        always.isInstanceOf[Eval[Int]]
-    )
+    assert(result0.isInstanceOf[String]     && "Dave" === result0)
+    assert(result1.isInstanceOf[String]     && "Dave" === result1)
+    assert(result2.isInstanceOf[Int]        && 34 === result2)
+    assert(result3.isInstanceOf[List[Int]]  && List(1,2,3) === result3)
+  }
+
+  test("ID operations") {
+    val result1 = Monad[Id].pure(3)
+    val result2 = Monad[Id].flatMap(3)(_ + 2)
+
+    assert(3 === result1)
+    assert(5 === result2)
   }
 
   test("use case") {
@@ -48,12 +56,10 @@ class EvalMonadSpec
     val result2 = sumSquare(List(3), List(4))
     val result3 = sumSquare(3 : Id[Int], 4 : Id[Int])
     val result4 = sumSquare(Monad[Id].pure(3), Monad[Id].pure(4))
-    val result5 = sumSquare(Eval.now(3), Eval.later(4))
 
     assert(Some(25) === result1)
     assert(List(25) === result2)
     assert(25 === result3)
     assert(25 === result4)
-    assert(25 === result5.value)
   }
 }

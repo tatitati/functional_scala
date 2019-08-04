@@ -1,4 +1,4 @@
-package test.cats
+package test.learning.cats
 
 import cats._
 import org.scalatest.FunSuite

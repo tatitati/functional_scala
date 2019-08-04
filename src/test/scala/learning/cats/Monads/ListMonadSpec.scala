@@ -1,4 +1,4 @@
-package test.cats.Monads
+package test.learning.cats.Monads
 
 import cats.{Eval, Id, Monad}
 import cats.instances.list._

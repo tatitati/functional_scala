@@ -1,4 +1,4 @@
-package test.cats.Monads
+package test.learning.cats.Monads
 
 import cats.data.State
 import org.scalatest.FunSuite

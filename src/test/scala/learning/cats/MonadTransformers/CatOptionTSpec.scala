@@ -1,4 +1,4 @@
-package test.cats.MonadTransformers
+package test.learning.cats.MonadTransformers
 
 import cats.data.OptionT
 import cats.instances.list._

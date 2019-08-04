@@ -1,4 +1,5 @@
-package test.learning
+package test.earning.scala
+
 import org.scalatest.FunSuite
 
 class FlatMapSpec extends FunSuite {
