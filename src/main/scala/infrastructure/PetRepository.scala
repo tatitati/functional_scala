@@ -1,5 +1,7 @@
 package infrastructure
 
-class PetRepository {
+import domain.Pet
 
+class PetRepository {
+  def create(pet: Pet) = ???
 }

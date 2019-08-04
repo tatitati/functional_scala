@@ -1,5 +1,7 @@
 package application
 
-class PetService {
+import domain.Pet
 
+class PetService {
+  def create(pet: Pet) = ???
 }
