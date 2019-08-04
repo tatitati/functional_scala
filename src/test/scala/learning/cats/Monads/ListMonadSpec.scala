@@ -17,18 +17,23 @@ class ListMonadSpec extends FunSuite {
   //  }
 
   test("pure()") {
+    import cats.implicits._
+
     val result1 = Monad[List].pure(3)
-    assert(result1 === List(3))
+    val result2 = 6.pure[List]
+
+    assert(List(3) == result1)
+    assert(List(6) == result2)
   }
 
   test("flatMap()") {
     val result1 = Monad[List].flatMap(List(3))(a => List(a, a*10))
-    assert(result1 === List(3, 30))
+    assert(List(3, 30) === result1)
   }
 
   test("map()") {
     val result1 = Monad[List].map(List(3))(a => a + 10)
-    assert(result1 === List(13))
+    assert(List(13) === result1)
   }
 
   test("use case") {

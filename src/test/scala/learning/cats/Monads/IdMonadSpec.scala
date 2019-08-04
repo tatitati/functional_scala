@@ -70,6 +70,7 @@ class IdMonadSpec
     val result4 = 3.pure[Option]
     val result5 = Option(3).pure[Option]
     val result6 = Option(3).pure[List]
+
     assert(Some(3) === result4)
     assert(Some(Some(3)) === result5)
     assert(List(Some(3)) === result6)
