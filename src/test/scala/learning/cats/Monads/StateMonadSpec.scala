@@ -52,7 +52,7 @@ class StateMonadSpec extends FunSuite{
     val result = both.run(20).value
 
     assert(
-      // (result, state)
+      // (state, result)
       (42, ("From step 1: 21", "From step 2: 42")) === result
     )
   }
@@ -64,11 +64,30 @@ class StateMonadSpec extends FunSuite{
     val resultInspect = State.inspect[Int, String](_ + "!").run(10).value
     val resultModify = State.modify[Int](_ + 1).run(10).value
 
+    // (state, result)
     assert((10, 10)       === resultGet)
-    assert((30, ())       === resultSet)
-    assert((10, "Result") === resultPure)
-    assert((10, "10!")    === resultInspect)
-    assert((11, ())       === resultModify)
+    assert((30, ())       === resultSet, "update state, and return unit as the result")
+    assert((10, "Result") === resultPure, "ignore state and return supplied result")
+    assert((10, "10!")    === resultInspect, "extract the state via a transformation function")
+    assert((11, ())       === resultModify, "update the state using an update function")
+  }
+
+  test("composing with get(), set(), ....") {
+    import State._
+
+    val chain = for {
+      a <- get[Int]
+      _ <- set[Int](a+1)
+      b <- get[Int]
+      _ <- modify[Int](_ + 1)
+      c <- inspect[Int, Int](_ * 1000)
+    } yield (a, b, c)
+
+    val result = chain.run(1).value
+    
+    assert(
+      (3,(1,2,3000)) === result
+    )
   }
 
   test("use case") {
