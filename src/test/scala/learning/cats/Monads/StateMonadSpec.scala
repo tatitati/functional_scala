@@ -17,7 +17,6 @@ class StateMonadSpec extends FunSuite{
       (output, s"value is: $output")
     }
 
-    
     val result1 = a.run(10).value
     assert((20, "value is: 20") === result1)
   }
@@ -36,7 +35,7 @@ class StateMonadSpec extends FunSuite{
       assert("value is: 10" === result3)
   }
 
-  test("composing") {
+  test("composing and chain") {
     val step1 = State[Int, String] { input =>
       (input + 1, s"From step 1: ${input + 1}")
     }
@@ -46,8 +45,8 @@ class StateMonadSpec extends FunSuite{
     }
 
     val both = for {
-      a <- step1  // +1
-      b <- step2  // *2
+      a <- step1  // (+1)
+      b <- step2  // (*2)
     } yield (a, b)
 
     val result = both.run(20).value
