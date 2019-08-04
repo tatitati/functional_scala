@@ -67,9 +67,8 @@ class StateMonadSpec extends FunSuite{
     assert((10, 10)       === resultGet)
     assert((30, ())       === resultSet)
     assert((10, "Result") === resultPure)
-    assert((10, "10!") === resultInspect)
-    assert((11, ()) === resultModify)
-
+    assert((10, "10!")    === resultInspect)
+    assert((11, ())       === resultModify)
   }
 
   test("use case") {
