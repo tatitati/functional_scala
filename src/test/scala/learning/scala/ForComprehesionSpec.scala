@@ -2,7 +2,7 @@ package test.learning.scala
 
 import org.scalatest.FunSuite
 
-class ForCompressionSpec extends FunSuite{
+class ForComprehesionSpec extends FunSuite{
 
   test("simple for compressions can be equivalent to map()") {
     val z = for {
