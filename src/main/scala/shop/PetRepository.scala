@@ -21,18 +21,20 @@ class PetRepository {
   }
 
 //
-  def findByName(name: String): Set[Pet] =
+  def findByName(name: String): List[Pet] =
     cache.values
       .filter(p => p.name == name)
-      .toSet
-//
-//  def doesNotExist(pet: Pet): Either[String, Unit] = Either {
-//    repository.findByNameAndCategory(pet.name, pet.category).map { matches =>
-//      if (matches.forall(possibleMatch => possibleMatch.bio != pet.bio)) {
-//        Right(())
-//      } else {
-//        Left(PetAlreadyExistsError(pet))
-//      }
-//    }
-//  }
+      .toList
+
+  def doesNotExist(pet: Pet): Either[String, Unit] = {
+    val found = this.findByName(pet.name)
+
+    if (found.size > 0) {
+      Right(())
+    } else {
+      Left("the animal doesnt exist")
+    }
+
+
+  }
 }
