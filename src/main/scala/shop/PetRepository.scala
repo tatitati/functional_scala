@@ -29,11 +29,9 @@ class PetRepository {
     val found = this.findByName(pet.name)
 
     if (found.size > 0) {
-      Right(())
+      Right()
     } else {
       Left("the animal doesnt exist")
     }
-
-
   }
 }

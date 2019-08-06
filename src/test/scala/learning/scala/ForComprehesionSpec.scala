@@ -60,18 +60,11 @@ class ForComprehesionSpec extends FunSuite{
   }
 
   test("how to do a+b if some is not valid?") {
-    def convertInt(from: String): Option[Int] = {
-      try{
-        Some(from.trim.toInt)
-      } catch {
-        case e: Exception => None
-      }
-    }
-
     val z = for {
-      a <- convertInt("2")
-      b <- convertInt("this is None")
-    } yield a+b
+      a <- Some(2)
+      b <- None
+      c <- Some(1)
+    } yield a+b+c
 
     assert(None === z)
   }
