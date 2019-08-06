@@ -20,7 +20,6 @@ class PetRepository {
     petToSave
   }
 
-//
   def findByName(name: String): List[Pet] =
     cache.values
       .filter(p => p.name == name)
