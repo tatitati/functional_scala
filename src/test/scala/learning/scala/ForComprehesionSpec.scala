@@ -64,9 +64,12 @@ class ForComprehesionSpec extends FunSuite{
       a <- Some(2)
       b <- None
       c <- Some(1)
-    } yield a+b+c
+    } yield {
+      println("THIS TEXT IS NOT DISPLAYED")
+      a+b+c
+    }
 
-    assert(None === z)
+    assert(None === z, "DOESNT MATTER AT ALL THE YIELD BLOCK, everything will be ignored (asserts, etc)")
   }
 
   test("more equivalents") {

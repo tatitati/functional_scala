@@ -27,7 +27,7 @@ class PetRepository {
 
   def doesNotExist(pet: Pet): Either[String, Unit] = {
     val found = this.findByName(pet.name)
-
+    println(found)
     if (found.size === 0) {
       Right()
     } else {

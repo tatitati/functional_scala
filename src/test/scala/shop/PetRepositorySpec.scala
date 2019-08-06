@@ -24,12 +24,12 @@ class PetRepositorySpec extends FunSuite {
   test("findByName()") {
     val repo = new PetRepository()
 
-    val savedBolt = repo.create(petBolt)
+    val savedBolt = repo.create(petBolt).right.get
     val result1 = repo.findByName("bolt")
     val result2 = repo.findByName("not-found")
 
-    assert(List(savedBolt) === result1)
-    assert(List() === result2)
+    assert(List(savedBolt) === result1, "list should contain a found pet")
+    assert(List() === result2, "list should be empty")
   }
 
 //  test("doesNotExist()") {
