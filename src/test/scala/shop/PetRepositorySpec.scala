@@ -5,8 +5,8 @@ import shop.{Pet, PetRepository}
 
 class PetRepositorySpec extends FunSuite {
 
-  val petToby = Pet(name = "toby", bio="born in germany")
-  val petBolt = Pet(name = "bolt", bio="worked in army")
+  val petToby = Pet(name = "toby")
+  val petBolt = Pet(name = "bolt")
 
   test("create()"){
       val repo = new PetRepository()
@@ -36,7 +36,7 @@ class PetRepositorySpec extends FunSuite {
     val repo = new PetRepository()
 
     val savedBolt = repo.create(petBolt)
-    val unsaved = Pet(name="lassye", bio="is a gay dog")
+    val unsaved = Pet(name="lassye")
 
     val result1 = repo.doesNotExist(savedBolt)
     val result2 = repo.doesNotExist(unsaved)
