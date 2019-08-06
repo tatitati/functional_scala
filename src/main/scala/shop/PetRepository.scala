@@ -10,7 +10,7 @@ class PetRepository {
   var cache: Map[Long, Pet] = Map()
   private val random = new Random
 
-  def create[F[_]: Applicative](pet: Pet): Either[String, Pet] = { // it can returns List[Pet], Option[Pet], ....
+  def create(pet: Pet): Either[String, Pet] = { // it can returns List[Pet], Option[Pet], ....
     val randomId = random.nextLong()
     val petToSave = pet.copy(id = Some(randomId))
 
