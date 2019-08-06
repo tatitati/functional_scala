@@ -1,13 +1,13 @@
 package shop
 
+class PetService (petRepository: PetRepository) {
 
-class PetService (
-                 petRepository: PetRepository
-                 ) {
-  def create(pet: Pet) = ???
-//  for {
-//    _ <- petRepository.create(pet)
+  private var repo =  petRepository
+
+//  def create(pet: Pet) = {
+//    for {
+//      <- petRepository.doesNotExist(pet)
+//      _ <- petRepository.create(pet)
+//    }
 //  }
-
-
 }
