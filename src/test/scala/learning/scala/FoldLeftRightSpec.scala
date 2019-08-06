@@ -17,12 +17,12 @@ class FoldLeftRightSpec extends FunSuite {
 
   test("foldleft") {
     val prices: Seq[String] = Seq("a", "b", "c")
-    val result1 = prices.foldLeft("____")(_ + _ )
-    val result2 = prices.foldRight("____")(_ + _)
+    val resultLeft = prices.foldLeft("____")(_ + _ )
+    val resultRight = prices.foldRight("____")(_ + _)
     val result3 = prices.fold("____")(_ + _)
 
-    assert("____abc" === result1)
-    assert("abc____" === result2)
+    assert("____abc" === resultLeft)
+    assert("abc____" === resultRight)
     assert("____abc" === result3)
   }
 }
