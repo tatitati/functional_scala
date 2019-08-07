@@ -24,6 +24,5 @@ class CatOptionTSpec extends FunSuite {
     } yield {
       assert(32 === aVal )
     }
-
   }
 }

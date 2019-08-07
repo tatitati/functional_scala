@@ -55,4 +55,13 @@ class OptionMonadSpec extends FunSuite {
     val result1 = sumSquare(Option(3), Option(4))
     assert(Some(25) === result1)
   }
+
+  test("use case2: Option is a monad itself, not needed for a Monad?") {
+      val result = for {
+        x <- Option(3)
+        y <- Option(4)
+      } yield x*x + y*y
+
+    assert(Some(25) === result)
+  }
 }
