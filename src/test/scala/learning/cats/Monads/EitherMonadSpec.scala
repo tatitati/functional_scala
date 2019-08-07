@@ -22,4 +22,16 @@ class EitherMonadSpec extends FunSuite {
     assert(Right(1) == a)
     assert(Left("Seems that we passwed None") == b)
   }
+
+  test("Can transform eithers") {
+    val a = "whatever".asLeft[Any].getOrElse(0)
+    val b = 3.asRight[Any]
+    val c = 3.asLeft[Any]
+    val d = "hi".asRight[Any]
+
+    assert(0 === a)
+    assert(Right(3) == b)
+    assert(Left(3) == c)
+    assert(Right("hi") == d)
+  }
 }
