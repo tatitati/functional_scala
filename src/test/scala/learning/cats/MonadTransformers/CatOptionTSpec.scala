@@ -15,4 +15,15 @@ class CatOptionTSpec extends FunSuite {
 
     assert(a == b)
   }
+
+  test("Monad transformers are simply nesting flatMaps") {
+    val a = OptionT(List(Option(32)))
+
+    for{
+      aVal <- a
+    } yield {
+      assert(32 === aVal )
+    }
+
+  }
 }
