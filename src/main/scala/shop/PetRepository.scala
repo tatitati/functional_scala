@@ -16,7 +16,7 @@ class PetRepository {
     val petToSave = pet.copy(id = Some(randomId))
 
     cache += (randomId -> petToSave)
-    
+
     Right(petToSave)
   }
 
