@@ -16,8 +16,7 @@ class PetRepository {
     val petToSave = pet.copy(id = Some(randomId))
 
     cache += (randomId -> petToSave)
-
-    //Monad[F].pure(petToSave)
+    
     Right(petToSave)
   }
 
