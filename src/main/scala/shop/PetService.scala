@@ -1,6 +1,7 @@
 package shop
 
 import cats.data.EitherT
+import cats.syntax.either._
 
 class PetService(petRepository: PetRepository) {
 
