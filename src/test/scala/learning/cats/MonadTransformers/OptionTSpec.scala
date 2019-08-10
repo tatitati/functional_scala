@@ -30,9 +30,15 @@ class OptionTSpec extends FunSuite {
     } yield {
       assert(32 === aVal , "Monad transformer cross two layers of monads in once (List and Option in here)")
     }
+
+    val result = for{
+      aVal <- a
+    } yield aVal+2
+
+    println(result) // OptionT(List(Some(34)))
   }
 
-  test("whatever") {
+  test("same with Either") {
     import cats.instances.either._
 
     //  we want:
@@ -44,8 +50,17 @@ class OptionTSpec extends FunSuite {
     type ErrorOrOption[A] = OptionT[ErrorOr, A]
 
     val a = 10.pure[ErrorOrOption] // OptionT(Right(Some(10))) === a
+    val b = 5.pure[ErrorOrOption] // OptionT(Right(Some(5)) === b
 
-    // assert(OptionT(Right(Some(10))) == true)  // find out why is failing
+    val result = for{
+      aVal <- a
+      bVal <- b
+    } yield {
+      assert(10 === aVal , "Monad transformer cross two layers of monads in once (Either and Option in here)")
+      aVal + bVal
+    }
+
+    println(result) // OptionT(Right(Some(15)))
   }
 
 }
