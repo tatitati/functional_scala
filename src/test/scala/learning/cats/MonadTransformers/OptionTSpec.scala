@@ -62,9 +62,4 @@ class OptionTSpec extends FunSuite {
 
     println(result) // OptionT(Right(Some(15)))
   }
-
-  test("with three layers") {
-
-  }
-
 }
