@@ -46,11 +46,11 @@ class OptionTSpec extends FunSuite {
     //          Either
     //            Option
 
-    type ErrorOr[A] = Either[String, A]
-    type ErrorOrOption[A] = OptionT[ErrorOr, A]
+    type Maybe[A] = Either[String, A]
+    type MaybeOption[A] = OptionT[Maybe, A]
 
-    val a = 10.pure[ErrorOrOption] // OptionT(Right(Some(10))) === a
-    val b = 5.pure[ErrorOrOption] // OptionT(Right(Some(5)) === b
+    val a = 10.pure[MaybeOption] // OptionT(Right(Some(10))) === a
+    val b = 5.pure[MaybeOption] // OptionT(Right(Some(5)) === b
 
     val result = for{
       aVal <- a
@@ -61,6 +61,10 @@ class OptionTSpec extends FunSuite {
     }
 
     println(result) // OptionT(Right(Some(15)))
+  }
+
+  test("with three layers") {
+
   }
 
 }
