@@ -61,6 +61,10 @@ class OptionTSpec extends FunSuite {
     }
 
     println(result) // OptionT(Right(Some(15)))
+    assert(Right(Some(15)) == result.value, "I can unpack the value of a monad transformer using .value()")
+
+    val result2 = result.value.map(_.getOrElse(-1))
+    assert(Right(15) === result2)
   }
 
   test("I can Lift with pure(), but also I can lift using apply()") {
