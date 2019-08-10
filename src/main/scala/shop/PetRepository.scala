@@ -2,9 +2,10 @@ package shop
 
 import cats._
 import cats.Monad
+import cats.effect.IO
 import cats.implicits._
-
 import cats.syntax.either._
+
 import scala.util.Random
 
 class PetRepository {
