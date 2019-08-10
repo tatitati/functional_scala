@@ -34,17 +34,18 @@ class OptionTSpec extends FunSuite {
 
   test("whatever") {
     import cats.instances.either._
-    
-    type ErrorOr[A] = Either[String, A]
-    type ErrorOrOption[A] = OptionT[ErrorOr, A]
 
-    //  we have:
+    //  we want:
     //        OptionT
     //          Either
     //            Option
 
-    val a = 10.pure[ErrorOrOption]
-    println(a)
+    type ErrorOr[A] = Either[String, A]
+    type ErrorOrOption[A] = OptionT[ErrorOr, A]
+
+    val a = 10.pure[ErrorOrOption] // OptionT(Right(Some(10))) === a
+
+    // assert(OptionT(Right(Some(10))) == true)  // find out why is failing
   }
 
 }
