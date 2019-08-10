@@ -22,7 +22,7 @@ class OptionSpec extends FunSuite {
     assert(Some(3) === result2)
   }
 
-  test("map()") {
+  test("map(), usually we dont want to use this function as is automatically used in a for{} loop") {
     val result1 = Monad[Option].map(Some(3))(a => 2*a)
     val result2 = Monad[Option].map(Some(3))(a => Some(a.toString))
 
@@ -30,7 +30,7 @@ class OptionSpec extends FunSuite {
     assert(Some(Some("3")) === result2)
   }
 
-  test("flatMap()") {
+  test("flatMap(), usually we dont want to use this function as is automatically used in a for{} loop") {
     val result1 = Monad[Option].flatMap(Some(3))(a => Some(2*a))
     val result2 = Monad[Option].flatMap(Some(3))(a => Some(a.toString))
 

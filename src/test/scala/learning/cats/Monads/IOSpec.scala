@@ -1,5 +1,6 @@
 package test.learning.cats.Monads
 
+import cats.data.OptionT
 import cats.effect.IO
 import cats.implicits._
 import org.scalatest.FunSuite
@@ -8,10 +9,10 @@ class IOSpec extends FunSuite {
   test("pure()") {
     case class User(name: String)
 
-    val a = User("manolo")
-    val b = a.pure[IO] // lift User to IO
+    val user1 = User("manolo")
+    val IoUser = user1.pure[IO] // lift User to IO
 
-    assert(b.isInstanceOf[IO[User]])
+    assert(IoUser.isInstanceOf[IO[User]])
   }
 
   test("use case") {
