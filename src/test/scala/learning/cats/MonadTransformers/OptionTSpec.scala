@@ -18,7 +18,7 @@ class OptionTSpec extends FunSuite {
     assert(a == b)
   }
 
-  test("Monad transformers are simply nesting flatMaps, so the access without needing nested loops to the value") {
+  test("Monad transformers are simply nesting flatMaps, so they access without needing nested loops to the inner value") {
     val a = OptionT(List(Option(32)))
     //    we have:
     //        OptionT
@@ -61,5 +61,14 @@ class OptionTSpec extends FunSuite {
     }
 
     println(result) // OptionT(Right(Some(15)))
+  }
+
+  test("I can Lift with pure(), but also I can lift using apply()") {
+    type ErrorOr[A] = Either[String, A]
+    val a = OptionT[ErrorOr, Int](Right(Some(10)))
+    val b = OptionT[ErrorOr, Int](Left("fuck"))
+
+    println(a) // OptionT(Right(Some(10)))
+    println(b) // OptionT(Left(fuck))
   }
 }
