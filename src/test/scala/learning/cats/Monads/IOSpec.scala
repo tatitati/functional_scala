@@ -4,7 +4,7 @@ import cats.effect.IO
 import cats.implicits._
 import org.scalatest.FunSuite
 
-class IOMonadSpec extends FunSuite {
+class IOSpec extends FunSuite {
   test("pure()") {
     case class User(name: String)
 

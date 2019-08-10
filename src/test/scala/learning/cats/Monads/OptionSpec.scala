@@ -4,7 +4,7 @@ import cats.{Eval, Id, Monad}
 import cats.instances.option._
 import org.scalatest.FunSuite
 
-class OptionMonadSpec extends FunSuite {
+class OptionSpec extends FunSuite {
 
   //  trait Monad[F[_]] {
   //    def pure[A](value: A): F[A]

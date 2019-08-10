@@ -9,7 +9,7 @@ import org.scalatest.FunSuite
 //import cats._
 //import cats.implicits._
 
-class EvalMonadSpec
+class EvalSpec
   extends FunSuite {
 
   //  trait Monad[F[_]] {

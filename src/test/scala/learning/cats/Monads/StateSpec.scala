@@ -1,9 +1,10 @@
 package test.learning.cats.Monads
 
 import cats.data.State
+import cats.effect.IO
 import org.scalatest.FunSuite
 
-class StateMonadSpec extends FunSuite{
+class StateSpec extends FunSuite{
 
   test("default behaviour") {
     val result = State.get[Int].run(10).value

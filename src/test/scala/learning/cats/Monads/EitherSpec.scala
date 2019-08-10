@@ -3,7 +3,7 @@ package test.learning.cats.Monads
 import cats.syntax.either._
 import org.scalatest.FunSuite
 
-class EitherMonadSpec extends FunSuite {
+class EitherSpec extends FunSuite {
 
   test("Can create Either instances") {
       case class Name(value: String)

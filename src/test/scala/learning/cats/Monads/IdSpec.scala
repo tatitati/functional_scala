@@ -10,7 +10,7 @@ import org.scalatest.FunSuite
 //import cats._
 //import cats.implicits._
 
-class IdMonadSpec
+class IdSpec
   extends FunSuite {
 
   //  trait Monad[F[_]] {

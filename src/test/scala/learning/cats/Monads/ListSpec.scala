@@ -8,7 +8,7 @@ import org.scalatest.FunSuite
 //import cats._
 //import cats.implicits._
 
-class ListMonadSpec extends FunSuite {
+class ListSpec extends FunSuite {
 
   //  trait Monad[F[_]] {
   //    def pure[A](value: A): F[A]

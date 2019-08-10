@@ -5,7 +5,7 @@ import cats.instances.list._
 import cats.syntax.applicative._
 import org.scalatest.FunSuite
 
-class CatOptionTSpec extends FunSuite {
+class OptionTSpec extends FunSuite {
 
   type ListOption[A] = OptionT[List, A]
 
