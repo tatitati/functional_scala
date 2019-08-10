@@ -5,7 +5,7 @@ import org.scalatest.FunSuite
 
 class ReaderSpec extends FunSuite {
 
-    test("") {
+    test("Example of Dependency injection") {
         case class User(name: String)
         case class Account(identifier: Int)
         case class DbConnection(ip: String)
