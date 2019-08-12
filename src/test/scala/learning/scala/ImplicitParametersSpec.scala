@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 
 class ImplicitParametersSpec extends FunSuite {
 
-  test("I don't need to pass any parameter") {
+  test("Simple implicit parameters") {
     def sayHello(implicit name: String): String = s"Hello $name"
 
     implicit val friend = "Antonio"
