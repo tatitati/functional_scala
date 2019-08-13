@@ -22,6 +22,8 @@ class ImplicitConversionSpec extends FunSuite {
   }
 
   test("RICH WRAPPER: Can add a new method to another class LIFTING OR WRAPPING") {
+    // As we can treat injection-method as a conversion problem
+    // We say that "We have an implicit conversion that converts the target type to a RICH WRAPPER"
     case class Person(name: String) {
       def greet(): String = s"Hello person: $name"
     }
