@@ -4,7 +4,24 @@ import org.scalatest.FunSuite
 
 class ImplicitConversionSpec extends FunSuite {
 
-  test("I can add a new method to another class LIFTING OR WRAPPING") {
+  test("IMPLICIT CONVERSTION: Can convert an object into another when needed behind the scenes") {
+    case class FullUser(name: String, age: Int, gender: String)
+    case class ShortUser(name: String)
+
+    implicit def full2Short(user: FullUser): ShortUser = {
+      ShortUser(user.name)
+    }
+
+    def exposeUser(user: ShortUser): ShortUser = user
+
+    val full = FullUser(name="francisco", age=23, gender="male")
+    // when calling to exposeUser I pass a full, however, this "expose()" is expecting a short user, and
+    // we have an implicit function-conversion that can convert a FullUser into a ShortUser, so is converted
+    // implicitly, we don't need to do the conversion on our own always
+    assert(exposeUser(full).isInstanceOf[ShortUser])
+  }
+
+  test("RICH WRAPPER: Can add a new method to another class LIFTING OR WRAPPING") {
     case class Person(name: String) {
       def greet(): String = s"Hello person: $name"
     }
@@ -20,7 +37,7 @@ class ImplicitConversionSpec extends FunSuite {
     assert("Hello number: 5" === 5.greet())
   }
 
-  test("I can use a shourtcut to do the same") {
+  test("RICH WRAPPER: Can use a shourtcut to do the same") {
     implicit class StringToperson(str: String) {
       def greet(): String = s"Hello $str"
     }
