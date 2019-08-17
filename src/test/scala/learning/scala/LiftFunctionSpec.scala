@@ -5,7 +5,7 @@ import scala.util.{Success, Try}
 
 class LiftFunctionSpec extends FunSuite {
 
-  test("check happy path") {
+  test("We can lift our function with flatmaps/map") {
     def parseUserForm(age: String, numberOfBrothers: String): Try[String] = {
       val optAge: Try[Int] = Try{age.toInt}
       val optBrothers: Try[Int] = Try{numberOfBrothers.toInt}
@@ -13,7 +13,7 @@ class LiftFunctionSpec extends FunSuite {
       lifter(optAge, optBrothers)(insuranceRateQuote)
     }
 
-    def insuranceRateQuote(age: Int, numberOfBrothers: Int): String = {
+    def insuranceRateQuote(age: Int, numberOfBrothers: Int): String = { // we lift this function to operate in a Try context
       s"Age: $age, Brothers: $numberOfBrothers"
     }
 
@@ -29,7 +29,7 @@ class LiftFunctionSpec extends FunSuite {
     assert(Success("Age: 23, Brothers: 3") === result)
   }
 
-  test("Using FOR{}") {
+  test("We can lift our function with for{}") {
     def parseUserForm(age: String, numberOfBrothers: String): Try[String] = {
       val optAge: Try[Int] = Try{age.toInt}
       val optBrothers: Try[Int] = Try{numberOfBrothers.toInt}
@@ -37,7 +37,7 @@ class LiftFunctionSpec extends FunSuite {
       lifter(optAge, optBrothers)(insuranceRateQuote)
     }
 
-    def insuranceRateQuote(age: Int, numberOfBrothers: Int): String = {
+    def insuranceRateQuote(age: Int, numberOfBrothers: Int): String = { // we lift this function to operate in a Try context
       s"Age: $age, Brothers: $numberOfBrothers"
     }
 
