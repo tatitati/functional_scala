@@ -1,4 +1,4 @@
-package test.learning.scala
+package test.learning.scala.FPDataStructures
 
 import org.scalatest.FunSuite
 
