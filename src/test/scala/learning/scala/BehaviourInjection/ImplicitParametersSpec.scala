@@ -5,14 +5,14 @@ import org.scalatest.FunSuite
 class ImplicitParametersSpec extends FunSuite {
 
   test("Simple implicit parameters") {
-    def sayHello(implicit name: String): String = s"Hello $name"
-
     implicit val friend = "Antonio"
+
+    def sayHello(implicit name: String): String = s"Hello $name"
 
     assert("Hello Antonio" === sayHello)
   }
 
-  test("Type classes") {
+  test("With generics, among all the implicits that can be injected, it injects the once matching the TYPE") {
       case class User(name: String, age: Int)
 
       trait InfoPrinter[T]{
