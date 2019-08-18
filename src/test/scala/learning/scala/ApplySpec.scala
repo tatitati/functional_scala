@@ -2,7 +2,7 @@ package test.learning.scala
 
 import org.scalatest.FunSuite
 
-class CreateObjectsSpec extends FunSuite{
+class ApplySpec extends FunSuite{
 
   test("with case classes") {
     case class User(name: String)
@@ -32,9 +32,7 @@ class CreateObjectsSpec extends FunSuite{
       }
     }
 
-    // I can create the user in the same way that I was when using Case Class
     val a = new User("Gonzalo")
     assert("Mr Gonzalo" === a("Mr"))
-
   }
 }
