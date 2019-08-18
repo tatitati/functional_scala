@@ -1,6 +1,6 @@
 package test.learning.cats.Monads
 
-import cats.{Eval, Id, Monad}
+import cats.Monad
 import cats.instances.option._
 import org.scalatest.FunSuite
 

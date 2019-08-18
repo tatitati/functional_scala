@@ -1,4 +1,4 @@
-package test.learning.scala.BehaviourInjection
+package test.learning.cats
 
 import cats.Show
 import cats.syntax.show._
