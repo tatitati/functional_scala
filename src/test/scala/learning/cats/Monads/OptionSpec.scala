@@ -13,12 +13,11 @@ class OptionSpec extends FunSuite {
   //  }
 
   test("pure()") {
-    import cats.implicits._
-
-    val result1 = Monad[Option].pure(3)  //Monad[Option] is instance of cats.instances.OptionInstances$$anon$1@376c94a8
-    val result2 = 3.pure[Option]
-
+    val result1 = Monad[Option].pure(3)
     assert(Some(3) === result1)
+
+    import cats.syntax.applicative._ // to add (inject) the method pure() into our objects
+    val result2 = 3.pure[Option]
     assert(Some(3) === result2)
   }
 
@@ -38,10 +37,9 @@ class OptionSpec extends FunSuite {
     assert(Some("3") === result2)
   }
 
-  test("use case") {
-    import cats.syntax.flatMap._
-    import cats.syntax.functor._
-
+  test("Syntax for flatmap and map function") {
+    import cats.syntax.flatMap._ // to add (inject) the method flatmap() into our objects
+    import cats.syntax.functor._ // to add (inject) the method map() into our objects
 
     // bound context here:
     // we are saying that for F[_] we have an implicit Monad[F[_]]
