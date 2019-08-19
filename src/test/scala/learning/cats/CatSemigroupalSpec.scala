@@ -1,7 +1,8 @@
 package test.learning.cats
 
-import cats.Semigroupal
+import cats.{Semigroup, Semigroupal}
 import cats.instances.option._
+
 import org.scalatest.FunSuite
 
 class CatSemigroupalSpec extends FunSuite {
@@ -10,6 +11,16 @@ class CatSemigroupalSpec extends FunSuite {
   // trait Semigroupal[F[_]] {
   //  def product[A, B](fa: F[A], fb: F[B]): F[(A, B]
   // }
+
+  test("semigroups are not semigroupal:") {
+    import cats.implicits._
+
+    val result1 = Semigroup[Option[String]].combine(Some("hi"), Some("there"))
+    val result2 = Semigroupal[Option].product(Some("hi"), Some("there"))
+
+    assert(Some("hithere") == result1)
+    assert(Some(("hi", "there")) === result2)
+  }
 
   test("semigroupal") {
     val result1 = Semigroupal[Option].product(Some(123), Some("abc"))

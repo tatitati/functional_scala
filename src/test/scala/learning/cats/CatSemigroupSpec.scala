@@ -17,10 +17,10 @@ class CatSemigroupSpec extends FunSuite {
   }
 
   test("semigroups are not semigroupal:") {
-    val result1 = Semigroup[String].combine("hi", "there")
+    val result1 = Semigroup[Option[String]].combine(Some("hi"), Some("there"))
     val result2 = Semigroupal[Option].product(Some("hi"), Some("there"))
 
-    assert("hithere" == result1)
+    assert(Some("hithere") == result1)
     assert(Some(("hi", "there")) === result2)
   }
 }
