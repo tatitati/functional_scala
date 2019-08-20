@@ -5,7 +5,7 @@ import cats.instances.list._
 import org.scalatest.FunSuite
 
 class EithertSpec extends FunSuite{
-  test("basic") {
+  test("EitherT.fromOptionF") {
     val myOptionList: List[Option[Int]] = List(
       None,
       Some(2),
