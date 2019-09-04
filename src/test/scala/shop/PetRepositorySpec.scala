@@ -41,6 +41,14 @@ class PetRepositorySpec extends FunSuite {
     }
   }
 
+  test("exist") {
+    for {
+      result <- repo.exist("Bolt")
+    } yield {
+      assert(true === result)
+    }
+  }
+
 
 
 //  test("doesNotExist()") {

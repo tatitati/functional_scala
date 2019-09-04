@@ -35,6 +35,9 @@ class PetRepository {
     }
   }
 
-  def delete: IO[Boolean] = ???
-  def exist(pet: Pet) = ???
+  def exist(name: String): IO[Boolean] = {
+    IO{
+      cache.contains(name)
+    }
+  }
 }
