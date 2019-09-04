@@ -48,19 +48,4 @@ class PetRepositorySpec extends FunSuite {
       assert(true === result)
     }
   }
-
-
-
-//  test("doesNotExist()") {
-//    val repo = new PetRepository()
-//
-//    val savedPet = repo.create(petBolt)
-//    val unsavedPet = Pet(name="lassye")
-//
-//    val result1 = repo.doesNotExist(savedPet.right.get)
-//    val result2 = repo.doesNotExist(unsavedPet)
-//
-//    assert(Left("the animal exist") === result1)
-//    assert(Right() === result2)
-//  }
 }
