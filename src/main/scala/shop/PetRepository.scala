@@ -14,18 +14,19 @@ class PetRepository {
   )
 
   def create(pet: Pet): IO[Pet] = {
-    cache += (pet.name -> pet)
-
-    pet.pure[IO]
+    IO{
+      cache += (pet.name -> pet)
+      pet
+    }
   }
 
   def findByName(name: String): IO[Option[Pet]] = {
-    val result = cache.contains(name) match {
-      case true => Some(cache(name))
-      case false => None
+    IO {
+      cache.contains(name) match {
+        case true => Some(cache(name))
+        case false => None
+      }
     }
-
-    result.pure[IO]
   }
 
   def list: IO[List[Pet]] = ???
