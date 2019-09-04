@@ -13,10 +13,9 @@ class PetRepository {
     "Lassie" -> Pet("Lassie", 10)
   )
 
-  def create(pet: Pet): IO[Pet] = {
+  def create(pet: Pet): IO[Unit] = {
     IO{
       cache += (pet.name -> pet)
-      pet
     }
   }
 

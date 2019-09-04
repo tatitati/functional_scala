@@ -5,20 +5,12 @@ import shop.{Pet, PetRepository, PetService}
 
 class PetServiceSpec extends FunSuite{
 
-//  test("service can create a user") {
-//    val service = new PetService(new PetRepository())
-//    val petToby = Pet(name = "toby")
-//
-//    val result = service.create(petToby)
-//
-//    for {
-//      petCreated <- result
-//    } yield {
-//      println("This output is visible")
-//      assert(result.isRight)
-//      assert(petCreated.isInstanceOf[Pet])
-//    }
-//  }
+  val service = new PetService(new PetRepository())
+
+  test("service can create a user") {
+    val result = service.create(Pet("toby" ,32))
+    println(result)
+  }
 //
 //  test("service CANNOT create a user") {
 //    val service = new PetService(new PetRepository())

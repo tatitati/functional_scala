@@ -14,7 +14,7 @@ class PetRepositorySpec extends FunSuite {
     for{
       result <- repo.create(pet)
     } yield {
-      assert(result == pet)
+      assert(result == Unit)
     }
   }
 
