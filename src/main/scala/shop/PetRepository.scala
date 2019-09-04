@@ -5,7 +5,6 @@ import cats.Monad
 import cats.effect.IO
 import cats.implicits._
 import cats.syntax.either._
-
 import scala.util.Random
 
 class PetRepository {
@@ -14,15 +13,11 @@ class PetRepository {
     "Lassie" -> Pet("Lassie", 10)
   )
 
+  def create(pet: Pet): IO[Pet] = {
+    cache += (pet.name -> pet)
 
-  //  def create(pet: Pet): Either[String, Pet] = { // it can returns List[Pet], Option[Pet], ....
-  //    val randomId = random.nextLong()
-  //    val petToSave = pet.copy(id = Some(randomId))
-  //
-  //    cache += (randomId -> petToSave)
-  //
-  //    Right(petToSave)
-  //  }
+    pet.pure[IO]
+  }
 
   def findByName(name: String): IO[Option[Pet]] = {
     val result = cache.contains(name) match {
@@ -33,15 +28,6 @@ class PetRepository {
     result.pure[IO]
   }
 
-
-
-//  def doesNotExist(pet: Pet): Either[String, Unit] = {
-//    val found = this.findByName(pet.name)
-//    println(found)
-//    if (found.size === 0) {
-//      Right()
-//    } else {
-//      Left("the animal exist")
-//    }
-//  }
+  def updateAgePet(newAge: Int) = ???
+  def exist(pet: Pet) = ???
 }

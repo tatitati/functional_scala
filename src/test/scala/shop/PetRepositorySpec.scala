@@ -6,21 +6,16 @@ import shop.{Pet, PetRepository}
 
 class PetRepositorySpec extends FunSuite {
 
-//  val petToby = Pet(name = "toby")
-//  val petBolt = Pet(name = "bolt")
+  test("create()"){
+      val repo = new PetRepository()
 
-//  test("create()"){
-//      val repo = new PetRepository()
-//
-//      assert(0 === repo.cache.size)
-//
-//      val a = repo.create(petBolt)
-//      val b = repo.create(petToby)
-//
-//      assert(2 === repo.cache.size)
-//      assert(a.isInstanceOf[Either[String, Pet]])
-//      assert(b.isInstanceOf[Either[String, Pet]])
-//  }
+      val pet = Pet("colmillo_blanco", 8)
+      for{
+        result <- repo.create(pet)
+      } yield {
+        assert(result == pet)
+      }
+  }
 
   test("findByName()") {
     val repo = new PetRepository()
@@ -32,8 +27,9 @@ class PetRepositorySpec extends FunSuite {
       assert(result1 == Some(Pet("Bolt", 17)))
       assert(result2 == None)
     }
-//    assert(List() === result2, "list should be empty")
   }
+
+
 
 //  test("doesNotExist()") {
 //    val repo = new PetRepository()
