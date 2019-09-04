@@ -28,6 +28,7 @@ class PetRepository {
     result.pure[IO]
   }
 
-  def updateAgePet(newAge: Int) = ???
+  def list: IO[List[Pet]] = ???
+  def delete: IO[Boolean] = ???
   def exist(pet: Pet) = ???
 }
