@@ -6,26 +6,38 @@ import shop.{Pet, PetRepository}
 
 class PetRepositorySpec extends FunSuite {
 
-  test("create()"){
-      val repo = new PetRepository()
+  val repo = new PetRepository()
 
-      val pet = Pet("colmillo_blanco", 8)
-      for{
-        result <- repo.create(pet)
-      } yield {
-        assert(result == pet)
-      }
+  test("create()"){
+    val pet = Pet("colmillo_blanco", 8)
+
+    for{
+      result <- repo.create(pet)
+    } yield {
+      assert(result == pet)
+    }
   }
 
   test("findByName()") {
-    val repo = new PetRepository()
-
     for {
       result1 <- repo.findByName("bolt")
       result2 <- repo.findByName("something weird")
     } yield {
       assert(result1 == Some(Pet("Bolt", 17)))
       assert(result2 == None)
+    }
+  }
+
+  test("list") {
+    for {
+      result <- repo.list()
+    } yield {
+      assert(
+        result == List(
+          Pet("Bolt", 17),
+          Pet("Lassie", 10)
+        )
+      )
     }
   }
 

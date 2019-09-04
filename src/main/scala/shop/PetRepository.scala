@@ -29,7 +29,12 @@ class PetRepository {
     }
   }
 
-  def list: IO[List[Pet]] = ???
+  def list(): IO[List[Pet]] = {
+    IO{
+      cache.map(_._2).toList
+    }
+  }
+
   def delete: IO[Boolean] = ???
   def exist(pet: Pet) = ???
 }
