@@ -8,8 +8,8 @@ class PetService(petRepository: PetRepository) {
 
   def create(pet: Pet): Either[String, Pet] = {
     for {
-      _ <- petRepository.exist(pet)
-      saved <- petRepository.create(pet)  
+      _ <- petRepository.exist(pet.name)
+      saved <- petRepository.create(pet)
     } yield saved
   }
 }
