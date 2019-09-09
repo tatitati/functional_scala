@@ -8,7 +8,7 @@ class PetRepositorySpec extends FunSuite {
 
   val repo = new PetRepository()
 
-  test("create()"){
+  test("repo.create()"){
     val pet = Pet("colmillo_blanco", 8)
 
     for{
@@ -18,17 +18,19 @@ class PetRepositorySpec extends FunSuite {
     }
   }
 
-  test("findByName()") {
+  test("repo.findByName()") {
+    // repo.findByName() :: IO[Option[Pet]]
     for {
       result1 <- repo.findByName("bolt")
-      result2 <- repo.findByName("something weird")
+      result2 <- repo.findByName("No existing")
     } yield {
       assert(result1 == Some(Pet("Bolt", 17)))
       assert(result2 == None)
     }
   }
 
-  test("list") {
+  test("repo.list()") {
+    // repo.list() :: IO[List[Pet]]
     for {
       result <- repo.list()
     } yield {
@@ -41,11 +43,25 @@ class PetRepositorySpec extends FunSuite {
     }
   }
 
-  test("exist") {
+  test("repo.exist()") {
+    // epo.exist() :: IO[Boolean]
     for {
       result <- repo.exist("Bolt")
     } yield {
       assert(true === result)
     }
   }
+
+//  test("asdfads") {
+//    repo.exist("boolt").flatMap {
+//        case true => {
+//           println("trueee")
+//          true
+//        }
+//        case false => {
+//          println("falseee")
+//          false
+//        }
+//    }
+//  }
 }
