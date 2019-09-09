@@ -21,14 +21,15 @@ class EitherSpec extends FunSuite {
   test("I can create left") {
     val e3: Either[String, Int] = Left("hello")
     val e33: Either[String, Int] = Either.left("hello")
+
     assert(Left("hello") == e3)
     assert(Left("hello") == e33)
   }
 
   test("map() and flatMap() operates with the nested item") {
     val e1: Either[String, Int] = Right(5)
-
     val e2 = e1.right.map(_ + 1)
+    
     assert(Right(6) == e2)
   }
 
