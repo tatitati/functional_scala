@@ -9,6 +9,7 @@ class PetRepositorySpec extends FunSuite {
   val repo = new PetRepository()
 
   test("repo.create()"){
+    // repo.create() :: IO[Unit]
     val pet = Pet("colmillo_blanco", 8)
 
     for{
