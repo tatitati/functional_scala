@@ -1,51 +1,72 @@
 package test.learning.cats.MonadTransformers
 
-import cats.data.EitherT
+import cats.data.{EitherT, OptionT}
 import cats.effect.IO
 import cats.instances.list._
 import cats.syntax.all._
 import org.scalatest.FunSuite
+import cats.instances.either._
+
 
 class EithertSpec extends FunSuite{
-  test("EitherT.fromOptionF") {
+
+  test("EitherT.apply()") {
+    val listRight: List[Either[String, Int]] = List(Right(250))
+    val numberFET: EitherT[List, String, Int] = EitherT(listRight)
+
+    assert(List(Right(250)) == numberFET.value)
+  }
+
+  test("EitherT.right() and EitherT.left()") {
+    import cats.implicits._
+
+    val numberO: Option[Int] = Some(5)
+    val errorO: Option[String] = Some("Not a number")
+
+    val number: EitherT[Option, String, Int] = EitherT.right(numberO)
+    val error: EitherT[Option, String, Int] = EitherT.left(errorO)
+
+    assert(Some(Right(5)) == number.value)
+    assert(Some(Left("Not a number")) == error.value)
+  }
+
+  test("EitherT.FromEither()") {
+    val listRight1: EitherT[List, String, Int] = EitherT.fromEither(Right(100))
+    assert(List(Right(100)) == listRight1.value)
+
+
+    val listLeft: EitherT[List, String, Int] = EitherT.fromEither(Left("Not a number"))
+    assert(List(Left("Not a number")) == listLeft.value)
+  }
+
+  test("EitherT.fromOptionF()") {
     val myOptionList: List[Option[Int]] = List(
       None,
       Some(2),
       Some(3),
       None,
       Some(5)
-
     )
-    val result = EitherT.fromOptionF(myOptionList, "option not defined")
+    val result = EitherT.fromOptionF(myOptionList, "text if None")
 
-    //    List
-    //        Left
-    //          String
-    //        Right
-    //          Int
-    //        Right
-    //          Int
-    //        Left
-    //          String
-    //        ...
-
-    assert(
-      EitherT(List(
-        Left("option not defined"),
-        Right(2),
-        Right(3),
-        Left("option not defined"),
-        Right(5))
+    assert(EitherT(
+        List(
+          Left("text if None"),
+          Right(2),
+          Right(3),
+          Left("text if None"),
+          Right(5)
+        )
       ) == result
     )
   }
 
-  test("EitherT.liftF"){
-    val value = Option(10).pure[IO] // => IO(Some(10))
-
-    val result = EitherT.liftF(value)
-    assert(true === result.isRight)
-
-
-  }
+//  test("EitherT.liftF()"){
+//    val value = Option(10).pure[IO] // => IO(Some(10))
+//
+//    val result = EitherT.liftF(value)
+////    assert(true === result.value)
+//
+//
+//  }
 }

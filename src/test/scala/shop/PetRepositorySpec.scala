@@ -9,11 +9,10 @@ class PetRepositorySpec extends FunSuite {
   val repo = new PetRepository()
 
   test("repo.create()"){
-    // repo.create() :: IO[Unit]
-    val pet = Pet("colmillo_blanco", 8)
+    val create: IO[Unit] = repo.create(Pet("colmillo_blanco", 8))
 
     for{
-      result <- repo.create(pet)
+      result <- create
     } yield {
       assert(result == Unit)
     }
