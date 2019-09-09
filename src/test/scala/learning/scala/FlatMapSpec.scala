@@ -104,4 +104,24 @@ class FlatMapSpec extends FunSuite {
 
     assert(Some(Some(5)) === sum)
   }
+
+  test("Another flatMap()") {
+    val onelist = List("hi", "hello", "bye")
+    def g(text: String) = List(text + "!!!!!", text + "?????")
+
+    val result = onelist.flatMap(a => g(a))
+
+    assert(result === List("hi!!!!!", "hi?????", "hello!!!!!", "hello?????", "bye!!!!!", "bye?????"))
+  }
+
+  test("Same flatMap() with anonymous function") {
+    val onelist = List("hi", "hello", "bye")
+
+    val result = onelist.flatMap(a => {
+      List(a + "!!!!!", a + "?????")
+    })
+
+    assert(result === List("hi!!!!!", "hi?????", "hello!!!!!", "hello?????", "bye!!!!!", "bye?????"))
+  }
+
 }
