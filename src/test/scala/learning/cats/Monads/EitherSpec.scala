@@ -15,12 +15,12 @@ class EitherSpec extends FunSuite {
       assert(Right(4) == b)
   }
 
-  test("I can create Eithers from other variables") {
-    val a = Either.fromOption[String, Int](Some(1), "Seems that we passwed None")
-    val b = Either.fromOption[String, Int](None, "Seems that we passwed None")
+  test("From Option I can create Right and Left using apply()") {
+    val a = Either.fromOption[String, Int](Some(1), "")
+    val b = Either.fromOption[String, Int](None, "Text in Left")
 
     assert(Right(1) == a)
-    assert(Left("Seems that we passwed None") == b)
+    assert(Left("Text in Left") == b)
   }
 
   test("Can transform eithers") {
