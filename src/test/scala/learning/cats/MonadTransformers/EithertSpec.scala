@@ -20,20 +20,19 @@ class EithertSpec extends FunSuite{
   test("EitherT.right() and EitherT.left()") {
     import cats.implicits._
 
-    val numberO: Option[Int] = Some(5)
-    val errorO: Option[String] = Some("Not a number")
+    val someInt: Option[Int] = Some(5)
+    val someText: Option[String] = Some("Not a number")
 
-    val number: EitherT[Option, String, Int] = EitherT.right(numberO)
-    val error: EitherT[Option, String, Int] = EitherT.left(errorO)
+    val someRightInt: EitherT[Option, String, Int] = EitherT.right(someInt)
+    val SomeLeftText: EitherT[Option, String, Int] = EitherT.left(someText)
 
-    assert(Some(Right(5)) == number.value)
-    assert(Some(Left("Not a number")) == error.value)
+    assert(Some(Right(5)) == someRightInt.value)
+    assert(Some(Left("Not a number")) == SomeLeftText.value)
   }
 
   test("EitherT.FromEither()") {
     val listRight1: EitherT[List, String, Int] = EitherT.fromEither(Right(100))
     assert(List(Right(100)) == listRight1.value)
-
 
     val listLeft: EitherT[List, String, Int] = EitherT.fromEither(Left("Not a number"))
     assert(List(Left("Not a number")) == listLeft.value)
