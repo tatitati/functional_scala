@@ -124,4 +124,16 @@ class FlatMapSpec extends FunSuite {
     assert(result === List("hi!!!!!", "hi?????", "hello!!!!!", "hello?????", "bye!!!!!", "bye?????"))
   }
 
+  test("flatMap() with pattern matching") {
+    val onelist = List("hi", "hello", "bye")
+
+    val result = onelist.flatMap(a => {
+      a match {
+        case "hi" => List(a + "!!!!!", a + "?????")
+        case _ => List(a + "!!!!!", a + "?????")
+      }
+    })
+
+    assert(result === List("hi!!!!!", "hi?????", "hello!!!!!", "hello?????", "bye!!!!!", "bye?????"))
+  }
 }
