@@ -6,7 +6,7 @@ import cats.instances.list._
 import cats.syntax.all._
 import org.scalatest.FunSuite
 import cats.instances.either._
-
+import scala.concurrent.Future
 
 class EithertSpec extends FunSuite{
 
@@ -37,6 +37,14 @@ class EithertSpec extends FunSuite{
 
     val listLeft: EitherT[List, String, Int] = EitherT.fromEither(Left("Not a number"))
     assert(List(Left("Not a number")) == listLeft.value)
+  }
+
+  test("EitherT.fromOption()") {
+    val listLeft = EitherT.fromOption[List](None, "option not defined")
+    assert(List(Left("option not defined")) == listLeft.value)
+
+    val listRight = EitherT.fromOption[List](Some(2), "option not defined")
+    assert(List(Right(2)) == listRight.value)
   }
 
   test("EitherT.fromOptionF()") {
