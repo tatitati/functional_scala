@@ -7,7 +7,7 @@ import cats.implicits._
 import org.scalatest.FunSuite
 
 class IOSpec extends FunSuite {
-  test("pure()") {
+  test(".pure[IO]") {
     case class User(name: String)
 
     val user = User("manolo")
