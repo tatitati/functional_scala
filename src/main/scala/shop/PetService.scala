@@ -1,22 +1,38 @@
 package shop
 
-import cats.data.EitherT
-import cats.effect.IO
+import cats.data._
+import cats.effect._
 import cats.implicits._
 
 class PetService(petRepository: PetRepository) {
 
   def create(pet: Pet): EitherT[IO, String, Unit] = {
-//    for {
-//      _ <- .exist(pet.name)
-//      petSaved <- EitherT.liftF(petRepository.create(pet))
-//    } yield petSaved
+    val exists: IO[Boolean] = petRepository.exist(pet.name)
+    val create: IO[Unit] = petRepository.create(pet)
+    val errMsg = "it already exists"
 
-    EitherT{
-      petRepository.exist(pet.name) flatMap {
-        case true => IO.unit
-        case false => petRepository.create(pet)
-      }
+    val run: IO[Either[String,Unit]] = exists.flatMap {
+      case true => errMsg.asLeft[Unit].pure[IO]
+      case false => create.map(_.asRight[String])
     }
+    EitherT(run)
   }
+
+//      EitherT.fromEither{
+//        if(petRepository.exist(pet.name)) {
+//          Left(IO{"it already exist"})
+//        } else {
+//          Right(petRepository.create(pet))
+//        }
+//      }
+
+
+//    EitherT.fromEither{
+//      if(petRepository.exist(pet.name)) { // error: is IO[Boolean], no boolean
+//        Left(IO{"it already exist"})
+//      } else {
+//        Right(petRepository.create(pet))
+//      }
+//    }
+
 }
