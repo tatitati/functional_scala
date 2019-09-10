@@ -6,10 +6,10 @@ import org.scalatest.FunSuite
 class EitherSpec extends FunSuite {
 
   test(".asRight(), .asLeft()") {
-    val right = 4.asRight[Int]
+    val right = 4.asRight[Boolean]
     assert(Right(4) == right)
 
-    val left = "asdfasdf".asLeft[String]
+    val left = "asdfasdf".asLeft[Boolean]
     assert(Left("asdfasdf") == left)
   }
 
