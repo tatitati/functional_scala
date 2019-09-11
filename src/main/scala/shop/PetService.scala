@@ -6,13 +6,13 @@ import cats.implicits._
 
 class PetService(petRepository: PetRepository) {
 
-  def create(pet: Pet): EitherT[IO, PetExist.type, PetDontExist.type ] = {
+  def create(pet: Pet): EitherT[IO, PetExist.type, Unit ] = {
     val exists: IO[Boolean] = petRepository.exist(pet.name)
     val create: IO[Unit] = petRepository.create(pet)
 
-    val run: IO[Either[PetExist.type, PetDontExist.type]] = exists.flatMap {
-      case true => PetExist.asLeft[PetDontExist.type].pure[IO]
-      case false => create.map(_ => PetDontExist.asRight[PetExist.type])
+    val run: IO[Either[PetExist.type, Unit]] = exists.flatMap {
+      case true => PetExist.asLeft[Unit].pure[IO]
+      case false => create.map(_ => ().asRight[PetExist.type])
     }
 
     EitherT(run)

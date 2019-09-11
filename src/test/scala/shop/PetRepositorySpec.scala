@@ -1,8 +1,9 @@
 package test.shop
 
+import cats.data.EitherT
 import cats.effect.IO
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
-import shop.{Pet, PetRepository}
+import shop.{Pet, PetDontExist, PetExist, PetRepository}
 
 class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
 
