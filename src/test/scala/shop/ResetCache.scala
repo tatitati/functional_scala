@@ -1,8 +1,7 @@
-package shop
+package test.shop
 
-import cats.data._
 import cats.effect._
-import cats.implicits._
+import shop.{Pet, PetRepository}
 
 trait ResetCache {
   self: PetRepository =>

@@ -2,7 +2,7 @@ package test.shop
 
 import cats.effect.IO
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
-import shop.{Pet, PetRepository, ResetCache}
+import shop.{Pet, PetRepository}
 
 class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
 
