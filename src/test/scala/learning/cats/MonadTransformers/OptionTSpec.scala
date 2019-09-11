@@ -9,7 +9,7 @@ class OptionTSpec extends FunSuite {
 
   type ListOption[A] = OptionT[List, A]
 
-  test("can create OptionT in two ways") {
+  test("apply()") {
     case class User(name: String)
 
     val a = 32.pure[ListOption]

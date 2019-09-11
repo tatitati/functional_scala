@@ -1,6 +1,6 @@
 package test.shop
 
-import cats.data.EitherT
+import cats.data.{EitherT, OptionT}
 import cats.effect.IO
 import org.scalatest.FunSuite
 import shop.{Pet, PetDontExist, PetExist, PetRepository, PetService}
@@ -9,7 +9,7 @@ class PetServiceSpec extends FunSuite{
 
   val service = new PetService(new PetRepository())
 
-  test("service can create a user") {
+  test("service.create()") {
     val programRight: EitherT[IO, PetExist.type, PetDontExist.type] = service.create(Pet("toby" ,32))
     val resultRight = programRight.value.unsafeRunSync()
     assert(Right(PetDontExist) == resultRight)
@@ -17,6 +17,14 @@ class PetServiceSpec extends FunSuite{
     val programLeft: EitherT[IO, PetExist.type, PetDontExist.type] = service.create(Pet("Bolt" ,17))
     val resultLeft = programLeft.value.unsafeRunSync()
     assert(Left(PetExist) == resultLeft)
+  }
+
+  test("service.find()") {
+    val result1:OptionT[IO, Pet] = service.find(Pet("nonexisting", 23))
+    assert(None === result1.value.unsafeRunSync())
+
+    val result2:OptionT[IO, Pet] = service.find(Pet("Bolt", 23))
+    assert(Some(Pet("Bolt",17)) === result2.value.unsafeRunSync())
   }
 //
 //  test("service CANNOT create a user") {

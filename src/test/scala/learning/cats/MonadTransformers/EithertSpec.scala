@@ -17,6 +17,10 @@ class EithertSpec extends FunSuite{
     assert(List(Right(250)) == numberFET.value)
   }
 
+  test("EitherT.asLeft() and EitherT.asRight()") {
+
+  }
+
   test("EitherT.right() and EitherT.left()") {
     import cats.implicits._
 
