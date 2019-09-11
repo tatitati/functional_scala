@@ -1,12 +1,17 @@
 package test.shop
 
 import cats.effect.IO
-import org.scalatest.FunSuite
+import org.scalatest.{BeforeAndAfterEach, FunSuite}
 import shop.{Pet, PetRepository}
 
-class PetRepositorySpec extends FunSuite {
+class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
 
   val repo = new PetRepository()
+
+  override def afterEach() {
+    val reset:IO[Unit] = repo.reset()
+    reset.unsafeRunSync()
+  }
 
   test("repo.create()"){
     val create: IO[Unit] = repo.create(Pet("colmillo_blanco", 8))
@@ -24,17 +29,11 @@ class PetRepositorySpec extends FunSuite {
   }
 
   test("repo.list()") {
-    val list:IO[List[Pet]] = repo.list()
-    for {
-      result <- list
-    } yield {
-      assert(
-        result == List(
-          Pet("Bolt", 17),
-          Pet("Lassie", 10)
-        )
-      )
-    }
+    val result:IO[List[Pet]] = repo.list()
+
+    assert(
+      List(Pet("Bolt", 17), Pet("Lassie", 10)) == result.unsafeRunSync()
+    )
   }
 
   test("repo.exist()") {

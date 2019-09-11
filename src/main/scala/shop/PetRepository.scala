@@ -13,6 +13,15 @@ class PetRepository {
     "Lassie" -> Pet("Lassie", 10)
   )
 
+  def reset(): IO[Unit] = {
+    IO{
+      cache = Map(
+        "Bolt" -> Pet("Bolt", 17),
+        "Lassie" -> Pet("Lassie", 10)
+      )
+    }
+  }
+
   def create(pet: Pet): IO[Unit] = {
     IO{
       cache += (pet.name -> pet)
