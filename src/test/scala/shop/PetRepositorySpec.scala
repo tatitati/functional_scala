@@ -38,11 +38,8 @@ class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
 
   test("repo.exist()") {
     val exist:IO[Boolean] = repo.exist("Bolt")
-    for {
-      result <- exist
-    } yield {
-      assert(true === result)
-    }
+
+    assert(true == exist.unsafeRunSync())
   }
 
   test("repo.update()") {
@@ -50,17 +47,4 @@ class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
 
     assert(() == result.unsafeRunSync)
   }
-
-//  test("asdfads") {
-//    repo.exist("boolt").flatMap {
-//        case true => {
-//           println("trueee")
-//          true
-//        }
-//        case false => {
-//          println("falseee")
-//          false
-//        }
-//    }
-//  }
 }

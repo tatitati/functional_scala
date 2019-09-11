@@ -9,8 +9,6 @@ class PetService(petRepository: PetRepository) {
   def create(pet: Pet): EitherT[IO, PetExist.type, PetDontExist.type ] = {
     val exists: IO[Boolean] = petRepository.exist(pet.name)
     val create: IO[Unit] = petRepository.create(pet)
-    val errMsg: String = "it already exists"
-
 
     val run: IO[Either[PetExist.type, PetDontExist.type]] = exists.flatMap {
       case true => PetExist.asLeft[PetDontExist.type].pure[IO]
@@ -41,22 +39,4 @@ class PetService(petRepository: PetRepository) {
 
     EitherT(run)
   }
-
-//      EitherT.fromEither{
-//        if(petRepository.exist(pet.name)) {
-//          Left(IO{"it already exist"})
-//        } else {
-//          Right(petRepository.create(pet))
-//        }
-//      }
-
-
-//    EitherT.fromEither{
-//      if(petRepository.exist(pet.name)) { // error: is IO[Boolean], no boolean
-//        Left(IO{"it already exist"})
-//      } else {
-//        Right(petRepository.create(pet))
-//      }
-//    }
-
 }
