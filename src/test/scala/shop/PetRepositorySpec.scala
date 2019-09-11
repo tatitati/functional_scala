@@ -11,28 +11,22 @@ class PetRepositorySpec extends FunSuite {
   test("repo.create()"){
     val create: IO[Unit] = repo.create(Pet("colmillo_blanco", 8))
 
-    for{
-      result <- create
-    } yield {
-      assert(result == Unit)
-    }
+    assert(() == create.unsafeRunSync())
   }
 
   test("repo.findByName()") {
-    // repo.findByName() :: IO[Option[Pet]]
-    for {
-      result1 <- repo.findByName("bolt")
-      result2 <- repo.findByName("No existing")
-    } yield {
-      assert(result1 == Some(Pet("Bolt", 17)))
-      assert(result2 == None)
-    }
+    // repo.findByName() ::
+    val find1:IO[Option[Pet]] = repo.findByName("Bolt")
+    val find2:IO[Option[Pet]] = repo.findByName("No existing")
+
+    assert(Some(Pet("Bolt", 17)) == find1.unsafeRunSync())
+    assert(None == find2.unsafeRunSync())
   }
 
   test("repo.list()") {
-    // repo.list() :: IO[List[Pet]]
+    val list:IO[List[Pet]] = repo.list()
     for {
-      result <- repo.list()
+      result <- list
     } yield {
       assert(
         result == List(
@@ -44,12 +38,18 @@ class PetRepositorySpec extends FunSuite {
   }
 
   test("repo.exist()") {
-    // epo.exist() :: IO[Boolean]
+    val exist:IO[Boolean] = repo.exist("Bolt")
     for {
-      result <- repo.exist("Bolt")
+      result <- exist
     } yield {
       assert(true === result)
     }
+  }
+
+  test("repo.update()") {
+    val result:IO[Unit] = repo.update(55, Pet("Bolt", 17))
+
+    assert(() == result.unsafeRunSync)
   }
 
 //  test("asdfads") {

@@ -39,4 +39,11 @@ class PetRepository {
       cache.contains(name)
     }
   }
+
+  def update(newage: Int, pet: Pet): IO[Unit] = {
+    IO{
+      cache -= pet.name
+      cache += (pet.name -> Pet(pet.name, newage))
+    }
+  }
 }
