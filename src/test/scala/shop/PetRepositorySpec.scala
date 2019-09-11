@@ -2,11 +2,11 @@ package test.shop
 
 import cats.effect.IO
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
-import shop.{Pet, PetRepository}
+import shop.{Pet, PetRepository, ResetCache}
 
 class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
 
-  val repo = new PetRepository()
+  val repo = new PetRepository() with ResetCache
 
   override def afterEach() {
     val reset:IO[Unit] = repo.reset()
