@@ -57,6 +57,16 @@ class FlatMapSpec extends FunSuite {
     assert(Some(5) === sum, "better result than with map()")
   }
 
+  test("I don't need to work on sequences to work with flatmap, and in this case is very similar to map") {
+    val a = Some(2)
+
+    val sum1 = a.flatMap { aVal => Some(aVal*2)}
+    val sum2 = a.map { aVal => aVal*2}
+
+    assert(Some(4) === sum1)
+    assert(Some(4) === sum2)
+  }
+
   test("how to do a + b WITH FLATMAP2") {
     val a = Some(2)
     val b = Some(3)
@@ -74,7 +84,7 @@ class FlatMapSpec extends FunSuite {
     assert(Some(9) === sum, "better result than with map()")
   }
 
-  test("how to do a + b WITH MAP") {
+  test("how to do a + b WITH MAP 1") {
     val a = Some(2)
     val b = Some(3)
     val c = Some(4)
