@@ -136,4 +136,28 @@ class FlatMapSpec extends FunSuite {
 
     assert(result === List("hi!!!!!", "hi?????", "hello!!!!!", "hello?????", "bye!!!!!", "bye?????"))
   }
+
+  test("I can create an object that can be used in a for comprehensions") {
+    class Wrapper[Int](number: Int) {
+      def map(f: Int => Int): Wrapper[Int] = {
+        new Wrapper(f(number)) // i have to wrap it because the function doesnt return a wrapped one
+      }
+
+      def flatMap(f: Int => Wrapper[Int]): Wrapper[Int] = {
+        f(number) // I dont need to wrap it as before because the function return a wrapped one
+      }
+
+      override def toString = "Wrapper(" + number.toString + ")"
+
+    }
+
+    val result: Wrapper[Int] = for{
+      a <- new Wrapper(1)
+      b <- new Wrapper(2)
+      c <- new Wrapper(3)
+    }  yield a + b + c
+
+    assert(new Wrapper(6).toString == result.toString)
+
+  }
 }
