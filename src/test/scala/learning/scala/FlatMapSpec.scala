@@ -74,6 +74,23 @@ class FlatMapSpec extends FunSuite {
     assert(Some(9) === sum, "better result than with map()")
   }
 
+  test("how to do a + b WITH MAP") {
+    val a = Some(2)
+    val b = Some(3)
+    val c = Some(4)
+
+    val sum =
+      a.map { aVal =>
+        b.map { bVal =>
+          c.map { cVal =>
+            aVal + bVal + cVal
+          }
+        }
+      }
+
+    assert(Some(Some(Some(9))) === sum, "better result than with map()")
+  }
+
   test("how to do a + b WITH FLATMAP5") {
     val a = Some(2)
     val b = None
