@@ -17,18 +17,27 @@ object Faker {
     value.mkString
   }
 
-  def boolean(): Boolean = {
-    Random.nextBoolean()
+  def boolean(): State[Seed, Boolean] = State {
+    seed =>
+      val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
+      (seed.next, result.toLong > 0)
   }
 
   def int(): State[Seed, Int] = State {
     seed =>
-        val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
-        (seed.next, result.toInt)
-    }
+      val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
+      (seed.next, result.toInt)
+  }
 
+  def positiveInt(): State[Seed, Int] = State {
+    seed =>
+      val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
+      (seed.next, result.toInt.abs)
+  }
 
-  def long(): Long = {
-    Random.nextLong()
+  def long(): State[Seed, Long] = State {
+    seed =>
+      val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
+      (seed.next, result.toLong)
   }
 }
