@@ -1,21 +1,23 @@
 package domain.test.pet
 
-import domain.order.OrderId
 import domain.pet.Pet
-import domain.test.{Faker, Seed}
 import org.scalatest.FunSuite
 
 class BuilderPetSpec extends FunSuite {
-  test("Can create pets using state monad with random generators") {
-    val createPet = for{
-      age <- Faker.positiveInt()
-      price <- Faker.positiveInt()
-    } yield Pet(orderId = OrderId("asdf"), name = "asdfads", age = age, price = price)
 
-    val (nextSeed, pet) = createPet.run(Seed(100)).value
+  test("Can build a pet") {
+    val bPet = BuilderPetOps.any()
+    val pet = BuilderPetOps.build(bPet)
 
-    assert(
-      Pet(OrderId("asdf"),"asdfads",344588959,1883182926) == pet
-    )
+    assert(pet.isInstanceOf[Pet])
+  }
+
+  test("Can update things in the builder") {
+    val bPet1 = BuilderPetOps.any()
+    val bPet2 = BuilderPetOps.withAge(32, bPet1)
+
+    val pet = BuilderPetOps.build(bPet2)
+
+    assert(pet.age === 32)
   }
 }
