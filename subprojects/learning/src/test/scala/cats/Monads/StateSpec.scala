@@ -6,7 +6,7 @@ import org.scalatest.FunSuite
 
 class StateSpec extends FunSuite {
 
-  test("Compute something based on the initial state") {
+  test("State make a computation based on an initial state") {
     val a = State[Int, String] { initialState =>
       val nextState = initialState*2
       val result = s"value is: $nextState"
@@ -33,7 +33,7 @@ class StateSpec extends FunSuite {
       assert("value is: 10" === result3)
   }
 
-  test("composing and chain") {
+  test("State can compose and chain") {
     val step1 = State[Int, String] { input =>
       (input + 1, s"From step 1: ${input + 1}")
     }
