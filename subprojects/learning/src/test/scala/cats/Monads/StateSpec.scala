@@ -34,59 +34,25 @@ class StateSpec extends FunSuite {
   }
 
   test("State can compose and chain") {
-    val step1 = State[Int, String] { input =>
-      (input + 1, s"From step 1: ${input + 1}")
+    val state1 = State[Int, String] { initialState =>
+      val nextState = initialState+1
+      (nextState, s"From step 1: ${initialState + 1}")
     }
 
-    val step2 = State[Int, String] { input =>
-      (input * 2, s"From step 2: ${input * 2}")
+    val state2 = State[Int, String] { initialState =>
+      val nextState = initialState*2
+      (nextState, s"From step 2: ${initialState * 2}")
     }
 
     val both = for {
-      a <- step1  // (+1)
-      b <- step2  // (*2)
+      a <- state1  // (initialState+1)
+      b <- state2  // (<previous result>*2)
     } yield (a, b)
 
     val result = both.run(20).value
 
     assert(
-      // (state, result)
       (42, ("From step 1: 21", "From step 2: 42")) === result
-    )
-  }
-
-  test("get(), set(), pure(), inspect(), modify()") {
-    val resultGet = State.get[Int].run(10).value
-    val resultSet = State.set[Int](30).run(10).value
-    val resultPure = State.pure[Int, String]("Result").run(10).value
-    val resultInspect = State.inspect[Int, String](_ + "!").run(10).value
-    val resultModify = State.modify[Int](_ + 1).run(10).value
-
-    // (state, result)
-    assert((10, 10)       === resultGet, "extract the state as the result")
-    assert((30, ())       === resultSet, "update state, and return unit as the result")
-    assert((10, "Result") === resultPure, "ignore state and return supplied result")
-    assert((10, "10!")    === resultInspect, "extract the state via a transformation function")
-    assert((11, ())       === resultModify, "update the state using an update function")
-  }
-
-  test("composing with get(), set(), ....") {
-    import State._
-
-    val chain = for {
-      a <- get[Int]
-      _ <- set[Int](a+1)
-      b <- get[Int]
-      _ <- modify[Int](_ + 1)
-      c <- get[Int]
-      d <- inspect[Int, Int](_ * 1000)
-    } yield (a, b, c, d)
-
-    val result = chain.run(1).value
-
-    assert(
-      // (state, result)
-      (3, (1,2,3,3000)) === result
     )
   }
 
@@ -112,6 +78,41 @@ class StateSpec extends FunSuite {
 
     assert(
       (GolfState(35), 35) === result
+    )
+  }
+
+  test("State Construsctors: get(), set(), pure(), inspect(), modify()") {
+    val resultGet = State.get[Int].run(10).value
+    val resultSet = State.set[Int](30).run(10).value
+    val resultPure = State.pure[Int, String]("Result").run(10).value
+    val resultInspect = State.inspect[Int, String](_ + "!").run(10).value
+    val resultModify = State.modify[Int](_ + 1).run(10).value
+
+    // (state, result)
+    assert((10, 10)       === resultGet, "extract the state as the result => State[Int, Int]")
+    assert((30, ())       === resultSet, "update state, and return unit as the result => State[Int, Unit] ")
+    assert((10, "Result") === resultPure, "ignore state and return supplied result")
+    assert((10, "10!")    === resultInspect, "extract the state via a transformation function")
+    assert((11, ())       === resultModify, "update the state using an update function")
+  }
+
+  test("composing using the constructors get(), set(), ....") {
+    import State._
+
+    val chain = for {
+      a <- get[Int]
+      _ <- set[Int](a+1)
+      b <- get[Int]
+      _ <- modify[Int](_ + 1)
+      c <- get[Int]
+      d <- inspect[Int, Int](_ * 1000)
+    } yield (a, b, c, d)
+
+    val result = chain.run(1).value
+
+    assert(
+      // (state, result)
+      (3, (1,2,3,3000)) === result
     )
   }
 }
