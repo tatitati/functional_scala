@@ -7,8 +7,8 @@ import org.scalatest.FunSuite
 class StateSpec extends FunSuite {
 
   test("Compute something based on the initial state") {
-    val a = State[Int, String] { input =>
-      val nextState = input*2
+    val a = State[Int, String] { initialState =>
+      val nextState = initialState*2
       val result = s"value is: $nextState"
       (nextState, result)
     }
