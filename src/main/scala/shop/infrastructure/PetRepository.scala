@@ -1,18 +1,12 @@
-package shop
+package shop.infrastructure
 
-import cats._
-import cats.Monad
-import cats.data.EitherT
 import cats.effect.IO
-import cats.implicits._
-import cats.syntax.either._
-
-import scala.util.Random
+import shop.domain.Pet
 
 class PetRepository {
   var cache: Map[String, Pet] = Map(
-    "Bolt" -> Pet("Bolt", 17),
-    "Lassie" -> Pet("Lassie", 10)
+    "Bolt" -> Pet("Bolt", 17, 172),
+    "Lassie" -> Pet("Lassie", 10, 230)
   )
 
   def create(pet: Pet): IO[Unit] = {
@@ -42,10 +36,17 @@ class PetRepository {
     }
   }
 
-  def update(newage: Int, pet: Pet): IO[Unit] = {
+  def updateAge(newage: Int, pet: Pet): IO[Unit] = {
     IO{
       cache -= pet.name
-      cache += (pet.name -> Pet(pet.name, newage))
+      cache += (pet.name -> Pet(pet.name, newage, pet.price))
+    }
+  }
+
+  def updatePrice(price: Int, pet: Pet): IO[Unit] = {
+    IO{
+      cache -= pet.name
+      cache += (pet.name -> Pet(pet.name, pet.age, pet.price))
     }
   }
 }

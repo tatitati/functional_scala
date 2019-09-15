@@ -1,8 +1,11 @@
-package shop
+package shop.application
 
 import cats.data._
 import cats.effect._
 import cats.implicits._
+import shop.domain.Pet
+import shop.infrastructure.{PetDontExist, PetExist, PetRepository}
+
 
 class PetService(petRepository: PetRepository) {
 
@@ -30,7 +33,7 @@ class PetService(petRepository: PetRepository) {
 
   def update(newage: Int, pet: Pet): EitherT[IO, PetDontExist.type, Unit] = {
     val exist: IO[Boolean] = petRepository.exist(pet.name)
-    val update: IO[Unit] = petRepository.update(newage, pet)
+    val update: IO[Unit] = petRepository.updateAge(newage, pet)
 
     val run: IO[Either[PetDontExist.type, Unit]] = exist.flatMap{
       case true => update.map(_ => ().asRight[PetDontExist.type])

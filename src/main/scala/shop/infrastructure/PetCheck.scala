@@ -1,4 +1,4 @@
-package shop
+package shop.infrastructure
 
 sealed trait PetCheck
 case object PetExist extends PetCheck

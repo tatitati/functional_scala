@@ -1,9 +1,8 @@
-package test.shop
+package shop.infrastructure
 
-import cats.data.EitherT
 import cats.effect.IO
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
-import shop.{Pet, PetDontExist, PetExist, PetRepository}
+import shop.domain.Pet
 
 class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
 
@@ -15,7 +14,7 @@ class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
   }
 
   test("repo.create()"){
-    val create: IO[Unit] = repo.create(Pet("colmillo_blanco", 8))
+    val create: IO[Unit] = repo.create(Pet("colmillo_blanco", 8, 23))
 
     assert(() == create.unsafeRunSync())
   }
@@ -25,7 +24,7 @@ class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
     val find1:IO[Option[Pet]] = repo.findByName("Bolt")
     val find2:IO[Option[Pet]] = repo.findByName("No existing")
 
-    assert(Some(Pet("Bolt", 17)) == find1.unsafeRunSync())
+    assert(Some(Pet("Bolt", 17, 232)) == find1.unsafeRunSync())
     assert(None == find2.unsafeRunSync())
   }
 
@@ -33,7 +32,7 @@ class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
     val result:IO[List[Pet]] = repo.list()
 
     assert(
-      List(Pet("Bolt", 17), Pet("Lassie", 10)) == result.unsafeRunSync()
+      List(Pet("Bolt", 17, 232), Pet("Lassie", 10, 232)) == result.unsafeRunSync()
     )
   }
 
@@ -44,7 +43,7 @@ class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
   }
 
   test("repo.update()") {
-    val result:IO[Unit] = repo.update(55, Pet("Bolt", 17))
+    val result:IO[Unit] = repo.updateAge(55, Pet("Bolt", 17, 33))
 
     assert(() == result.unsafeRunSync)
   }
