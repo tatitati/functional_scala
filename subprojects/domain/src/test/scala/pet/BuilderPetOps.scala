@@ -8,10 +8,10 @@ object BuilderPetOps {
 
   def any(): BuilderPet = { // TODO: THIS IS NOT REFERENCIAL TRANSPARENT
     BuilderPet(
-      orderId = OrderId(Faker.text()),
-      age = Faker.int(),
-      name = Faker.text(),
-      price = Faker.int()
+      orderId = OrderId("asdf"),
+      age = 23,
+      name = "asdf",
+      price = 2323
     )
   }
 

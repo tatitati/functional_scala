@@ -1,9 +1,11 @@
 package domain.test
 
 import cats.data.State
-import domain.test.RandomIntGenerator.Generator
-
 import scala.util.Random
+
+final case class Seed(long: Long) {
+  def next = Seed(long * 6364136223846793005L + 1442695040888963407L)
+}
 
 object Faker {
   def anyOf[T](items: T*): T = {
@@ -19,18 +21,12 @@ object Faker {
     Random.nextBoolean()
   }
 
-  def int(): Int = {
-    val result = State[Long, Int] {
-      seed  =>
-        val result: Long = (seed*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
-        val newState = result >>> 16
-        (newState, result.toInt)
+  def int(): State[Seed, Int] = State {
+    seed =>
+        val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
+        (seed.next, result.toInt)
     }
 
-    result.run(
-      System.currentTimeMillis()
-    ).value._2
-  }
 
   def long(): Long = {
     Random.nextLong()

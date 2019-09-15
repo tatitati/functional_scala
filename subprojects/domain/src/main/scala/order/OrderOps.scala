@@ -1,4 +1,4 @@
-package order
+package domain.order
 
 object OrderOps {
   def addItem = ???

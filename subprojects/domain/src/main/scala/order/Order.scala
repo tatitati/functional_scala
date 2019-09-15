@@ -1,4 +1,4 @@
-package order
+package domain.order
 
 import com.github.nscala_time.time.Imports._
 

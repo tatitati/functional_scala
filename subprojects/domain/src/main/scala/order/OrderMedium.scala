@@ -1,4 +1,4 @@
-package order
+package domain.order
 
 trait OrderMedium
 case object DEBITCARD extends OrderMedium

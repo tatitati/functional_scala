@@ -1,8 +1,8 @@
 package domain.test.order
 
-import order.{DEBITCARD, Order}
 import org.scalatest.FunSuite
 import com.github.nscala_time.time.Imports._
+import domain.order.{DEBITCARD, Order}
 
 
 class OrderTest extends FunSuite {
