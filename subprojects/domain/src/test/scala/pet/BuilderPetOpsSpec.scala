@@ -15,6 +15,7 @@ class BuilderPetOpsSpec extends FunSuite {
   test("I update things in the builder") {
     val bPet1 = BuilderPetOps.any()
     val bPet2 = BuilderPetOps.withAge(32, bPet1)
+
     val pet = BuilderPetOps.build(bPet2)
 
     assert(pet.age === 32)

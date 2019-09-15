@@ -3,7 +3,7 @@ package domain.test
 import scala.util.Random
 
 object Faker {
-  def apply[T](items: T*): T = {
+  def anyOf[T](items: T*): T = {
     items(Random.nextInt(items.length))
   }
 
