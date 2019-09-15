@@ -4,21 +4,18 @@ import cats.data.State
 import cats.effect.IO
 import org.scalatest.FunSuite
 
-class StateSpec extends FunSuite{
+class StateSpec extends FunSuite {
 
-  test("default behaviour") {
-    val result = State.get[Int].run(10).value
-    assert((10, 10) === result) // (state, result)
-  }
-
-  test("modify input") {
+  test("Compute something based on the initial state") {
     val a = State[Int, String] { input =>
-      assert(10 === input)
-      val output = input*2
-      (output, s"value is: $output")
+      val nextState = input*2
+      val result = s"value is: $nextState"
+      (nextState, result)
     }
 
+    // pass initial state
     val result1 = a.run(10).value
+
     assert((20, "value is: 20") === result1) // (state, result)
   }
 

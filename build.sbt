@@ -12,7 +12,8 @@ val commonsSettings = Seq(
 val thirdDependencies = Seq(
   scalaTest % Test,
   "org.typelevel" %% "cats-core" % "2.0.0-M4",
-  "org.typelevel" %% "cats-effect" % "1.3.1"
+  "org.typelevel" %% "cats-effect" % "1.3.1",
+  "com.github.nscala-time" %% "nscala-time" % "2.20.0",
 )
 
 lazy val application = (project in file("subprojects/application"))
