@@ -3,7 +3,7 @@ package shop.application
 import cats.data._
 import cats.effect._
 import cats.implicits._
-import shop.domain.Pet
+import shop.domain.pet.Pet
 import shop.infrastructure.{PetDontExist, PetExist, PetRepository}
 
 

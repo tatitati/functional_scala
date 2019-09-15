@@ -1,12 +1,13 @@
 package shop.infrastructure
 
 import cats.effect.IO
-import shop.domain.Pet
+import shop.domain.order.OrderId
+import shop.domain.pet.Pet
 
 class PetRepository {
   var cache: Map[String, Pet] = Map(
-    "Bolt" -> Pet("Bolt", 17, 172),
-    "Lassie" -> Pet("Lassie", 10, 230)
+    "Bolt" -> Pet(OrderId("00001A"), "Bolt", 17, 172),
+    "Lassie" -> Pet(OrderId("00002A"), "Lassie", 10, 230)
   )
 
   def create(pet: Pet): IO[Unit] = {
@@ -39,14 +40,14 @@ class PetRepository {
   def updateAge(newage: Int, pet: Pet): IO[Unit] = {
     IO{
       cache -= pet.name
-      cache += (pet.name -> Pet(pet.name, newage, pet.price))
+      cache += (pet.name -> Pet(pet.orderId, pet.name, newage, pet.price))
     }
   }
 
   def updatePrice(price: Int, pet: Pet): IO[Unit] = {
     IO{
       cache -= pet.name
-      cache += (pet.name -> Pet(pet.name, pet.age, pet.price))
+      cache += (pet.name -> Pet(pet.orderId, pet.name, pet.age, pet.price))
     }
   }
 }
