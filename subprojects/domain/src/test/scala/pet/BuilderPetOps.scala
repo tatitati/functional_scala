@@ -2,17 +2,24 @@ package domain.test.pet
 
 import domain.order.OrderId
 import domain.pet.Pet
-import domain.test.Faker
+import domain.test.{Faker, Seed}
 
 object BuilderPetOps {
 
-  def any(): BuilderPet = { // TODO: THIS IS NOT REFERENCIAL TRANSPARENT
-    BuilderPet(
+  def any(): BuilderPet = {
+    val createPet = for{
+      age <- Faker.positiveInt()
+      price <- Faker.positiveInt()
+    } yield BuilderPet(
       orderId = OrderId("asdf"),
-      age = 23,
+      age = age,
       name = "asdf",
-      price = 2323
+      price = price
     )
+
+    val (_, petBuilder) = createPet.run(Seed(100)).value
+
+    petBuilder
   }
 
   def withAge(withAge: Int, builderPet: BuilderPet): BuilderPet = {

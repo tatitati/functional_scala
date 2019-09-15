@@ -6,7 +6,7 @@ import domain.test.{Faker, Seed}
 import org.scalatest.FunSuite
 
 class BuilderPetSpec extends FunSuite {
-  test("I can create pets") {
+  test("Can create pets using state monad with random generators") {
     val createPet = for{
       age <- Faker.positiveInt()
       price <- Faker.positiveInt()
