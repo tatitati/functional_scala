@@ -27,6 +27,10 @@ object BuilderPetOps {
     builderPet.copy(price = withPrice)
   }
 
+  def withOrderId(withOrderId: OrderId, builderPet: BuilderPet): BuilderPet = {
+    builderPet.copy(orderId = withOrderId)
+  }
+
   def build(builderPet: BuilderPet): Pet = {
     Pet(
       orderId = builderPet.orderId,
