@@ -1,5 +1,3 @@
-package order
-
-import java.util.UUID
+package domain.order
 
 case class OrderId(id: String)

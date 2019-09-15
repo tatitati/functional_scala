@@ -1,3 +1,5 @@
+package domain.test
+
 import scala.util.Random
 
 object Faker {

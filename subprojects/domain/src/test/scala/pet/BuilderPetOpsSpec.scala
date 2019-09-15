@@ -1,5 +1,7 @@
+package domain.test.pet
+
+import domain.pet.Pet
 import org.scalatest.FunSuite
-import pet.Pet
 
 class BuilderPetOpsSpec extends FunSuite {
 

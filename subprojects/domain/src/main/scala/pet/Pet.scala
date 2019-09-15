@@ -1,6 +1,7 @@
-package pet
+package domain.pet
 
-import order.OrderId
+import domain.order.OrderId
+
 
 case class Pet(
                 orderId: OrderId,

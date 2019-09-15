@@ -1,5 +1,8 @@
-import order.OrderId
-import pet.Pet
+package domain.test.pet
+
+import domain.order.OrderId
+import domain.pet.Pet
+import domain.test.Faker
 
 object BuilderPetOps {
 
