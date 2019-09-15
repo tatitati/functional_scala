@@ -1,8 +1,12 @@
+package application.test.pet
+
+import application.pet.PetService
 import cats.data.{EitherT, OptionT}
 import cats.effect.IO
-import order.OrderId
+import domain.order.OrderId
+import domain.pet.Pet
+import infrastructure.pet.{PetDontExist, PetExist, PetRepository}
 import org.scalatest.FunSuite
-import pet.Pet
 
 class PetServiceSpec extends FunSuite{
 

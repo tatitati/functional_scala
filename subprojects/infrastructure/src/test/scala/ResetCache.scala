@@ -1,6 +1,9 @@
+package infrastructure.test.pet
+
 import cats.effect._
-import order.OrderId
-import pet.Pet
+import domain.order.OrderId
+import domain.pet.Pet
+import infrastructure.pet.PetRepository
 
 trait ResetCache {
   self: PetRepository =>

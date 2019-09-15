@@ -1,3 +1,4 @@
+package infrastructure.pet
 
 sealed trait PetCheck
 case object PetExist extends PetCheck

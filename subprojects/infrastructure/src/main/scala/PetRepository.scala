@@ -1,6 +1,8 @@
+package infrastructure.pet
+
 import cats.effect.IO
-import order.OrderId
-import pet.Pet
+import domain.order.OrderId
+import domain.pet.Pet
 
 class PetRepository {
   var cache: Map[String, Pet] = Map(

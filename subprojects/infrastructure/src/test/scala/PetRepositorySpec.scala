@@ -1,7 +1,11 @@
+package infrastructure.test.pet
+
+import scala.util.Random
 import cats.effect.IO
-import order.OrderId
+import domain.order.OrderId
+import domain.pet.Pet
+import infrastructure.pet.PetRepository
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
-import pet.Pet
 
 class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
 
