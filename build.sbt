@@ -1,44 +1,54 @@
 import Dependencies._
 
-ThisBuild / scalaVersion     := "2.12.8"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "com.example"
-ThisBuild / organizationName := "example"
-
 scalacOptions += "-Ypartial-unification"
+organization := "com.example"
+organizationName := "example"
+
+val commonsSettings = Seq(
+  version := "0.1.0-SNAPSHOT",
+  scalaVersion := "2.12.8"
+)
+
+val thirdDependencies = Seq(
+  scalaTest % Test,
+  "org.typelevel" %% "cats-core" % "2.0.0-M4",
+  "org.typelevel" %% "cats-effect" % "1.3.1"
+)
+
+lazy val application = (project in file("subprojects/application"))
+  .dependsOn(domain % "test->test;compile->compile", infrastructure % "test->test;compile->compile")
+  .settings(
+    name := "application subproject",
+    commonsSettings,
+    libraryDependencies ++= thirdDependencies
+)
+
+lazy val infrastructure = (project in file("subprojects/infrastructure"))
+  .dependsOn(domain % "test->test;compile->compile")
+  .settings(
+    name := "infrastructure subproject",
+    commonsSettings,
+    libraryDependencies ++= thirdDependencies
+)
+
+lazy val domain = (project in file("subprojects/domain"))
+  .settings(
+    name := "domain subproject",
+    commonsSettings,
+    libraryDependencies ++= thirdDependencies
+)
+
+lazy val learning = (project in file("subprojects/learning"))
+  .settings(
+    name := "learning subproject",
+    commonsSettings,
+    libraryDependencies ++= thirdDependencies
+)
 
 lazy val root = (project in file("."))
+  .aggregate(learning, domain, infrastructure, application)
   .settings(
-    name := "functional",
-    libraryDependencies += scalaTest % Test,
-    libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0-M4",
-    libraryDependencies += "org.typelevel" %% "cats-effect" % "1.3.1"
-  )
-
-// Uncomment the following for publishing to Sonatype.
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for more detail.
-
-// ThisBuild / description := "Some descripiton about your project."
-// ThisBuild / licenses    := List("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt"))
-// ThisBuild / homepage    := Some(url("https://github.com/example/project"))
-// ThisBuild / scmInfo := Some(
-//   ScmInfo(
-//     url("https://github.com/your-account/your-project"),
-//     "scm:git@github.com:your-account/your-project.git"
-//   )
-// )
-// ThisBuild / developers := List(
-//   Developer(
-//     id    = "Your identifier",
-//     name  = "Your Name",
-//     email = "your@email",
-//     url   = url("http://your.url")
-//   )
-// )
-// ThisBuild / pomIncludeRepository := { _ => false }
-// ThisBuild / publishTo := {
-//   val nexus = "https://oss.sonatype.org/"
-//   if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
-//   else Some("releases" at nexus + "service/local/staging/deploy/maven2")
-// }
-// ThisBuild / publishMavenStyle := true
+    name := "root project",
+    commonsSettings,
+    libraryDependencies ++= thirdDependencies
+)
