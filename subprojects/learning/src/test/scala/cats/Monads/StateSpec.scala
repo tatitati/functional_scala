@@ -4,7 +4,7 @@ import cats.data.State
 import cats.effect.IO
 import org.scalatest.FunSuite
 
-class StateSpec extends FunSuite {
+class StateSpec extends FunSuite  {
 
   test("State make a computation based on an initial state") {
     val a = State[Int, String] { initialState =>
