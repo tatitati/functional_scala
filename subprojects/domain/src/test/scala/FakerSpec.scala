@@ -29,4 +29,19 @@ class FakerSpec extends FunSuite {
         BuilderState(OrderId("any_id"),542183646,"any name",584218809)
       ) === createPet.run(SeedLong(2323)).value)
   }
+
+  test("State is passed even if we dont care result values") {
+    val anInt: State[SeedLong, Int] = Faker.positiveInt()
+
+    val createPet: State[SeedLong, Unit] = for {
+      _ <- anInt
+      _ <- anInt
+    } yield Unit
+
+    assert(
+      (
+        SeedLong(3854786773771191933L),
+        ()
+      ) === createPet.run(SeedLong(2323)).value)
+  }
 }
