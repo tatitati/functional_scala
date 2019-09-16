@@ -83,29 +83,38 @@ class StateSpec extends FunSuite  {
 
   test("State Construsctors: get(), set(), pure(), inspect(), modify()") {
     val resultGet = State.get[Int].run(10).value
-    val resultSet = State.set[Int](30).run(10).value
+    val resultSet = State.set[Int](2).run(999999).value
     val resultPure = State.pure[Int, String]("Result").run(10).value
-    val resultInspect = State.inspect[Int, String](_ + "!").run(10).value
+    val resultInspect = State.inspect[Int, String](_ + "!").run(88).value
     val resultModify = State.modify[Int](_ + 1).run(10).value
 
     // (state, result)
-    assert((10, 10)       === resultGet, "extract the state as the result => State[Int, Int]")
-    assert((30, ())       === resultSet, "update state, and return unit as the result => State[Int, Unit] ")
+    // State.get[Int].run(10).value
+    assert((10, 10)       === resultGet, "copy(extract) state to result => State[Int, Int]")
+
+    // State.set[Int](2).run(999999).value
+    assert((2, ())       === resultSet, "update state, and return unit as the result => State[Int, Unit] ")
+
+    // State.pure[Int, String]("Result").run(10).value
     assert((10, "Result") === resultPure, "ignore state and return supplied result")
-    assert((10, "10!")    === resultInspect, "extract the state via a transformation function")
-    assert((11, ())       === resultModify, "update the state using an update function")
+
+    // State.inspect[Int, String](_ + "!").run(88).value
+    assert((88, "88!")    === resultInspect, "copy(extract) state to result via a transformation function")
+
+    // State.modify[Int](_ + 1).run(10).value
+    assert((11, ())       === resultModify, "update the state using an update function and unit as result")
   }
 
   test("composing using the constructors get(), set(), ....") {
     import State._
 
     val chain = for {
-      a <- get[Int]
-      _ <- set[Int](a+1)
+      a <- get[Int]      // get(): copy(extract) state to result
+      _ <- set[Int](a+1) // set(): update state, and return unit as the result
       b <- get[Int]
-      _ <- modify[Int](_ + 1)
+      _ <- modify[Int](_ + 1) // modify(): update the state using an update function and unit as result
       c <- get[Int]
-      d <- inspect[Int, Int](_ * 1000)
+      d <- inspect[Int, Int](_ * 1000) // copy(extract) state to result via a transformation functio
     } yield (a, b, c, d)
 
     val result = chain.run(1).value

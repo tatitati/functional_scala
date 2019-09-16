@@ -3,8 +3,8 @@ package domain.test
 import cats.data.State
 import scala.util.Random
 
-final case class Seed(long: Long) {
-  def next = Seed(long * 6364136223846793005L + 1442695040888963407L)
+final case class SeedLong(long: Long) {
+  def next = SeedLong(long * 6364136223846793005L + 1442695040888963407L)
 }
 
 object Faker {
@@ -17,26 +17,22 @@ object Faker {
     value.mkString
   }
 
-  def boolean(): State[Seed, Boolean] = State {
-    seed =>
+  def boolean(): State[SeedLong, Boolean] = State {(seed: SeedLong) =>
       val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
       (seed.next, result.toLong > 0)
   }
 
-  def int(): State[Seed, Int] = State {
-    seed =>
+  def int(): State[SeedLong, Int] = State { (seed: SeedLong) =>
       val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
       (seed.next, result.toInt)
   }
 
-  def positiveInt(): State[Seed, Int] = State {
-    seed =>
+  def positiveInt(): State[SeedLong, Int] = State { (seed: SeedLong) =>
       val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
       (seed.next, result.toInt.abs)
   }
 
-  def long(): State[Seed, Long] = State {
-    seed =>
+  def long(): State[SeedLong, Long] = State { (seed: SeedLong) =>
       val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
       (seed.next, result.toLong)
   }

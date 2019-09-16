@@ -1,59 +1,58 @@
 package domain.test.pet
 
+import cats.data.State
 import domain.order.OrderId
 import domain.pet.Pet
-import domain.test.{Faker, Seed}
-
-
+import domain.test.{Faker, SeedLong}
 
 object BuilderPetOps {
 
-  case class BuilderPet(
-                         orderId: OrderId,
-                         age: Int,
-                         name: String,
-                         price: Int
-                       )
+  case class BuilderState(orderId: OrderId, age: Int, name: String, price: Int)
 
-  def any(): BuilderPet = {
-    val createPet = for{
-      age <- Faker.positiveInt()
-      price <- Faker.positiveInt()
-    } yield BuilderPet(
-      orderId = OrderId("asdf"),
-      age = age,
-      name = "asdf",
-      price = price
-    )
+  // If I do this I can see that I pass States around, so I can abstract this pattern by using Monad State:
+  // =========
+  //
+  //    val buildState1 = BuilderPetOps.any()
+  //    val buildState2 = BuilderPetOps.withAge(32, buildState1)
+  //    val pet = BuilderPetOps.build(buildState2)
 
-    val (_, petBuilder) = createPet.run(Seed(100)).value
+  def any(): State[SeedLong, BuilderState] = State { (seedLong:SeedLong) =>
+    val randomInt: State[SeedLong, Int] = Faker.positiveInt()
 
-    petBuilder
+    val createPet: State[SeedLong, BuilderState] = for {
+      age <- randomInt
+      price <- randomInt
+    } yield BuilderState(OrderId("any_id"), age, "any name", price)
+
+    createPet.run(seedLong).value
   }
 
-  def withAge(withAge: Int, builderPet: BuilderPet): BuilderPet = {
-    builderPet.copy(age = withAge)
+  def withAge(withAge: Int): State[BuilderState, Unit] = State { (builderPet: BuilderState) =>
+    val builderWithAge = builderPet.copy(age = withAge)
+    State.set[BuilderState](builderWithAge).run(builderPet).value
   }
 
-  def withName(withName: String, builderPet: BuilderPet): BuilderPet = {
+  def withPrice(withPrice: Int): State[BuilderState, Unit] = State { (builderPet: BuilderState) =>
+    val builderWithAge = builderPet.copy(price = withPrice)
+    State.set[BuilderState](builderWithAge).run(builderPet).value
+  }
+
+  def withName(withName: String, builderPet: BuilderState): BuilderState = {
     builderPet.copy(name = withName)
   }
 
-  def withPrice(withPrice: Int, builderPet: BuilderPet): BuilderPet = {
-    builderPet.copy(price = withPrice)
-  }
-
-  def withOrderId(withOrderId: OrderId, builderPet: BuilderPet): BuilderPet = {
+  def withOrderId(withOrderId: OrderId, builderPet: BuilderState): BuilderState = {
     builderPet.copy(orderId = withOrderId)
   }
 
-  def build(builderPet: BuilderPet): Pet = {
-    Pet(
-      orderId = builderPet.orderId,
-      age = builderPet.age,
-      name = builderPet.name,
-      price = builderPet.price
+  def build(): State[BuilderState, Pet] = State{ builderState =>
+    val built = Pet(
+      orderId = builderState.orderId,
+      age = builderState.age,
+      name = builderState.name,
+      price = builderState.price
     )
+    State.pure[BuilderState, Pet](built).run(builderState).value
   }
 }
 
