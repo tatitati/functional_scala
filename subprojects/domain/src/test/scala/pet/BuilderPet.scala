@@ -41,8 +41,9 @@ object BuilderPetOps {
     builderPet.copy(name = withName)
   }
 
-  def withOrderId(withOrderId: OrderId, builderPet: BuilderState): BuilderState = {
-    builderPet.copy(orderId = withOrderId)
+  def withOrderId(withOrderId: OrderId): State[BuilderState, Unit] = State { builderPet:BuilderState =>
+    val builderWithOrderId = builderPet.copy(orderId = withOrderId)
+    State.set[BuilderState](builderWithOrderId).run(builderPet).value
   }
 
   def build(): State[BuilderState, Pet] = State{ builderState =>
