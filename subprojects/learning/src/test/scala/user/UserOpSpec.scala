@@ -11,7 +11,6 @@ class UserOpSpec extends FunSuite {
     val userId = UserOp.getUserId(BuildUser().build())
 
     assert(userId.isInstanceOf[UserId])
-
   }
 
   test("UserOp.updateEmail(...)") {
