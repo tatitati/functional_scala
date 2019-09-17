@@ -1,4 +1,4 @@
-package learning.test.user
+package learning.test.user.builders
 
 import learning.domain.user.{User, UserAccount, UserProfile}
 

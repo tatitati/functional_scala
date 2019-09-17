@@ -1,4 +1,4 @@
-package learning.test.user
+package learning.test.user.builders
 
 import com.github.nscala_time.time.Imports.DateTime
 import learning.domain.user.UserAccount
