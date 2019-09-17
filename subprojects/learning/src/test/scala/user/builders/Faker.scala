@@ -1,10 +1,10 @@
-package learning.text.user
+package learning.test.user.builders
 
-import scala.util.Random
 import com.github.nscala_time.time.Imports.DateTime
+import scala.util.Random
 
 object Faker {
-  def anyOf[T](items: T*): T = items(Random.nextInt(items.length)
+  def anyOf[T](items: T*): T = items(Random.nextInt(items.length))
 
   def text(length: Int = 10): String = {
     val value = for(i <- 1 to length) yield { Random.nextPrintableChar() }

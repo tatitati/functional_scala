@@ -2,7 +2,6 @@ package learning.test.user.builders
 
 import com.github.nscala_time.time.Imports.DateTime
 import learning.domain.user.UserAccount
-import learning.text.user.Faker
 
 case class BuildUserAccount(
    username: String = Faker.text(),
