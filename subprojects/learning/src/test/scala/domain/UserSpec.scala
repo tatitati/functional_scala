@@ -1,14 +1,14 @@
-package learning.test.user
+package learning.test.domain
 
-import learning.domain.user.{UserId, UserOp}
-import learning.test.user.builders.{BuildUser, BuildUserProfile}
+import learning.domain.user.UserId
+import learning.test.domain.builders.{BuildUser, BuildUserProfile}
 import org.scalatest.FunSuite
 
-class UserOpSpec extends FunSuite {
+class UserSpec extends FunSuite {
 
   test("UserOp.getUserId()") {
-
-    val userId = UserOp.getUserId(BuildUser().build())
+    val user = BuildUser().build()
+    val userId = user.getUserId()
 
     assert(userId.isInstanceOf[UserId])
   }
@@ -21,7 +21,7 @@ class UserOpSpec extends FunSuite {
 
     assert("email1" === user1.profile.email)
 
-    val user11 = UserOp.updateEmail(user1, "email2")
+    val user11 = user1.updateEmail(user1, "email2")
 
     assert("email2" === user11.profile.email)
   }
