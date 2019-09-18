@@ -5,11 +5,7 @@ final case class User(
    account: UserAccount,
    surrogateId: Option[Long]
  ) {
-  def getUserId(): UserId = {
-    UserId(profile.surname)
-  }
-
-  def getUserId(user: User): UserId = user.getUserId()
+  def getUserId(): UserId = UserId(profile.surname)
 
   def updateEmail(user: User, newEmail: String): User = {
     this.copy(
@@ -27,7 +23,7 @@ final case class User(
 
   def setSurrogateId(withSurrogateId: Option[Long]): Either[ErrorSettingSurrogateId, User] = {
     if(surrogateId != None) Left(SurrogateIdAlreadySet)
-    else if(withSurrogateId == None) Left(SurrogateIdCannotBeSetToNone)
+    else if(withSurrogateId == None) Left(SurrogateIdCannotSetToNone)
     else Right(copy(surrogateId = withSurrogateId))
   }
 }
