@@ -25,4 +25,14 @@ class UserSpec extends FunSuite {
 
     assert("email2" === user11.profile.email)
   }
+
+  test("UserOp.setSurrogateId(...)") {
+    val user = BuildUser().build()
+    println("####################")
+    println(user)
+    println("####################")
+    val userUpdated = user.setSurrogateId(Some(232323L))
+    println("####################")
+    println(userUpdated)
+  }
 }

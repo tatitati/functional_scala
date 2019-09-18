@@ -1,3 +1,3 @@
 package learning.domain.user
 
-case class UserId(value: String)
+final case class UserId(value: String)

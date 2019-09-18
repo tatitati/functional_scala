@@ -1,20 +1,34 @@
 package learning.domain.user
 
-case class User(
+final case class User(
    profile: UserProfile,
-   account: UserAccount
+   account: UserAccount,
+   surrogateId: Option[Long]
  ) {
-
   def getUserId(): UserId = {
     UserId(profile.surname)
   }
 
   def getUserId(user: User): UserId = user.getUserId()
 
-  def updateEmail(user: User, newEmail: String): this.type = {
+  def updateEmail(user: User, newEmail: String): User = {
     this.copy(
       profile = user.profile.copy(email = newEmail)
     )
+  }
+
+  def updateSurname(withSurname: String): User = {
+    this.copy(
+      profile = profile.copy(
+        surname = withSurname
+      )
+    )
+  }
+
+  def setSurrogateId(withSurrogateId: Option[Long]): Either[ErrorSettingSurrogateId, User] = {
+    if(surrogateId != None) Left(SurrogateIdAlreadySet)
+    else if(withSurrogateId == None) Left(SurrogateIdCannotBeSetToNone)
+    else Right(copy(surrogateId = withSurrogateId))
   }
 }
 
