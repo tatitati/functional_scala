@@ -9,7 +9,9 @@ final case class User(
 
   def updateEmail(user: User, newEmail: String): User = {
     this.copy(
-      profile = profile.copy(email = newEmail)
+      profile = profile.copy(
+        email = newEmail
+      )
     )
   }
 
