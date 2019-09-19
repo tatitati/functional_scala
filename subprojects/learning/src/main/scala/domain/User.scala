@@ -3,7 +3,7 @@ package learning.domain.user
 final case class User(
    profile: UserProfile,
    account: UserAccount,
-   surrogateId: Option[Long]
+   surrogateId: Option[Long] = None
  ) {
   def getUserId(): UserId = UserId(profile.surname)
 
