@@ -25,9 +25,9 @@ class PetService(petRepository: PetRepository) {
   }
 
   def find(pet:Pet): OptionT[IO, Pet] = {
-    OptionT(
-      petRepository.findByName(pet.name)
-    )
+    val findByName: IO[Option[Pet]] = petRepository.findByName(pet.name)
+
+    OptionT(findByName)
   }
 
   def update(newage: Int, pet: Pet): EitherT[IO, PetDontExist.type, Unit] = {
