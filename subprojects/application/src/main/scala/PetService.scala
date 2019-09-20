@@ -36,7 +36,9 @@ class PetService(petRepository: PetRepository) {
 
     val run: IO[Either[PetDontExist.type, Unit]] = exist.flatMap{
       // I can do
-      case true => update.map(_ => ().asRight[PetDontExist.type])
+      // update.map(_ => ().asRight[PetDontExist.type])
+      // Right(Unit))
+      case true => update.map(_ => Right(Unit))
       // I can do:
       // PetDontExist.asLeft[Unit].pure[IO]
       // IO{PetDontExist.asLeft[Unit]}
