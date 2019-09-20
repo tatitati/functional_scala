@@ -35,8 +35,15 @@ class PetService(petRepository: PetRepository) {
     val update: IO[Unit] = petRepository.updateAge(newage, pet)
 
     val run: IO[Either[PetDontExist.type, Unit]] = exist.flatMap{
+      // I can do
       case true => update.map(_ => ().asRight[PetDontExist.type])
-      case false => PetDontExist.asLeft[Unit].pure[IO]
+      // I can do:
+      // PetDontExist.asLeft[Unit].pure[IO]
+      // IO{PetDontExist.asLeft[Unit]}
+      // IO(PetDontExist.asLeft[Unit])
+      // IO(Left(PetDontExist.asLeft[Unit])
+      // IO(Left(PetDontExist))
+      case false => IO(Left(PetDontExist))
     }
 
     EitherT(run)
