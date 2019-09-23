@@ -1,6 +1,6 @@
 package learning.test.domain.builders
 
-import learning.domain.user.{User, UserAccount, UserProfile}
+import SeparateDataFromBehaviour.domain.{User, UserAccount, UserProfile}
 
 case class BuildUser(
   userProfile: UserProfile = BuildUserProfile().build(),

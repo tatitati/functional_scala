@@ -1,7 +1,7 @@
 package learning.test.domain.builders
 
+import SeparateDataFromBehaviour.domain.UserProfile
 import com.github.nscala_time.time.Imports.DateTime
-import learning.domain.user.UserProfile
 
 case class BuildUserProfile(
   firstname: String = Faker.text(),

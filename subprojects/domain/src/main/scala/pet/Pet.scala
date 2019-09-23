@@ -1,6 +1,6 @@
-package domain.pet
+package SeparateDataFromBehaviour.pet
 
-import domain.order.OrderId
+import SeparateDataFromBehaviour.order.OrderId
 
 case class Pet(
                 orderId: OrderId,

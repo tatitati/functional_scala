@@ -1,8 +1,8 @@
-package domain.test
+package SeparateDataFromBehaviour.test
 
 import cats.data.State
-import domain.order.OrderId
-import domain.test.pet.BuilderPetOps.BuilderState
+import SeparateDataFromBehaviour.order.OrderId
+import SeparateDataFromBehaviour.test.pet.BuilderPetOps.BuilderState
 import org.scalatest.FunSuite
 
 class FakerSpec extends FunSuite {

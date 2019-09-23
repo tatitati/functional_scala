@@ -1,4 +1,4 @@
-package domain.test
+package SeparateDataFromBehaviour.test
 
 import cats.data.State
 import scala.util.Random

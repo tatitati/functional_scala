@@ -1,4 +1,4 @@
-package domain.order
+package SeparateDataFromBehaviour.order
 
 import com.github.nscala_time.time.Imports._
 

@@ -1,6 +1,6 @@
 package learning.test.domain
 
-import learning.domain.user.UserId
+import SeparateDataFromBehaviour.domain.UserId
 import learning.test.domain.builders.{BuildUser, BuildUserProfile}
 import org.scalatest.FunSuite
 

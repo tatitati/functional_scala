@@ -1,4 +1,4 @@
-package domain.order
+package SeparateDataFromBehaviour.order
 
 sealed trait OrderMedium
 final case object DEBITCARD extends OrderMedium

@@ -1,4 +1,4 @@
-package domain.order
+package SeparateDataFromBehaviour.order
 
 object OrderOps {
   def addItem = ???

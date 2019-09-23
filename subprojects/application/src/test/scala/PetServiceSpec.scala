@@ -3,8 +3,8 @@ package application.test.pet
 import application.pet.PetService
 import cats.data.{EitherT, OptionT}
 import cats.effect.IO
-import domain.order.OrderId
-import domain.pet.Pet
+import SeparateDataFromBehaviour.order.OrderId
+import SeparateDataFromBehaviour.pet.Pet
 import infrastructure.pet.{PetDontExist, PetExist, PetRepository}
 import org.scalatest.FunSuite
 

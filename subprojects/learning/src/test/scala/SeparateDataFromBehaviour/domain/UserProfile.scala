@@ -1,4 +1,4 @@
-package learning.domain.user
+package SeparateDataFromBehaviour.domain
 
 import com.github.nscala_time.time.Imports.DateTime
 

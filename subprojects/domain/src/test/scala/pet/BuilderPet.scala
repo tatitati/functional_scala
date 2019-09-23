@@ -1,9 +1,9 @@
-package domain.test.pet
+package SeparateDataFromBehaviour.test.pet
 
 import cats.data.State
-import domain.order.OrderId
-import domain.pet.Pet
-import domain.test.{Faker, SeedLong}
+import SeparateDataFromBehaviour.order.OrderId
+import SeparateDataFromBehaviour.pet.Pet
+import SeparateDataFromBehaviour.test.{Faker, SeedLong}
 
 object BuilderPetOps {
 

@@ -1,4 +1,4 @@
-package learning.domain.user
+package SeparateDataFromBehaviour.domain
 
 final case class User(
    profile: UserProfile,
