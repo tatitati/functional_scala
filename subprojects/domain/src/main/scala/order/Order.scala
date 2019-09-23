@@ -11,7 +11,11 @@ case class Order(
     this.copy(medium = withmedium)
   }
 
-  def setCountry(withCountry: String): Order = {
-    this.copy(country = withCountry)
+  def setCountry(withCountry: String): Either[OrderError, Order] = {
+    withCountry match {
+      case "" => Left(OrderErrorCountry)
+      case _ => Right(this.copy(country = withCountry))
+    }
+
   }
 }
