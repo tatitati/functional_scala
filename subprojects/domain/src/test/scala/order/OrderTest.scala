@@ -4,7 +4,6 @@ import org.scalatest.FunSuite
 import com.github.nscala_time.time.Imports._
 import SeparateDataFromBehaviour.order.{DEBITCARD, Order}
 
-
 class OrderTest extends FunSuite {
 
   test("I can create an order"){
