@@ -7,6 +7,19 @@ import cats.effect.IO
 
 class OrderTest extends FunSuite {
 
+  test("Builder") {
+    val buildOrder: IO[Order] = for {
+      any <- BuildOrder()
+      create <- IO{ any.withCountry("any_contry") }
+      built <- IO{create.build()}
+    } yield built
+
+    val anOrder = buildOrder.unsafeRunSync()
+
+    assert(anOrder.isInstanceOf[Order])
+
+  }
+
   test("Can create an order in a functional way"){
     // WRONG OOP way:
     //
