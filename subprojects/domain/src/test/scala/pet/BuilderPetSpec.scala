@@ -1,10 +1,11 @@
 package SeparateDataFromBehaviour.test.pet
 
 import cats.data.State
-import SeparateDataFromBehaviour.order.OrderId
-import SeparateDataFromBehaviour.pet.Pet
 import SeparateDataFromBehaviour.test.SeedLong
-import SeparateDataFromBehaviour.test.pet.BuilderPetOps.BuilderState
+import domain.order.OrderId
+import domain.pet.Pet
+import domain.test.pet.BuilderPetOps
+import domain.test.pet.BuilderPetOps.BuilderState
 import org.scalatest.FunSuite
 
 class BuilderPetSpec extends FunSuite {

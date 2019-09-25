@@ -1,8 +1,8 @@
 package infrastructure.test.pet
 
 import cats.effect._
-import SeparateDataFromBehaviour.order.OrderId
-import SeparateDataFromBehaviour.pet.Pet
+import domain.order.OrderId
+import domain.pet.Pet
 import infrastructure.pet.PetRepository
 
 trait ResetCache {

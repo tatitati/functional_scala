@@ -3,7 +3,7 @@ package application.pet
 import cats.data._
 import cats.effect._
 import cats.implicits._
-import SeparateDataFromBehaviour.pet.Pet
+import domain.pet.Pet
 import infrastructure.pet.{PetDontExist, PetExist, PetRepository}
 
 class PetService(petRepository: PetRepository) {

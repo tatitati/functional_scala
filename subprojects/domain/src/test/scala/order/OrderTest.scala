@@ -1,9 +1,9 @@
-package SeparateDataFromBehaviour.test.order
+package domain.test.order
 
 import org.scalatest.FunSuite
 import com.github.nscala_time.time.Imports._
-import SeparateDataFromBehaviour.order.{DEBITCARD, Order, OrderError}
 import cats.effect.IO
+import domain.order.{DEBITCARD, Order, OrderError}
 
 class OrderTest extends FunSuite {
 

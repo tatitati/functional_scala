@@ -2,8 +2,8 @@ package infrastructure.test.pet
 
 import scala.util.Random
 import cats.effect.IO
-import SeparateDataFromBehaviour.order.OrderId
-import SeparateDataFromBehaviour.pet.Pet
+import domain.order.OrderId
+import domain.pet.Pet
 import infrastructure.pet.PetRepository
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
 

@@ -1,8 +1,8 @@
-package SeparateDataFromBehaviour.test.order
+package domain.test.order
 
-import SeparateDataFromBehaviour.order.{DEBITCARD, Order, OrderMedium}
 import cats.effect.IO
 import com.github.nscala_time.time.Imports.DateTime
+import domain.order.{DEBITCARD, Order, OrderMedium}
 
 object BuildOrder{
 

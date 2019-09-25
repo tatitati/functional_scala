@@ -1,3 +1,3 @@
-package SeparateDataFromBehaviour.order
+package domain.order
 
 case class OrderId(id: String)
