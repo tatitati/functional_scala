@@ -8,29 +8,27 @@ import infrastructure.pet.{PetDontExist, PetExist, PetRepository}
 
 class PetService(petRepository: PetRepository) {
 
-  def create(pet: Pet): EitherT[IO, PetExist.type, Unit ] = {
+  def create(pet: Pet): IO[Either[PetExist.type, Unit]] = {
     val exists: IO[Boolean] = petRepository.exist(pet.name)
     val create: IO[Unit] = petRepository.create(pet)
 
     val run: IO[Either[PetExist.type, Unit]] = exists.flatMap {
-      case true => PetExist.asLeft[Unit].pure[IO]
+      case true => IO(PetExist.asLeft[Unit])
       case false => create.map(_ => ().asRight[PetExist.type])
     }
 
-    EitherT(run)
+    run
+  }
+
+  def find(pet:Pet): IO[Option[Pet]] = {
+    petRepository.findByName(pet.name)
   }
 
   def list: IO[List[Pet]] = {
     petRepository.list()
   }
 
-  def find(pet:Pet): OptionT[IO, Pet] = {
-    val findByName: IO[Option[Pet]] = petRepository.findByName(pet.name)
-
-    OptionT(findByName)
-  }
-
-  def update(newage: Int, pet: Pet): EitherT[IO, PetDontExist.type, Unit] = {
+  def update(newage: Int, pet: Pet): IO[Either[PetDontExist.type, Unit]] = {
     val exist: IO[Boolean] = petRepository.exist(pet.name)
     val update: IO[Unit] = petRepository.updateAge(newage, pet)
 
@@ -48,6 +46,6 @@ class PetService(petRepository: PetRepository) {
       case false => IO(Left(PetDontExist))
     }
 
-    EitherT(run)
+    run
   }
 }

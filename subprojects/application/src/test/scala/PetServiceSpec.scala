@@ -1,7 +1,6 @@
 package application.test.pet
 
 import application.pet.PetService
-import cats.data.{EitherT, OptionT}
 import cats.effect.IO
 import domain.order.OrderId
 import domain.pet.Pet
@@ -13,29 +12,29 @@ class PetServiceSpec extends FunSuite{
   val service = new PetService(new PetRepository())
 
   test("service.create()") {
-    val programRight: EitherT[IO, PetExist.type, Unit] = service.create(Pet(OrderId("00001A"), "toby" ,32, 32))
-    val resultRight = programRight.value.unsafeRunSync()
+    val programRight: IO[Either[PetExist.type, Unit]] = service.create(Pet(OrderId("00001A"), "toby" ,32, 32))
+    val resultRight = programRight.unsafeRunSync()
     assert(Right(()) == resultRight)
 
-    val programLeft: EitherT[IO, PetExist.type, Unit] = service.create(Pet(OrderId("00001A"), "Bolt" ,17, 433))
-    val resultLeft = programLeft.value.unsafeRunSync()
+    val programLeft: IO[Either[PetExist.type, Unit]] = service.create(Pet(OrderId("00001A"), "Bolt" ,17, 433))
+    val resultLeft = programLeft.unsafeRunSync()
     assert(Left(PetExist) == resultLeft)
   }
 
   test("service.find()") {
-    val result1:OptionT[IO, Pet] = service.find(Pet(OrderId("00001A"), "nonexisting", 23, 100))
-    assert(None === result1.value.unsafeRunSync())
+    val result1:IO[Option[Pet]] = service.find(Pet(OrderId("00001A"), "nonexisting", 23, 100))
+    assert(None === result1.unsafeRunSync())
 
-    val result2:OptionT[IO, Pet] = service.find(Pet(OrderId("00001A"), "Bolt", 23, 100))
-    assert(Some(Pet(OrderId("00001A"), "Bolt",17, 172)) === result2.value.unsafeRunSync())
+    val result2:IO[Option[Pet]] = service.find(Pet(OrderId("00001A"), "Bolt", 23, 100))
+    assert(Some(Pet(OrderId("00001A"), "Bolt",17, 172)) === result2.unsafeRunSync())
   }
 
   test("service.update()") {
-    val update1:EitherT[IO, PetDontExist.type, Unit] = service.update(666, Pet(OrderId("00001A"), "Bolt", 32, 300))
-    assert(Right(()) == update1.value.unsafeRunSync())
+    val update1:IO[Either[PetDontExist.type, Unit]] = service.update(666, Pet(OrderId("00001A"), "Bolt", 32, 300))
+    assert(Right(()) == update1.unsafeRunSync())
 
-    val update2:EitherT[IO, PetDontExist.type, Unit] = service.update(666, Pet(OrderId("00001A"), "non_existing", 32, 4343))
-    assert(Left(PetDontExist) == update2.value.unsafeRunSync())
+    val update2:IO[Either[PetDontExist.type, Unit]] = service.update(666, Pet(OrderId("00001A"), "non_existing", 32, 4343))
+    assert(Left(PetDontExist) == update2.unsafeRunSync())
   }
 //
 //  test("service CANNOT create a user") {
