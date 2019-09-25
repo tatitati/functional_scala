@@ -11,8 +11,8 @@ trait ResetCache {
   def reset(): IO[Unit] = {
     IO{
       cache = Map(
-        "Bolt" -> Pet(OrderId("00001A"), "Bolt", 17, 232),
-        "Lassie" -> Pet(OrderId("00002A"), "Lassie", 10, 232)
+        "Bolt" -> Pet(OrderId("00001A"), "Bolt", 17, 172),
+        "Lassie" -> Pet(OrderId("00002A"), "Lassie", 10, 230)
       )
     }
   }

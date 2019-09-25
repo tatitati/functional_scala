@@ -27,7 +27,7 @@ class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
     val find1:IO[Option[Pet]] = repo.findByName("Bolt")
     val find2:IO[Option[Pet]] = repo.findByName("No existing")
 
-    assert(Some(Pet(OrderId("00001A"), "Bolt", 17, 232)) == find1.unsafeRunSync())
+    assert(Some(Pet(OrderId("00001A"), "Bolt", 17, 172)) == find1.unsafeRunSync())
     assert(None == find2.unsafeRunSync())
   }
 
@@ -35,7 +35,7 @@ class PetRepositorySpec extends FunSuite with BeforeAndAfterEach{
     val result:IO[List[Pet]] = repo.list()
 
     assert(
-      List(Pet(OrderId("00001A"), "Bolt", 17, 232), Pet(OrderId("00002A"), "Lassie", 10, 232)) == result.unsafeRunSync()
+      List(Pet(OrderId("00001A"), "Bolt", 17, 172), Pet(OrderId("00002A"), "Lassie", 10, 230)) == result.unsafeRunSync()
     )
   }
 
