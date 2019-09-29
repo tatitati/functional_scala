@@ -1,5 +1,6 @@
 package test.learning.refined
 
+import eu.timepit.refined.auto._
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Positive
 
@@ -12,7 +13,6 @@ class RefinedSpec extends FunSuite {
 
     case class Person(age: Age)
 
-    Person(new Age(33))
-
+    Person(33)
   }
 }
