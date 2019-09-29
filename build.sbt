@@ -13,7 +13,10 @@ val thirdDependencies = Seq(
   scalaTest % Test,
   "org.typelevel" %% "cats-core" % "2.0.0-M4",
   "org.typelevel" %% "cats-effect" % "1.3.1",
-  "com.github.nscala-time" %% "nscala-time" % "2.22.0"
+  "com.github.nscala-time" %% "nscala-time" % "2.22.0",
+
+  "eu.timepit" %% "refined"                 % "0.9.10",
+  "eu.timepit" %% "refined-cats"            % "0.9.10"
 )
 
 lazy val application = (project in file("subprojects/application"))
