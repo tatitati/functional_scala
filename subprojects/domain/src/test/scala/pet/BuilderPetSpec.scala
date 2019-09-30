@@ -1,7 +1,7 @@
 package SeparateDataFromBehaviour.test.pet
 
 import cats.data.State
-import SeparateDataFromBehaviour.test.SeedLong
+import SeparateDataFromBehaviour.test.Seed
 import domain.order.OrderId
 import domain.pet.Pet
 import domain.test.pet.BuilderPetOps
@@ -10,7 +10,7 @@ import org.scalatest.FunSuite
 
 class BuilderPetSpec extends FunSuite {
   test("I can use Monad State to use pet builder") {
-      val (_, any) = BuilderPetOps.any().run(SeedLong(100)).value
+      val (_, any) = BuilderPetOps.any().run(Seed(100)).value
 
       val createPet: State[BuilderState, Pet] = for{
         _ <- BuilderPetOps.withAge(34)

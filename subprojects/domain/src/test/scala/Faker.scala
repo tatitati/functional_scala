@@ -3,8 +3,8 @@ package SeparateDataFromBehaviour.test
 import cats.data.State
 import scala.util.Random
 
-final case class SeedLong(long: Long) {
-  def next = SeedLong(long * 6364136223846793005L + 1442695040888963407L)
+final case class Seed(long: Long) {
+  def next = Seed(long * 6364136223846793005L + 1442695040888963407L)
 }
 
 object Faker {
@@ -12,28 +12,28 @@ object Faker {
     items(Random.nextInt(items.length))
   }
 
-  def text(length: Int = 10): String = {
+  def nextString(length: Int = 10): String = {
     val value = for(i <- 1 to length) yield { Random.nextPrintableChar() }
     value.mkString
   }
 
-  def boolean(): State[SeedLong, Boolean] = State {(seed: SeedLong) =>
+  def nextBoolean(): State[Seed, Boolean] = State { (seed: Seed) =>
       val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
       (seed.next, result.toLong > 0)
   }
 
-  def int(): State[SeedLong, Int] = State { (seed: SeedLong) =>
+  def nextInt(): State[Seed, Int] = State { (seed: Seed) =>
       val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
       (seed.next, result.toInt)
   }
 
-  def positiveInt(): State[SeedLong, Int] = State { (seed: SeedLong) =>
-      val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
-      (seed.next, result.toInt.abs)
-  }
-
-  def long(): State[SeedLong, Long] = State { (seed: SeedLong) =>
+  def nextLong(): State[Seed, Long] = State { (seed: Seed) =>
       val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
       (seed.next, result.toLong)
+  }
+
+  def positiveInt(): State[Seed, Int] = State { (seed: Seed) =>
+    val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
+    (seed.next, result.toInt.abs)
   }
 }
