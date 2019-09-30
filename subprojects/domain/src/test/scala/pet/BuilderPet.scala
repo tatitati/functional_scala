@@ -10,7 +10,7 @@ object BuilderPetOps {
   case class BuilderState(orderId: OrderId, age: Int, name: String, price: Int)
 
   def any(): State[Seed, BuilderState] = State { (seedLong:Seed) =>
-    val randomInt: State[Seed, Int] = Faker.positiveInt()
+    val randomInt: State[Seed, Int] = Faker.nextIntPositive()
 
     val createPet: State[Seed, BuilderState] = for {
       age <- randomInt
