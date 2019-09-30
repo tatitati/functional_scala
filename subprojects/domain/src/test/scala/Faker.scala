@@ -12,24 +12,24 @@ object Faker {
     items(Random.nextInt(items.length))
   }
 
+  def nextLong(): State[Seed, Long] = State(seed => (seed.next, seed.long))
+
+  def nextBoolean(): State[Seed, Boolean] = State( seed => (seed.next, seed.long > 0))
+
+  def nextInt(): State[Seed, Int] = State { seed => (seed.next, seed.long.toInt) }
+
+  def nextIntPositive(): State[Seed, Int] = State { seed => (seed.next, seed.long.toInt.abs)}
+
+  def nextInInterval(max: Int): State[Seed, Int] = State { seed =>
+    // (rand() % (max + 1 - min)) + min
+    val min = 0
+    val number =  (seed.long.toInt.abs % (max + 1 - min)) + min
+
+    (seed.next, number.abs)
+  }
+
   def nextString(length: Int = 10): String = {
     val value = for(i <- 1 to length) yield { Random.nextPrintableChar() }
     value.mkString
-  }
-
-  def nextBoolean(): State[Seed, Boolean] = State { seed =>
-      val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
-      (seed.next, result.toLong > 0)
-  }
-
-  def nextInt(): State[Seed, Int] = State { seed =>
-      val result: Long = (seed.long*0x5DEECE66DL + 0xBL) & ((1L << 48) - 1)
-      (seed.next, result.toInt)
-  }
-
-  def nextLong(): State[Seed, Long] = State(seed => (seed.next, seed.long))
-
-  def nextIntPositive(): State[Seed, Int] = State { seed =>
-    (seed.next, seed.long.toInt.abs)
   }
 }
