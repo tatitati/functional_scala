@@ -1,7 +1,8 @@
-package SeparateDataFromBehaviour.test
+package domain.test
 
 import cats.data.State
 import domain.order.OrderId
+import domain.test.Faker.nextInInterval
 import domain.test.pet.BuilderPetOps.BuilderState
 import org.scalatest.FunSuite
 
@@ -43,16 +44,29 @@ class FakerSpec extends FunSuite {
   }
 
   test("can select random item in range") {
-    val tuple: State[Seed, (Int, Int, Int)] = for{
-      int1 <- Faker.nextInInterval(5)
-      int2 <- Faker.nextInInterval(5)
-      int3 <- Faker.nextInInterval(5)
-    } yield (int1, int2, int3)
+    val tuple: State[Seed, (String, String, String)] = for{
+      string1 <- Faker.nextOf("a", "b")
+      string2 <- Faker.nextOf("a", "b")
+      string3 <- Faker.nextOf("a", "b")
+    } yield (string1, string2, string3)
 
     val (state, value) = tuple.run(Seed(2323)).value
 
-    assert(value == (1,2,5))
+    assert(value == ("b","a","b"))
   }
+
+//  test("can generate random strings") {
+//    val tuple: State[Seed, (String, String, String)] = for{
+//      string1 <- Faker.nextString()
+//      string2 <- Faker.nextString()
+//      string3 <- Faker.nextString()
+//    } yield (string1, string2, string3)
+//
+//    val (state, value) = tuple.run(Seed(2323)).value
+//
+//    assert(value == ("b","a","b"))
+//  }
+
 
   test("Understand a bit better State") {
     val nextIntPositive: State[Seed, Int] = Faker.nextIntPositive()

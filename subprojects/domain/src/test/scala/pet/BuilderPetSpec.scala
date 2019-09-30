@@ -1,9 +1,9 @@
-package SeparateDataFromBehaviour.test.pet
+package domain.test.pet
 
 import cats.data.State
-import SeparateDataFromBehaviour.test.Seed
 import domain.order.OrderId
 import domain.pet.Pet
+import domain.test.Seed
 import domain.test.pet.BuilderPetOps
 import domain.test.pet.BuilderPetOps.BuilderState
 import org.scalatest.FunSuite

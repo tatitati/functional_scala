@@ -1,4 +1,4 @@
-package SeparateDataFromBehaviour.test
+package domain.test
 
 import cats.data.State
 import scala.util.Random
@@ -8,8 +8,26 @@ final case class Seed(long: Long) {
 }
 
 object Faker {
-  def anyOf[T](items: T*): T = {
-    items(Random.nextInt(items.length))
+  def nextOf[T](items: T*): State[Seed, T] = {
+    // for {
+    //    nextNumber <- nextInInterval(items.length)
+    // } yield items(nextNumber)
+
+    nextInInterval(items.length).map(nextNumber =>
+      items(nextNumber)
+    )
+  }
+
+  def nextString(length: Int = 10): State[Seed, String] = {
+    val all = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+    val result: State[Seed, Seq[String]] = for{
+      _ <- List.range(0, length)
+      nextIndex: Int <- nextInInterval(all.length)
+      character: String <- all(nextIndex)
+    } yield character
+
+    result.map(x => x.mkString(""))
   }
 
   def nextLong(): State[Seed, Long] = State(seed => (seed.next, seed.long))
@@ -23,13 +41,8 @@ object Faker {
   def nextInInterval(max: Int): State[Seed, Int] = State { seed =>
     // (rand() % (max + 1 - min)) + min
     val min = 0
-    val number =  (seed.long.toInt.abs % (max + 1 - min)) + min
+    val number =  (seed.long.toInt.abs % (max - min)) + min
 
-    (seed.next, number.abs)
-  }
-
-  def nextString(length: Int = 10): String = {
-    val value = for(i <- 1 to length) yield { Random.nextPrintableChar() }
-    value.mkString
+    (seed.next, number)
   }
 }
