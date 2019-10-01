@@ -14,13 +14,13 @@ final case class Seed(long: Long) {
 
 object Faker {
   def nextOf[T](items: T*): State[Seed, T] = {
-    // for {
-    //    nextNumber <- nextInInterval(items.length)
-    // } yield items(nextNumber)
+     for {
+        nextNumber <- nextInInterval(items.length)
+     } yield items(nextNumber)
 
-    nextInInterval(items.length).map(nextNumber =>
-      items(nextNumber)
-    )
+//    nextInInterval(items.length).map(nextNumber =>
+//      items(nextNumber)
+//    )
   }
 
 //  def nextString(length: Int = 10): State[Seed, String] = {
