@@ -8,7 +8,7 @@ import org.scalatest.FunSuite
 
 class FakerSpec extends FunSuite {
 
-  test("Can generate random Longs") {
+  test("Faker.nextLong()") {
     val tuple: State[Seed, (Long, Long, Long)] = for{
       long1 <- Faker.nextLong()
       long2 <- Faker.nextLong()
@@ -19,7 +19,7 @@ class FakerSpec extends FunSuite {
     assert(value == (2323,-8957604078071282010L,3854786773771191933L), "long1 and long2 must be differents")
   }
 
-  test("Can generate random Booleans") {
+  test("Faker.nextBoolean()") {
     val tuple: State[Seed, (Boolean, Boolean, Boolean)] = for{
       bool1 <- Faker.nextBoolean()
       bool2 <- Faker.nextBoolean()
@@ -31,7 +31,7 @@ class FakerSpec extends FunSuite {
     assert(value == (true,false,true))
   }
 
-  test("can generate positive Ints") {
+  test("Faker.nextIntPositive()") {
     val tuple: State[Seed, (Int, Int, Int)] = for{
       int1 <- Faker.nextIntPositive()
       int2 <- Faker.nextIntPositive()
@@ -43,7 +43,7 @@ class FakerSpec extends FunSuite {
     assert(value == (2323,403143002,1350465923))
   }
 
-  test("can select random item in range") {
+  test("Faker.nextOf()") {
     val tuple: State[Seed, (String, String, String)] = for{
       string1 <- Faker.nextOf("a", "b")
       string2 <- Faker.nextOf("a", "b")
