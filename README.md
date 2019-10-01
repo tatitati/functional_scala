@@ -11,6 +11,8 @@
 
 [ ] Finish functional builders
 
+[ ] Dockerize postgres
+
 [ ] Infrastructure layer
 
 
