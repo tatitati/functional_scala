@@ -45,7 +45,6 @@ object Faker {
   def nextIntPositive(): State[Seed, Int] = State { seed => (seed.next, seed.long.toInt.abs)}
 
   def nextInInterval(max: Int): State[Seed, Int] = State { seed =>
-    // (rand() % (max + 1 - min)) + min
     val min = 0
     val number =  (seed.long.toInt.abs % (max - min)) + min
 
