@@ -5,7 +5,6 @@ import com.github.nscala_time.time.Imports.DateTime
 import domain.order.{DEBITCARD, Order, OrderMedium}
 
 object BuildOrder{
-
   def apply(): IO[BuildOrder] = {
     for {
       date <- IO(DateTime.now)
@@ -15,12 +14,7 @@ object BuildOrder{
   }
 }
 
-case class BuildOrder(
-                date: DateTime,
-                medium: OrderMedium,
-                country: String
-  ) {
-
+final case class BuildOrder(date: DateTime, medium: OrderMedium, country: String) {
   def withCountry(withCountry: String): BuildOrder = {
     this.copy(country = withCountry)
   }
@@ -29,19 +23,5 @@ case class BuildOrder(
     this.copy(date = withDate)
   }
 
-  def build(): Order = {
-    Order(
-      date,
-      medium,
-      country
-    )
-  }
-
-
-
-//  date: DateTime,
-//  medium: OrderMedium,
-//  country: String
-
-
+  def build(): Order = Order(date, medium, country)
 }

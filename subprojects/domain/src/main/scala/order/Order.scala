@@ -2,7 +2,7 @@ package domain.order
 
 import com.github.nscala_time.time.Imports._
 
-case class Order(date: DateTime, medium: OrderMedium, country: String) {
+final case class Order(date: DateTime, medium: OrderMedium, country: String) {
 
   def setMedium(withmedium: OrderMedium): Order = {
     this.copy(medium = withmedium)

@@ -1,3 +1,3 @@
 package domain.order
 
-case class OrderId(id: String)
+final case class OrderId(id: String)
