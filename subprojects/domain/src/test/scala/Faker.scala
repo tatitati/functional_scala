@@ -12,9 +12,9 @@ object Faker {
         nextNumber <- nextInInterval(items.length)
      } yield items(nextNumber)
 
-//    nextInInterval(items.length).map(nextNumber =>
-//      items(nextNumber)
-//    )
+      // nextInInterval(items.length).map(nextNumber =>
+      //   items(nextNumber)
+      // )
   }
 
 //  def nextString(length: Int = 10): State[Seed, String] = {
