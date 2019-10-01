@@ -1,12 +1,6 @@
 package domain.test
 
-import cats.Foldable
 import cats.data.State
-import cats._
-import cats.implicits._
-import domain.test.Faker.nextInInterval
-
-import scala.util.Random
 
 final case class Seed(long: Long) {
   def next = Seed(long * 6364136223846793005L + 1442695040888963407L)
