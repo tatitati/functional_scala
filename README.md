@@ -1,7 +1,7 @@
 
 # TODO:
 
-[ ] ~Get familiar with doobie
+[ ] Get familiar with doobie :fire::fire:
 
 [ ] Add Http4s
 
