@@ -1,13 +1,13 @@
 
 # TODO:
 
-[x] ~Add doobie~
+[ ] ~Get familiar with doobie
 
 [ ] Add Http4s
 
-[x] ~Add Refined~
+[x] ~Get familiar with Refined~
 
-[x] ~Add Cats~
+[x] ~Get familiar with Cats~
 
 [ ] Finish functional builders
 
