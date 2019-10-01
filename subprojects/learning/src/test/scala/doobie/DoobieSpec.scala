@@ -10,20 +10,19 @@ import doobie.util.ExecutionContexts
 
 class DoobieSpec extends FunSuite {
 
-  test("asdfasd"){
+  test("Connect doobie to db"){
     implicit val cs = IO.contextShift(ExecutionContexts.synchronous)
 
-    // A transactor that gets connections from java.sql.DriverManager and executes blocking operations
-    // on an our synchronous EC. See the chapter on connection handling for more info.
     val xa = Transactor.fromDriverManager[IO](
-      "org.postgresql.Driver",     // driver classname
-      "jdbc:postgresql:doobie_db",     // connect URL (driver-specific)
-      "postgres",                       // user
-      "1234",                           // password
-      Blocker.liftExecutionContext(ExecutionContexts.synchronous) // just for testing
+      "org.postgresql.Driver",
+      "jdbc:postgresql:doobie_db",
+      "postgres",
+      "1234",
+      Blocker.liftExecutionContext(ExecutionContexts.synchronous)
     )
     val program1 = 42.pure[ConnectionIO]
     val io = program1.transact(xa)
-    println(io.unsafeRunSync)
+
+    assert(42 == io.unsafeRunSync)
   }
 }
