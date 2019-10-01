@@ -20,14 +20,6 @@ class OrderTest extends FunSuite {
   }
 
   test("Can create an order in a functional way"){
-    // WRONG OOP way:
-    //
-    //    val order = Order(
-    //      date = DateTime.now,
-    //      medium = DEBITCARD,
-    //      country = "France"
-    //    )
-
     val build: IO[Order] = for {
       date <- IO{ DateTime.now }
       medium <- IO(DEBITCARD)
@@ -35,6 +27,7 @@ class OrderTest extends FunSuite {
     } yield Order(date, medium, country)
 
     val anOrder = build.unsafeRunSync()
+
     assert(anOrder.isInstanceOf[Order])
   }
 
