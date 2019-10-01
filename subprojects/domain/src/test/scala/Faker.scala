@@ -1,6 +1,11 @@
 package domain.test
 
+import cats.Foldable
 import cats.data.State
+import cats._
+import cats.implicits._
+import domain.test.Faker.nextInInterval
+
 import scala.util.Random
 
 final case class Seed(long: Long) {
@@ -18,17 +23,24 @@ object Faker {
     )
   }
 
-  def nextString(length: Int = 10): State[Seed, String] = {
-    val all = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
-    val result: State[Seed, Seq[String]] = for{
-      _ <- List.range(0, length)
-      nextIndex: Int <- nextInInterval(all.length)
-      character: String <- all(nextIndex)
-    } yield character
-
-    result.map(x => x.mkString(""))
-  }
+//  def nextString(length: Int = 10): State[Seed, String] = {
+//    val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+//    val inRange = chars.length
+//
+//    val total = List.range(0, length - 1)
+//
+//    val result2: List[State[Seed, String]] = for {
+//      _ <- total
+//    } yield nextInInterval(inRange).map { x =>
+//      chars(x).toString
+//    }
+//
+//    result2.foreach{ x =>
+//      println(x)
+//    }
+//
+//    result2
+//  }
 
   def nextLong(): State[Seed, Long] = State(seed => (seed.next, seed.long))
 

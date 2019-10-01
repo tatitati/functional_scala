@@ -55,6 +55,22 @@ class FakerSpec extends FunSuite {
     assert(value == ("b","a","b"))
   }
 
+  test("can create random text") {
+    val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    val inRange = chars.length
+
+    val total = List.range(0, 10 - 1)
+
+    val result2: List[State[Seed, String]] = for {
+      _ <- total
+    } yield Faker.nextInInterval(inRange).map { x =>
+      chars(x).toString
+    }
+
+    val resultFinal = result2(0).run(Seed(2323)).value
+    println(resultFinal)
+  }
+
 //  test("can generate random strings") {
 //    val tuple: State[Seed, (String, String, String)] = for{
 //      string1 <- Faker.nextString()
