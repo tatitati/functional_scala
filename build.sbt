@@ -9,14 +9,24 @@ val commonsSettings = Seq(
   scalaVersion := "2.12.8"
 )
 
+lazy val doobieVersion = "0.8.4"
+
 val thirdDependencies = Seq(
   scalaTest % Test,
-  "org.typelevel" %% "cats-core" % "2.0.0-M4",
-  "org.typelevel" %% "cats-effect" % "1.3.1",
   "com.github.nscala-time" %% "nscala-time" % "2.22.0",
 
+  //  Cats
+  "org.typelevel" %% "cats-core" % "2.0.0-M4",
+  "org.typelevel" %% "cats-effect" % "1.3.1",
+
+  //  Refined
   "eu.timepit" %% "refined"                 % "0.9.10",
-  "eu.timepit" %% "refined-cats"            % "0.9.10"
+  "eu.timepit" %% "refined-cats"            % "0.9.10",
+
+  //  Doobie
+  "org.tpolecat" %% "doobie-core"     % doobieVersion,
+  "org.tpolecat" %% "doobie-postgres" % doobieVersion,
+  "org.tpolecat" %% "doobie-specs2"   % doobieVersion
 )
 
 lazy val application = (project in file("subprojects/application"))
