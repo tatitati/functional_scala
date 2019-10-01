@@ -1,4 +1,4 @@
-package test.learning.cats.Monads
+package learning.test.cats.Monads
 
 import cats.syntax.either._
 import org.scalatest.FunSuite

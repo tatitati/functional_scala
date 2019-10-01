@@ -1,4 +1,4 @@
-package test.learning.cats.MonadTransformers
+package learning.test.cats.MonadTransformers
 
 import cats.data.{EitherT, OptionT}
 import cats.effect.IO

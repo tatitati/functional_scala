@@ -1,4 +1,4 @@
-package test.learning.scala.BehaviourInjection
+package learning.test.scala.BehaviourInjection
 
 import org.scalatest.FunSuite
 

@@ -1,4 +1,4 @@
-package test.learning.refined
+package learning.test.refined
 
 import eu.timepit.refined.auto._
 import eu.timepit.refined.api.Refined

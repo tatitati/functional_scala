@@ -1,4 +1,4 @@
-package test.learning.scala
+package learning.test.scala
 
 import org.scalatest.FunSuite
 

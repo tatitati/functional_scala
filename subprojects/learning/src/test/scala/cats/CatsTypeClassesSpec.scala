@@ -1,9 +1,9 @@
-package test.learning.cats
+package learning.test.cats
 
 import cats.Show
 import cats.syntax.show._
 import org.scalatest.FunSuite
-import test.learning.fpModules._
+import learning.test.fpModules._
 
 class CatsTypeClassesSpec extends FunSuite {
   sealed trait Topping

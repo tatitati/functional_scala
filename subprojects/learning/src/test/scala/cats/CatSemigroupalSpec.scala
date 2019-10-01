@@ -1,4 +1,4 @@
-package test.learning.cats
+package learning.test.cats
 
 import cats.{Semigroup, Semigroupal}
 import cats.instances.option._
