@@ -7,6 +7,7 @@ import cats.effect._
 import cats.implicits._
 import doobie.implicits._
 import doobie.util.ExecutionContexts
+import shapeless._
 
 class SelectingDataSpec extends FunSuite with CustomDbConnection {
   test("Can request to db") {
@@ -46,20 +47,36 @@ class SelectingDataSpec extends FunSuite with CustomDbConnection {
   }
 
   test("multi column select") {
-    val y = xa.yolo // a stable reference is required
-    import y._
 
     val result = sql"select code, name, population, gnp from country"
-      .query[(String, String, Int, Option[Double])]
+      .query[(String, String, Int)]
       .stream
       .take(2)
       .compile.toList
-      .quick
+      .transact(xa)
       .unsafeRunSync
 
     assert(
-      List(("SP" ,"spain",500,Some(8.0)), ("IT" ,"italy",600,Some(3.0)))
+      List(("SP","spain",500), ("IT","italy",600))
       == result
+    )
+  }
+
+  test("using shapeless") {
+    val result = sql"select code, name, population, gnp from country"
+      .query[String :: String :: Int :: Option[Double] :: HNil]
+      .stream
+      .take(5)
+      .compile.toList
+      .transact(xa)
+      .unsafeRunSync
+
+    assert(
+      List(
+        "SP" :: "spain" :: 500 :: Some(8.0) :: HNil,
+        "IT" :: "italy" :: 600 :: Some(3.0) :: HNil,
+        "FR" :: "France" :: 650 :: Some(7.0) :: HNil
+      ) == result
     )
   }
 }

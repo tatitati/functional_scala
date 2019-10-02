@@ -1,6 +1,6 @@
 
 CREATE TABLE country (
-  code       character(3)  NOT NULL,
+  code       character(2)  NOT NULL,
   name       text          NOT NULL,
   population integer       NOT NULL,
   gnp        numeric(10,2)
