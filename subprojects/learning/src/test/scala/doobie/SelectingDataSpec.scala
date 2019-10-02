@@ -99,6 +99,4 @@ class SelectingDataSpec extends FunSuite with CustomDbConnection {
       ) == result
     )
   }
-
-
 }

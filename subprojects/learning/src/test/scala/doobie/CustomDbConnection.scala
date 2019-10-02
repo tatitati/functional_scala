@@ -13,4 +13,8 @@ trait CustomDbConnection {
     "1234",
     Blocker.liftExecutionContext(ExecutionContexts.synchronous)
   )
+
+  // these are to get .quick()
+  val y = xa.yolo
+  import y._
 }
