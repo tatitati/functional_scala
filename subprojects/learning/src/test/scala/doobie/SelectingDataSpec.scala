@@ -62,7 +62,7 @@ class SelectingDataSpec extends FunSuite with CustomDbConnection {
     )
   }
 
-  test("using shapeless") {
+  test("Can return in shapeless format") {
     val result = sql"select code, name, population, gnp from country"
       .query[String :: String :: Int :: Option[Double] :: HNil]
       .stream
@@ -79,4 +79,26 @@ class SelectingDataSpec extends FunSuite with CustomDbConnection {
       ) == result
     )
   }
+
+  test("I can map directly to persistent models") {
+    case class Country(code: String, name: String, pop: Int, gnp: Option[Double])
+
+    val result = sql"select code, name, population, gnp from country"
+      .query[Country]
+      .stream
+      .take(5)
+      .compile.toList
+      .transact(xa)
+      .unsafeRunSync
+
+    assert(
+      List(
+        Country("SP","spain",500,Some(8.0)),
+        Country("IT","italy",600,Some(3.0)),
+        Country("FR","France",650,Some(7.0))
+      ) == result
+    )
+  }
+
+
 }
