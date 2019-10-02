@@ -8,16 +8,7 @@ import cats.implicits._
 import doobie.implicits._
 import doobie.util.ExecutionContexts
 
-class ConnectingDbSpec extends FunSuite {
-  implicit val cs = IO.contextShift(ExecutionContexts.synchronous)
-
-  val xa = Transactor.fromDriverManager[IO](
-    "org.postgresql.Driver",
-    "jdbc:postgresql:doobie_db",
-    "postgres",
-    "1234",
-    Blocker.liftExecutionContext(ExecutionContexts.synchronous)
-  )
+class ConnectingDbSpec extends FunSuite with CustomDbConnection {
 
   test("ConnectionIO is converted into IO"){
     val program1 = 42.pure[ConnectionIO]
