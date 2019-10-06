@@ -1,6 +1,6 @@
 package learning.test.doobie
 
-import cats.free.Free
+import cats.effect.IO
 import org.scalatest.FunSuite
 import doobie.implicits._
 import cats.implicits._
@@ -33,7 +33,7 @@ class TablesSpec extends FunSuite with CustomDbConnection {
     def insert1(name: String, age: Option[Short]): Update0 =
       sql"insert into person (name, age) values ($name, $age)".update
 
-    val idRow: Int = insert1("Alice", Some(12))
+    val idRow1: Int = insert1("Alice", Some(12))
       .run
       .transact(xa)
       .unsafeRunSync
@@ -44,7 +44,7 @@ class TablesSpec extends FunSuite with CustomDbConnection {
       .transact(xa)
       .unsafeRunSync
 
-    assert(1 == idRow)s
+    assert(1 == idRow1)
     assert(List(Person(1,"Alice",Some(12))) == personResult)
   }
 
@@ -59,6 +59,17 @@ class TablesSpec extends FunSuite with CustomDbConnection {
   }
 
   test("RETRIEVING RESULTS"){
-    
+    case class Person(id: Long, name: String, age: Option[Short])
+    def insert2(name: String, age: Option[Short]): ConnectionIO[Person] =
+      for {
+        _  <- sql"insert into person (name, age) values ($name, $age)".update.run
+        id <- sql"select lastval()".query[Long].unique
+        p  <- sql"select id, name, age from person where id = $id".query[Person].unique
+      } yield p
+
+    val ioResult: IO[Person] = insert2("jaime", Some(43)).transact(xa)
+    val personResult: Person = ioResult.unsafeRunSync
+
+    assert(Person(2,"jaime",Some(43)) == personResult)
   }
 }
