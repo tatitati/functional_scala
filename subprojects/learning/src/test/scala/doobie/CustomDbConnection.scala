@@ -2,8 +2,9 @@ package doobie
 
 import cats.effect.{Blocker, IO}
 import doobie.util.ExecutionContexts
+import org.scalatest.FunSuite
 
-trait CustomDbConnection {
+trait CustomDbConnection extends FunSuite {
   implicit val cs = IO.contextShift(ExecutionContexts.synchronous)
 
   val xa = Transactor.fromDriverManager[IO](
