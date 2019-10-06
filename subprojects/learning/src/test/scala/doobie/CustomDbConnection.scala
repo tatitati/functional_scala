@@ -1,7 +1,8 @@
-package doobie
+package learning.test.doobie
 
 import cats.effect.{Blocker, IO}
 import doobie.util.ExecutionContexts
+import doobie.util.transactor.Transactor
 import org.scalatest.FunSuite
 
 trait CustomDbConnection extends FunSuite {

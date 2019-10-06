@@ -1,12 +1,7 @@
 package learning.test.doobie
 
 import org.scalatest.FunSuite
-import doobie._
-import cats._
-import cats.effect._
-import cats.implicits._
 import doobie.implicits._
-import doobie.util.ExecutionContexts
 import shapeless._
 
 class SelectingDataSpec extends FunSuite with CustomDbConnection {
