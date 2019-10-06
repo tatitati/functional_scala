@@ -58,7 +58,7 @@ class InsertUpdateSpec extends FunSuite with CustomDbConnection {
     assert(List(Person(1,"Alice",Some(15))) == resultSelect)
   }
 
-  test("RETRIEVING RESULTS"){
+  test("RETRIEVING ID on INSERT"){
     case class Person(id: Long, name: String, age: Option[Short])
     def insert2(name: String, age: Option[Short]): ConnectionIO[Person] =
       for {
