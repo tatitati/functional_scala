@@ -7,7 +7,7 @@ import cats.implicits._
 import doobie._
 
 
-class TablesSpec extends FunSuite with CustomDbConnection {
+class InsertUpdateSpec extends FunSuite with CustomDbConnection {
 
   test("CREATE TABLE / DROP TABLE"){
     val drop: ConnectionIO[Int] = sql"""
