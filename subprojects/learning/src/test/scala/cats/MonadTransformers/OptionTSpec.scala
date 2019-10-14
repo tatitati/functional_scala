@@ -46,8 +46,8 @@ class OptionTSpec extends FunSuite {
     //          Either
     //            Option
 
-    type Maybe[A] = Either[String, A]
-    type MaybeOption[A] = OptionT[Maybe, A]
+    type Or[A] = Either[String, A]
+    type MaybeOption[A] = OptionT[Or, A]
 
     val a = 10.pure[MaybeOption] // OptionT(Right(Some(10))) === a
     val b = 5.pure[MaybeOption] // OptionT(Right(Some(5)) === b
