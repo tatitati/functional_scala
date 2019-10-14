@@ -27,7 +27,7 @@ class EithertSpec extends FunSuite{
     val someInt: Option[Int] = Some(5)
     val someText: Option[String] = Some("Not a number")
 
-    val someRightInt: EitherT[Option, String, Int] = EitherT.right(someInt)
+    val someRightInt: EitherT[Option, String, Int] = EitherT.right(someInt) // EitherT(Option(Either(....))
     val SomeLeftText: EitherT[Option, String, Int] = EitherT.left(someText)
 
     assert(Some(Right(5)) == someRightInt.value)
@@ -70,6 +70,13 @@ class EithertSpec extends FunSuite{
         )
       ) == result
     )
+  }
+
+  test("EitherT with IO") {
+    val text: IO[Either[String, Int]] = IO(Right(5))
+
+    val lifted = EitherT.pure(text)
+    println(lifted) // EitherT(List(Right(IO$489477561)))
   }
 
 //  test("EitherT.liftF()"){

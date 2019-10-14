@@ -52,7 +52,7 @@ class OptionTSpec extends FunSuite {
     val a = 10.pure[MaybeOption] // OptionT(Right(Some(10))) === a
     val b = 5.pure[MaybeOption] // OptionT(Right(Some(5)) === b
 
-    val result = for{
+    val result: MaybeOption[Int] = for{
       aVal <- a
       bVal <- b
     } yield {
